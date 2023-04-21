@@ -1,0 +1,50 @@
+ 
+
+{% if settings.enable_shop_by_tags_1 %}
+<!--
+<div class="widget-container widget_product_categories filter-block filter-custom filter-tag">
+  {% assign tags = settings.shop_by_tags_1_list_tags | split: ',' %}
+  <h3 class="widget-title">{{ settings.shop_by_tags_1_title }}</h3>
+  <ul class=" colors">
+    {% for i in (1..10) %}
+      {% capture shop_by_color_text %}shop_by_color_text_{{ i }}{% endcapture %}
+
+      {% if settings[shop_by_color_text] != blank %}
+      {% assign tag = settings[shop_by_color_text] | strip %}
+    	<li class="li-price{% if current_tags contains tag %}  active{% endif %}">
+        {% assign tag_value = tag | handleize %}
+        <input type="checkbox" value="{{ tag_value }}" {% if current_tags contains tag %}checked{% endif %}/>
+          <a href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+    	</li>
+    	{% endif %}
+      {% endfor %}
+  </ul>
+</div> -->
+<div class="widget widget-filter-color widget-container widget_product_categories filter-block filter-custom filter-tag">
+   {% assign tags = settings.shop_by_tags_1_list_tags | split: ',' %}
+  <h2 class="widget-title title14">{{ settings.shop_by_tags_1_title }}</h2>
+  <div class="widget-content">
+    <ul class="list-filter color-filter">
+      {% for i in (1..10) %}
+      {% capture shop_by_color_text %}shop_by_color_text_{{ i }}{% endcapture %}
+	  {% capture shop_by_color %}shop_by_color_{{ i }}{% endcapture %}
+      {% if settings[shop_by_color_text] != blank %}
+      {% assign tag = settings[shop_by_color_text] | strip %}
+    	<li class="{% if current_tags contains tag %}  active{% endif %}">
+          
+        {% assign tag_value = tag | handleize %}
+        <input type="checkbox" value="{{ tag_value }}" {% if current_tags contains tag %}checked{% endif %} style="display:none"/>
+          <a href="javascript:void(0)" title="{{tag}}"><span class="color {{tag}}" style="background:{{settings[shop_by_color]}}"></span></a>
+          
+    	</li>
+      
+      
+    	{% endif %}
+      {% endfor %}
+     
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+

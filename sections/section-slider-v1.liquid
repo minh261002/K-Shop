@@ -1,0 +1,438 @@
+<!-- section-slider-v1.liquid -->
+
+<div data-section-id="{{ section.id }}" data-section-type="section-slider-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+<section class="slider-show">
+  <div class="container">
+			<div class="content-top1">
+				<div class="row">
+					<div class="col-md-3 hidden-sm hidden-xs">
+						<div class="wrap-cat-icon wrap-cat-icon1">
+							<h2 class="title14 title-cat-icon">{{section.settings.category_title}}</h2>
+							<ul class="list-cat-icon">
+                              {%for block in section.blocks%}
+                              {%if block.type == 'category' %}
+								<li {%if block.settings.show_megamenu%}class="has-cat-mega" {%endif%}>
+									<a href="{{block.settings.category_url}}">{%if block.settings.category_icon != blank %}<img alt="" src="{{block.settings.category_icon|img_url:'small'}}">{%endif%}<span>{{block.settings.category_name}}</span></a>
+									{%if block.settings.style_column1 == 'style1' %}
+                                  <div class="cat-mega-menu cat-mega-style1">
+										<div class="row">
+											<div class="col-md-4 col-sm-3">
+												<div class="list-cat-mega-menu">
+													<h2 class="title-cat-mega-menu">{{block.settings.col1_title}}</h2>
+													<ul>
+                                                      {% for link in linklists[block.settings.col1_menu].links %}
+														<li><a href="{{link.url}}">{{link.title}}</a></li>
+                                                      {%endfor%}
+													</ul>
+												</div>
+											</div>
+											<div class="col-md-4 col-sm-3">
+												<div class="list-cat-mega-menu">
+													<h2 class="title-cat-mega-menu">{{block.settings.col2_title}}</h2>
+													<ul>
+														{% for link in linklists[block.settings.col2_menu].links %}
+														<li><a href="{{link.url}}">{{link.title}}</a></li>
+                                                      {%endfor%}
+													</ul>
+												</div>
+											</div>
+											<div class="col-md-4 col-sm-3">
+												<div class="banner-image">
+													<a href="{{block.settings.col3_url}}"><img alt="" src="{{block.settings.col3_banner|img_url:'grande'}}"></a>
+												</div>
+											</div>
+										</div>
+									</div> 
+                                  {%else%}
+                                  <div class="cat-mega-menu cat-mega-style2">
+										<h2 class="title-cat-mega-menu">{{block.settings.title_style_2}}</h2>
+										<div class="row">
+                                          {% for i in (1..3) %}
+                                          {%capture _product%}col{{i}}_product{%endcapture%}
+                                          {%assign product = all_products[block.settings[_product]] %}
+                                          
+											<div class="col-md-4 col-sm-3">
+                                       
+												{% include 'product-item-v4' %}
+											</div>
+                                          {%endfor%}
+
+										</div>
+									</div>
+                                  {%endif%}
+								</li>
+                              {%endif%}
+                              {%endfor%}
+
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-9 col-sm-12 col-xs-12">
+						<div class="wrap-banner-slider1">
+							<div class="banner-slider banner-slider1">
+								<div class="wrap-item" data-autoplay="true" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1]]" data-transition="fade">
+								{%for block in section.blocks %}
+                              {%if block.type == 'slider' %}
+
+                                  <div class="item-banner item-banner1">
+										<div class="banner-thumb">
+											<a href="{{block.settings.slider_text_button_url}}">
+                                              
+                                           {%if block.settings.image_slider == blank%}
+                                            <img  src="{{'slider_v1.jpg'| asset_url }}" alt="">
+                                            {%else%}
+                                            <img src="{{block.settings.image_slider|img_url:'master'}}" alt="" />
+                                            {%endif%}
+
+                                          </a>
+										</div>
+										<div class="banner-info animated" data-animated="lightSpeedIn">
+											<h2 class="title30" style="color:{{block.settings.slider_text_1_color}}">{{block.settings.slider_text_1}}</h2>
+											<h2 class="title30 color" style="color:{{block.settings.slider_text_2_color}}">{{block.settings.slider_text_2}}</h2>
+											<p style="color:{{block.settings.slider_text_3_color}}">{{block.settings.slider_text_3}}</p>
+											<a href="{{block.settings.slider_text_button_url}}" class="shopnow" style="color:{{block.settings.slider_text_button_color}}; background:{{block.settings.slider_button_background}};"><span>{{block.settings.slider_text_button}}</span></a>
+										</div>
+									</div>
+
+                                 {%endif%}
+                              {%endfor%}  
+                                  
+
+								</div>
+							</div>
+							<!-- End Banner -->
+							<div class="sub-banner-slider">
+								<div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[560,2],[1024,3]]">	
+								{%for block in section.blocks%}
+                              		{%if block.type == 'banner' %}
+                                  <div class="item-sub-banner">
+										<div class="product-thumb">
+											<a href="{{block.settings.product_url}}"><img class="wobble-horizontal" src=" {%if block.settings.product_image == blank%}{{'banner_slider_v1.png'| asset_url }} {%else%}{{block.settings.product_image|img_url:'small'}}{%endif%}" alt="" /></a>
+										</div>
+										<div class="product-info">
+											<h3 class="product-title text-capitalize"><a href="{{block.settings.product_url}}">{{block.settings.product_name}}</a></h3>
+											<strong class="color">{{block.settings.product_sale}}</strong>
+										</div>
+									</div>
+                                   {%endif%}
+                              {%endfor%}  
+								</div>
+							</div>
+							<!-- End Sub Banner -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Content Top -->
+		</div>
+</section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Section Slideshow v1",
+  "class": "index-section",
+  "settings": [
+	 {
+        "type": "text",
+        "id": "category_title",
+        "label": "Title category",
+        "default": "category"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+  ],
+  "blocks": [
+    {
+      "type": "slider",
+      "name": "Slider",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_slider",
+          "label": "Image"
+        },
+		
+		{
+          "type": "text",
+          "id": "slider_text_1",
+          "label": "Text 1",
+		  "default":"sunglasses"
+        },
+		{
+          "type": "color",
+          "id": "slider_text_1_color",
+          "label": "Text color"
+        },
+	    
+		{
+          "type": "text",
+          "id": "slider_text_2",
+          "label": "Text 2",
+		  "default":"From 299$"
+        },
+		{
+          "type": "color",
+          "id": "slider_text_2_color",
+          "label": "Text color"
+        },
+		
+		{
+          "type": "text",
+          "id": "slider_text_3",
+          "label": "Text 3",
+		  "default":"All product for girl"
+        },
+		{
+          "type": "color",
+          "id": "slider_text_3_color",
+          "label": "Text color"
+        },
+		
+		{
+          "type": "text",
+          "id": "slider_text_button",
+          "label": "Text button",
+		  "default":"Shop now!"
+        },
+		{
+          "type": "url",
+          "id": "slider_text_button_url",
+          "label": "Url"
+        },
+		{
+          "type": "color",
+          "id": "slider_text_button_color",
+          "label": "Text color"
+        },
+		{
+          "type": "color",
+          "id": "slider_button_background",
+          "label": "bachground button"
+        }
+
+      ]
+    },
+	{
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_name",
+          "label": "Category name",
+		  "default":"computer"
+        },
+		{
+          "type": "image_picker",
+          "id": "category_icon",
+          "label": "Category icon"
+        },
+		{
+          "type": "url",
+          "id": "category_url",
+          "label": "Category url"
+        },
+		{
+        "type": "header",
+        "content": "megamenu"
+      	},
+		{
+          "type": "checkbox",
+          "id": "show_megamenu",
+          "label": "Show megamenu"
+        },
+		
+		{
+            "type": "select",
+            "id": "style_column1",
+            "options": [
+              {
+                "value": "style1",
+                "label": "Style 1"
+              },
+              {
+                "value": "style2",
+                "label": "Style 2"
+              }
+
+            ],
+            "label": "Select style",
+            "default": "style1"
+        },
+		{
+          "type": "paragraph",
+          "content": "Style 1"
+      	},
+		{
+          "type": "text",
+          "id": "col1_title",
+          "label": "Column 1 title"
+        },
+		{
+          "type": "link_list",
+          "id": "col1_menu",
+          "label": "Select menu"
+        },
+		{
+          "type": "text",
+          "id": "col2_title",
+          "label": "Column 2 title"
+        },
+		{
+          "type": "link_list",
+          "id": "col2_menu",
+          "label": "Select menu"
+        },
+		{
+          "type": "image_picker",
+          "id": "col3_banner",
+          "label": "banner"
+        },
+		{
+          "type": "url",
+          "id": "col3_url",
+          "label": "Url"
+        },
+		{
+          "type": "paragraph",
+          "content": "Style 2"
+      	},
+		{
+          "type": "text",
+          "id": "title_style_2",
+          "label": "Title",
+		  "default":"Special product"
+        },
+		{
+          "type": "product",
+          "id": "col1_product",
+          "label": "Product 1"
+        },
+		{
+          "type": "product",
+          "id": "col2_product",
+          "label": "product 2"
+        },
+		{
+          "type": "product",
+          "id": "col3_product",
+          "label": "product 3"
+        }
+		
+
+      ]
+    },
+	{
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "product_name",
+          "label": "product name",
+		  "default":"product"
+        },
+		{
+          "type": "text",
+          "id": "product_sale",
+          "label": "Text",
+		  "default":"Up to 50% off"
+        },
+		{
+          "type": "url",
+          "id": "product_url",
+          "label": "Url"
+        }
+		
+		
+      ]
+    }
+    
+  ],
+  "presets": [{
+    "name": "Slider v1",
+    "category": "Slidershow",
+    "blocks": [
+      {
+        "type": "slider"
+      },
+	  {
+        "type": "slider"
+      },
+	  {
+        "type": "slider"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "category"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      }
+
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+
+
+<!--  --><div class="mini-cart-content" id="CartContainer">
+<h2 id="CartCount" >{{ cart.item_count }} ITEMS IN MY CART</h2>
+{% if cart.item_count > 0 %}
+<ul class="list-mini-cart-item list-unstyled" >
+     {% for item in cart.items %}
+  <li>
+    <div class="mini-cart-edit">
+      <a class="delete-mini-cart-item" href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fa fa-trash-o"></i></a>
+      <a class="edit-mini-cart-item" href="/cart"><i class="fa fa-pencil"></i></a>
+    </div>
+    <div class="mini-cart-thumb">
+      <a href="{{item.url}}"><img alt="" src="{{ item.image | product_img_url: 'small' }}"></a>
+    </div>
+    <div class="mini-cart-info">
+      <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+      <div class="info-price">
+        <span>{{ item.price | money }}</span>
+        
+      </div>
+      
+        <span>{{ 'cart.label.quantity' | t }}: {{ item.quantity }}</span>
+      
+    </div>
+  </li>
+  	{% endfor %}
+  
+</ul>
+<div class="mini-cart-total">
+  <label>{{ 'minicart.general.total_price' | t }}</label>
+  <span>{{cart.total_price | money}}</span>
+</div>
+<div class="mini-cart-button">
+  <a class="mini-cart-view f-left" href="/cart">{{ 'minicart.general.view_cart' | t }} </a>
+  <a class="mini-cart-checkout f-right" href="/checkout">{{ 'minicart.general.checkout' | t }}</a>
+</div>
+{% else %}
+	<div class="cart-empty" >
+        <p>{{ 'minicart.general.empty' | t }}</p>
+      </div>
+      <div class="cart-empty mini-cart-button">
+        <a href="/collections/all" class="mini-cart-checkout">{{ 'minicart.general.shop_now' | t }}</a>
+      </div>
+ {% endif %}
+</div>

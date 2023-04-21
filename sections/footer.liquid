@@ -1,0 +1,57 @@
+{% if template == 'index' %}
+  
+  {%if section.settings.footer_in_homepage =='footer_style1'%}
+  {% include 'footer-style1' %}
+  {%else%}
+  {% include 'footer-style2' %}
+  {%endif%}
+
+{%else%}
+
+  {%if section.settings.footer_in_orther_page =='footer_style1'%}
+  {% include 'footer-style1' %}
+  {%else%}
+  {% include 'footer-style2' %}
+  {%endif%}
+
+{%endif%}
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "select",
+        "id": "footer_in_homepage",
+        "label": "Footer in homepage",
+        "options": [
+          
+          {
+            "value": "footer_style1",
+            "label": "footer style 01"
+          },
+		  {
+            "value": "footer_style2",
+            "label": "footer style 02"
+          }
+          
+        ]
+      },
+		{
+        "type": "select",
+        "id": "footer_in_orther_page",
+        "label": "footer in orther page",
+        "options": [
+          {
+            "value": "footer_style1",
+            "label": "footer style 01"
+          },
+		  {
+            "value": "footer_style2",
+            "label": "footer style 02"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

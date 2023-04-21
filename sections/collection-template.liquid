@@ -1,0 +1,228 @@
+
+
+{%if template contains 'collection.24' %}
+	{%- assign product_per_page = 24 -%}
+{% elsif template contains 'collection.48' %}
+	{%- assign product_per_page = 48 -%}
+{% else %}
+  {%- assign product_per_page = section.settings.product_limit -%}
+{% endif %}
+
+{% paginate collection.products by product_per_page %}
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+<div id="content">
+   {%if section.settings.banner_position == "fullscreen"%}
+  {%if collection.image != blank %}
+  <div class="banner-shop full-width">
+			<div class="banner-shop-thumb">
+				<a href="#"><img src="{{ collection.image | img_url: 'master' }}" alt="" /></a>
+			</div>
+			{%if collection.description %}
+					<div class="banner-shop-info text-center">
+						{{collection.description}}
+					</div>
+                  {%endif%}
+			{%include 'breadcrumb'%}
+			<!-- End Bread Crumb -->
+		</div>
+
+      {%endif%}
+   {%endif%}
+		<div class="content-page ">
+			<div class="container">
+             {%if section.settings.banner_position == "fullwidth"%}
+              {%if collection.image != blank %}
+				<div class="banner-shop">
+					<div class="banner-shop-thumb">
+						<a href="#"><img src="{{ collection.image | img_url: 'master' }}" alt="" /></a>
+					</div>
+                  {%if collection.description %}
+					<div class="banner-shop-info text-center">
+						{{collection.description}}
+					</div>
+                  {%endif%}
+				</div>
+              {%endif%}
+              {%endif%}
+				<!-- End Banner -->
+              {%if section.settings.banner_position != "fullscreen"%}
+				  {%include 'breadcrumb'%}
+              {%endif%}
+				<!-- End Bread Crumb -->
+              <div class="row">
+                {%if section.settings.sidebar_style =="no"%}{%else%}
+                <div class="col-md-3 {%if section.settings.sidebar_style =="right"%}col-md-push-9 {%endif%}  col-sm-4 {%if section.settings.sidebar_style =="right"%}col-sm-push-8 {%endif%} col-xs-12">
+				<div id="shop-widgets-filters" class="shop-widgets-filters ">
+                  {% include 'collection-sidebar' %}
+                  </div>
+
+					</div>
+                {%endif%}
+                
+                <div class="{%if section.settings.sidebar_style =="no"%}col-md-12 col-sm-12{%else%} col-md-9 col-sm-8 col-xs-12 {%if section.settings.sidebar_style =="right"%}col-md-pull-3 {%endif%}{%if section.settings.sidebar_style =="right"%}col-sm-pull-4 {%endif%}{%endif%}">
+				 {%if section.settings.banner_position == "small"%}
+                  <div class="boxed-slider radius">
+							<div class="wrap-item" data-itemscustom="[[0,1]]" data-pagination="false" data-navigation="true">
+								 {%if collection.image != blank %}
+                                  <div class="banner-shop">
+                                      <div class="banner-shop-thumb">
+                                          <a href="#"><img src="{{ collection.image | img_url: 'master' }}" alt="" /></a>
+                                      </div>
+                                    {%if collection.description %}
+                                      <div class="banner-shop-info text-left">
+                                          {{collection.description}}
+                                      </div>
+                                    {%endif%}
+                                  </div>
+                                {%endif%}
+							</div>
+						</div>
+				{%endif%}
+                  {%if section.settings.product_style == 'style_2'%}<div class="content-grid-boxed">{%endif%}
+                  {% include "product-sortings" %} 
+				<!-- End Sort PagiBar -->
+              
+               <div class="grid--uniform">
+                 <div id="tabs-grid">
+                  {%if section.settings.product_style == 'style_1'%}
+				<ul class="grid-product-ajax list-unstyled clearfix">
+                   {% for product in collection.products %}
+					<li>
+						{%include 'product-grid-collection-v1'%}
+					</li>
+					<!-- End Item -->
+                  {% else %}
+                    {%- assign is_empty_collection = true -%}
+                  {%endfor%}
+					
+					<!-- End All -->
+				</ul>
+                  {%else%}
+                   <div class="grid-pro-color">
+								<div class="row">
+                                  {% for product in collection.products %}
+									<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+										{%include 'product-grid-collection-v2'%}
+									</div>
+									{% else %}
+                                  {%- assign is_empty_collection = true -%}
+                                {%endfor%}
+									<!-- End All -->
+								</div>
+                               {% if is_empty_collection %}
+                              <div class="grid__item small--text-center">
+                                <p class="text-center">{{ 'collections.general.no_matches' | t }}</p>
+                              </div>
+                            {% endif %}
+                            {% if paginate.pages > 1 %}
+                              {% include 'pagination' %}
+                            {% endif %}
+							</div>
+                {%endif%}
+                   
+                   </div>
+         
+               </div>  
+                  {%if section.settings.product_style == 'style_1'%}
+				{% if is_empty_collection %}
+                <div class="grid__item small--text-center">
+                  <p class="text-center">{{ 'collections.general.no_matches' | t }}</p>
+                </div>
+              {% endif %}
+              {% if paginate.pages > 1 %}
+                {% include 'pagination' %}
+              {% endif %}
+               {%endif%}
+                </div>
+                  {%if section.settings.product_style == 'style_2'%}</div>{%endif%}
+              </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+		{
+        "type": "header",
+        "content": "sidebar"
+		},
+		{
+        "type": "select",
+        "id": "sidebar_style",
+        "label": "sidebar style",
+        "default": "no",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left sidebar"
+          },
+		  {
+            "value": "right",
+            "label": "Right sidebar"
+          },
+		  {
+            "value": "no",
+            "label": "No sidebar"
+          }
+        ]
+      },
+		{
+        "type": "select",
+        "id": "banner_position",
+        "label": "banner position",
+        "default": "fullwidth",
+        "options": [
+          {
+            "value": "fullwidth",
+            "label": "fullwidth"
+          },
+          {
+            "value": "fullscreen",
+            "label": "full screen"
+          },
+          {
+            "value": "small",
+            "label": "small"
+          }
+        ]
+      },
+	  {
+        "type": "select",
+        "id": "product_style",
+        "label": "Product style",
+        "default": "style_1",
+        "options": [
+          {
+            "value": "style_1",
+            "label": "Style 1"
+          },
+          {
+            "value": "style_2",
+            "label": "Style 2"
+          }
+        ],
+		"info":"product style 1 using for option no sidebar"
+      },
+	  {
+        "type": "checkbox",
+        "id": "show_color_variant",
+        "label": "Show color variant",
+        "default": false,
+		"info":"use for product style 2"
+      },
+	  {
+        "type": "text",
+        "id": "product_limit",
+        "label": "Product per page",
+        "default": "20"
+      }
+      
+    ]
+  }
+{% endschema %}

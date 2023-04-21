@@ -1,0 +1,64 @@
+<div class="quickview-product tshopify-popup quickview-v3"></div>
+<div class="loading tshopify-popup">
+  <div class="overlay"></div>
+  <div class="loader" title="0">
+    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+      <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                                         s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+                                         c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+      <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                           C22.32,8.481,24.301,9.057,26.013,10.047z">
+        <animateTransform attributeType="xml"
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 20 20"
+                          to="360 20 20"
+                          dur="0.5s"
+                          repeatCount="indefinite"/>
+      </path>
+    </svg>
+  </div>
+</div>
+
+
+<div class="error-popup engo-popup engoc_hide_mobile">
+  <div class="overlay"></div>
+  <div class="popup-inner content">
+    <div class="error-message"></div>
+  </div>
+</div>
+
+<div class="product-popup engo-popup engoc_hide_mobile">
+  <div class="overlay"></div>
+  <div class="content">
+    <a href="javascript:void(0)" class="close-window">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" version="1.1" height="12px" viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+        <g><path fill="#FFFFFF" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/></g>
+      </svg>
+    </a>
+    <div class="mini-product-item clearfix">
+      <div class="product-image f-left pr-20">
+        <img alt="img" src="{{'p1.png' | asset_url}}" style="max-width:120px; height:auto"/>
+      </div>
+      <div class="f-left">
+        <div class="product-info f-left">
+          <p><a class="product-name" href="javascript:void(0)"></a></p>
+          <p class="success-message">{{'popup.cart'|t}}</p>
+
+        </div>
+        <div class="actions mt-100">
+          <button class="btn continue-shopping  btn-default mr-10" onclick="javascript:void(0)">{{'popup.continue'|t}}</button>
+          <button class="btn btn-primary " onclick="window.location='/cart'">{{'popup.goto_cart'|t}}</button>
+        </div>  
+      </div>
+    </div>
+
+  </div>    
+</div>
+
+<script>
+  $(document).on('click','.overlay, .continue-shopping, .close-window', function() {   
+    hidePopup(".engo-popup");
+  });
+</script>

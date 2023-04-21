@@ -1,0 +1,103 @@
+<div class="sidebar sidebar-left">
+  {%if settings.sidebar_enable_category %}
+  <div class="widget widget-product-cat">
+    <h2 class="widget-title title14">{{settings.sidebar_category}}</h2>
+    <div class="widget-content">
+      <ul>
+        {% for link in linklists[settings.sidebar_category_menu].links %}
+        <li><a href="{{link.url}}">{{link.title}}</a></li>
+        {%endfor%}
+        
+      </ul>
+    </div>
+  </div>
+  {%endif%}
+  <!-- End widget -->
+    {%if settings.sidebar_enable_recent_post%}
+  <div class="widget widget-recent-post">
+    <h2 class="widget-title title14">{{settings.sidebar_recent_post}}</h2>
+    <div class="widget-content">
+      <ul>
+         {% for article in blogs[settings.sidebar_blog].articles limit: settings.sidebar_blog_limit %}
+        <li>
+          <div class="post-thumb">
+            <a href="{{article.url}}" class="post-thumb-link"><img src="{{ article.image.src | img_url: 'compact' }}" alt="" /></a>
+          </div>
+          <div class="post-info">
+            <h3 class="post-title"><a href="{{article.url}}">{{article.title}}</a></h3>
+            <ul class="post-date-comment">
+              <li><i class="fa fa-clock-o" aria-hidden="true"></i><span>{{article.published_at | date: " %d . %B .%Y" }}</span></li>
+              <li><i class="fa fa-comment" aria-hidden="true"></i><a href="{{article.url}}#comments">{{article.comments_count}} {{'blogs.comments.comments_with_count.other'|t}} </a></li>
+            </ul>
+          </div>
+        </li>
+        {%endfor%}
+        
+      </ul>
+    </div>
+  </div>
+    {%endif%}
+  <!-- End widget -->
+    {%if settings.sidebar_enable_tags %}
+  <div class="widget widget-tag-cloud">
+    <h2 class="widget-title title14">{{settings.sidebar_tags}}</h2>
+    <div class="widget-content">
+      <ul>
+      {% for tag in blog.all_tags %}
+        {% if current_tags contains tag %}
+        <li class="{{ tag | handleize }} current">{{ tag | link_to_tag: tag }} - current tag</li>
+        {% else %}
+        <li class="{{ tag | handleize }}">{{ tag | link_to_tag: tag }}</li>
+        {% endif %}
+        {% endfor %}
+
+      </ul>
+    </div>
+  </div>
+    {%endif%}
+  <!-- End widget -->
+    {%if settings.sidebar_enable_brand %}
+  <div class="widget widget-brand">
+    <h2 class="widget-title title14">{{settings.sidebar_brand}}</h2>
+    <div class="widget-content">
+      {%for i in (1..5) %}
+      {%capture enable %}sidebar_enable_brand_image{{i}}{%endcapture%}
+      {%capture image %}sidebar_brand_image{{i}}.png{%endcapture%}
+      {%capture url %}sidebar_brand_url{{i}}{%endcapture%}
+      {%capture title %}sidebar_brand_title{{i}}{%endcapture%}
+      {%if settings[enable] %}
+      <div class="item-brand-side">
+        <div class="brand-side-thumb"><a href="{{settings[url]}}"><img class="wobble-vertical" alt="" src="{{image|asset_url}}"></a></div>
+        <div class="brand-side-info">
+          {{settings[title]}}
+        </div>
+      </div>
+      {%endif%}
+      {%endfor%}
+      
+    </div>
+  </div>
+    {%endif%}
+  <!-- End widget -->
+    {%if settings.sidebar_banner%}
+  <div class="widget widget-slide-banner">
+    <h2 class="widget-title title14">{{settings.sidebar_brand}}</h2>
+    <div class="widget-content">
+      <div class="wrap-item" data-itemscustom="[[0,1]]" data-pagination="false" data-navigation="true">
+       {%for i in (1..5) %}
+        {%capture enable %}sidebar_enable_banner_image{{i}}{%endcapture%}
+      {%capture image %}sidebar_banner_image{{i}}.jpg{%endcapture%}
+      {%capture url %}sidebar_banner_url{{i}}{%endcapture%}
+         {%if settings[enable] %}
+        <div class="banner-image">
+          <a href="{{settings[url]}}"><img src="{{image|asset_url}}" alt="" /></a>
+        </div>
+         {%endif%}
+        {%endfor%}
+        
+      </div>
+    </div>
+  </div>
+    {%endif%}
+  <!-- End widget -->
+</div>

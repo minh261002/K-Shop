@@ -1,0 +1,398 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-product-carousel-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="carousel-v2">
+    <div class="container">
+    <div class="category-color color-brown color{{ section.id }} {%if section.settings.banner_position == 'right' %}banner-right{%else%}banner-left{%endif%}">
+				<div class="header-cat-color">
+					<h2 class="title18">{{section.settings.collection_title}}</h2>
+					<a href="{{collections[section.settings.product_collection].url}}" class="cat-color-link wobble-top">{{section.settings.collection_more}}</a>
+				</div>
+				<div class="content-cat-color">
+					<div class="clearfix">
+						<div class="banner-cat-color">
+							<div class="banner-cat-color-thumb">
+								<a href="{{section.settings.banner_url}}">
+                              {%if section.settings.banner_image == blank%}
+                              <img  src="{{'carousel-v2.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{section.settings.banner_image|img_url:'medium'}}" alt="" />
+                              {%endif%}
+                          </a>
+							</div>
+							<div class="banner-cat-color-info">
+								<h2>{{section.settings.banner_text}}</h2>
+								<a href="{{section.settings.banner_url}}" class="pulse-grow">{{section.settings.banner_button}}</a>
+							</div>
+						</div>
+						<div class="slider-cat-color">
+							<div class="wrap-item" data-itemscustom="[[0,1],[480,2],[768,2],[1024,3],[1200,5]]" data-pagination="false" data-navigation="true">
+								
+                              {%for product in collections[section.settings.product_collection].products limit: section.settings.product_limit %}
+                              {%include 'product-item-v4'%}
+                              {%else%}
+                              {%include 'product-item-v4-empty-single'%}
+                              {%include 'product-item-v4-empty-single'%}
+                              {%include 'product-item-v4-empty-single'%}
+                              {%include 'product-item-v4-empty-single'%}
+                              {%include 'product-item-v4-empty-single'%}
+                              {%endfor%}
+								
+							</div>
+						</div>
+						<!-- End Slider Cat Color -->
+						<div class="list-cat-color-adv">
+                          {%if section .settings.product_1 != blank %}
+							<div class="adv-cat-color">
+								<div class="adv-cat-color-info">
+									<h3 class="product-title"><a href="{{all_products[section.settings.product_1].url}}">{{all_products[section.settings.product_1].title}}</a></h3>
+									<a href="{{all_products[section.settings.product_1].url}}" class="more wobble-top">{{section.settings.collection_more}}</a>
+								</div>
+								<div class="adv-cat-color-thumb product-thumb">
+									<a href="{{all_products[section.settings.product_1].url}}" class="product-thumb-link"><img src="{{all_products[section.settings.product_1].featured_image|img_url}}" alt="" /></a>
+								</div>
+							</div>
+                          {%else%}
+                          <div class="adv-cat-color">
+								<div class="adv-cat-color-info">
+									<h3 class="product-title"><a href="#">product example</a></h3>
+									<a href="#" class="more wobble-top">{{section.settings.collection_more}}</a>
+								</div>
+								<div class="adv-cat-color-thumb product-thumb">
+									<a href="#" class="product-thumb-link"><img src="{{'p1.png'|asset_url}}" alt="" /></a>
+								</div>
+							</div>
+                          {%endif%}
+                          {%if section .settings.product_2 != blank %}
+							<div class="adv-cat-color">
+								<div class="adv-cat-color-info">
+									<h3 class="product-title"><a href="{{all_products[section.settings.product_2].url}}">{{all_products[section.settings.product_2].title}}</a></h3>
+									<a href="{{all_products[section.settings.product_2].url}}" class="more wobble-top">{{section.settings.collection_more}}</a>
+								</div>
+								<div class="adv-cat-color-thumb product-thumb">
+									<a href="{{all_products[section.settings.product_2].url}}" class="product-thumb-link"><img src="{{all_products[section.settings.product_2].featured_image|img_url}}" alt="" /></a>
+								</div>
+							</div>
+                          {%else%}
+                          <div class="adv-cat-color">
+								<div class="adv-cat-color-info">
+									<h3 class="product-title"><a href="#">product example</a></h3>
+									<a href="#" class="more wobble-top">{{section.settings.collection_more}}</a>
+								</div>
+								<div class="adv-cat-color-thumb product-thumb">
+									<a href="#" class="product-thumb-link"><img src="{{'p2.png'|asset_url}}" alt="" /></a>
+								</div>
+							</div>
+                           {%endif%}
+							<div class="hotkey-cat-color">
+								<h2 class="title14">{{section.settings.keyword_title}}</h2>
+								<ul>
+                                  {%for i in (1..5)%}
+                                  {%capture key%}keyword{{i}}{%endcapture%}
+                                  {%capture url%}keyword{{i}}_url{%endcapture%}
+                                  {%if section.settings[key] != blank %}
+									<li><a href="{{section.settings[url]}}">{{section.settings[key]}}</a></li>
+                                  {%endif%}
+                                  {%endfor%}
+								</ul>
+							</div>
+						</div>
+						<!-- End List Cat Adv -->
+					</div>
+				</div>
+				<!-- End Content Cat Color -->
+				<div class="brand-cat-color">
+					<div class="wrap-item" data-autoplay="true" data-itemscustom="[[0,2],[560,3],[768,4],[980,5],[1200,6]]" data-pagination="false" data-autoplay="true">
+						{%for block in section.blocks %}
+                      <div class="item-band-cat-color">
+							
+                        <a href="{{section.settings.brand_url}}">
+                              {%if section.settings.brand_image == blank%}
+                              <img  src="{{'br1.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{section.settings.brand_image|img_url:'medium'}}" alt="" />
+                              {%endif%}
+                          </a>
+						</div>
+                      {%endfor%}
+						
+					</div>
+				</div>
+				<!-- End Brand Cat Color -->
+			</div>
+			<!-- End Category Color -->
+    </div>
+  </section>
+</div>
+    {%if section.settings.enable_custom_color == true %}
+<style>
+.category-color.color-brown.color{{ section.id }} .header-cat-color .title18 {
+    color:{{section.settings.section_color}};
+}
+.category-color.color-brown.color{{ section.id }} .header-cat-color::after {
+    background: {{section.settings.section_color}} none repeat scroll 0 0;
+}
+  .category-color.color-brown.color{{ section.id }} .banner-cat-color-info {
+    background: {{section.settings.section_color}} none repeat scroll 0 0;
+}
+  .color-brown.color{{ section.id }} .product-extra-link a, .color-brown.color{{ section.id }} .product-extra-link button  {
+    color: {{section.settings.section_color}};
+}
+  .color-brown.color{{ section.id }} .product-extra-link a:hover, .color-brown.color{{ section.id }} .product-extra-link button:hover {
+    background-color:  {{section.settings.section_color}};
+    color: #fff;
+}
+  .color-brown.color{{ section.id }} .product-title a:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-brown.color{{ section.id }} .product-price ins {
+    color:{{section.settings.section_color}};
+}
+  .color-brown.color{{ section.id }} .quickview-link.plus:hover {
+    color:{{section.settings.section_color}};
+}
+  .category-color.color-brown.color{{ section.id }} .header-cat-color .cat-color-link:hover {
+    color:{{section.settings.section_color}};
+}
+  .category-color.color-brown.color{{ section.id }} .adv-cat-color-info .more:hover {
+    color:{{section.settings.section_color}};
+}
+  .category-color.color-brown.color{{ section.id }} .hotkey-cat-color a:hover {
+    color: #fff;
+    background: {{section.settings.section_color}} none repeat scroll 0 0;
+    border-color: {{section.settings.section_color}};
+}
+  
+</style>
+    {%endif%}
+{% schema %}
+
+  {
+    "name": "product carousel v2",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "collection_title",
+        "label": "Title",
+        "default": "FASHION"
+      },
+	  {
+        "type": "text",
+        "id": "collection_more",
+        "label": "text view more",
+        "default": "More"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_custom_color",
+        "label": "Custom color",
+        "default": true
+      },
+	  {
+        "type": "color",
+        "id": "section_color",
+        "label": "Section Color",
+        "default": "#ff3e3e"
+      },
+	  
+	  {
+        "type": "header",
+        "content": "banner"
+      },
+	  {
+            "type": "select",
+            "id": "banner_position",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+
+            ],
+            "label": "Banner position",
+            "default": "left"
+        },
+		{
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Banner image"
+      },
+	  {
+        "type": "text",
+        "id": "banner_text",
+        "label": "Text",
+        "default": "G3 PLAYTION"
+      },
+	  {
+        "type": "text",
+        "id": "banner_button",
+        "label": "Text button",
+        "default": "Shop now !"
+      },
+      {
+        "type": "url",
+        "id": "banner_url",
+        "label": "Url"
+      },
+	  
+ 		{
+        "type": "header",
+        "content": "collection"
+      },
+	  {
+        "type": "collection",
+        "id": "product_collection",
+        "label": "Select collection"
+      },
+	  {
+        "type": "text",
+        "id": "product_limit",
+        "label": "Limit",
+        "default": "8"
+      },
+ 		{
+        "type": "header",
+        "content": "featured product"
+      },
+	  {
+        "type": "product",
+        "id": "product_1",
+        "label": "Select product 1"
+      },
+	  {
+        "type": "product",
+        "id": "product_2",
+        "label": "Select product 2"
+      },
+	  {
+        "type": "header",
+        "content": "hot key word"
+      },
+	{
+        "type": "text",
+        "id": "keyword_title",
+        "label": "title",
+		"default":"hot key word"
+      },
+	  {
+        "type": "text",
+        "id": "keyword1",
+        "label": "Key 1"
+      },
+	  {
+        "type": "text",
+        "id": "keyword1_url",
+        "label": "Url 1"
+      },
+	  {
+        "type": "text",
+        "id": "keyword2",
+        "label": "Key 2"
+      },
+	  {
+        "type": "text",
+        "id": "keyword2_url",
+        "label": "Url 1"
+      },
+	  {
+        "type": "text",
+        "id": "keyword3",
+        "label": "Key 3"
+      },
+	  {
+        "type": "text",
+        "id": "keyword3_url",
+        "label": "Url 3"
+      },
+	  {
+        "type": "text",
+        "id": "keyword4",
+        "label": "Key 4"
+      },
+	  {
+        "type": "text",
+        "id": "keyword4_url",
+        "label": "Url 4"
+      },
+	  {
+        "type": "text",
+        "id": "keyword5",
+        "label": "Key 5"
+      },
+	  {
+        "type": "text",
+        "id": "keyword5_url",
+        "label": "Url 5"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+	"blocks": [
+      {
+      "type": "brand",
+      "name": "brand",
+      "settings": [
+    	{
+          "type": "image_picker",
+          "id": "brand_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "url"
+        }
+      ]
+      }
+
+    ],
+   
+    "presets": [
+      {
+        "name": "product carousel v2",
+        "category": "Collection",
+        "blocks": [
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,134 @@
+
+<div id="content">
+		<div class="content-page woocommerce">
+			<div class="container">
+				<div class="cart-content-page">
+					<h2 class="title-shop-page">{{ 'wishlist.labels.title'|t }}</h2>
+
+						<div class="table-responsive">
+							<table cellspacing="0" class="shop_table cart table">
+								<thead>
+									<tr>
+
+                                      
+                                      <th class="product-remove"></th>
+                                      <th class="product-thumbnail"></th>
+                                      <th class="produc-name">{{ 'wishlist.labels.produc_name' | t }}</th>
+                                      <th class="description">{{ 'wishlist.labels.description' | t }}</th>
+                                      <th class="product-prices">{{ 'wishlist.labels.product_price' | t }}</th>
+                                      <th class="product-avai">{{ 'wishlist.labels.product_avai' | t }}</th>
+                                      <th class="add-cart">{{ 'wishlist.labels.add_cart' | t }}</th>
+                                      
+									</tr>
+								</thead>
+								
+								<tbody>
+                                  {% for tag in customer.tags %}
+                                  {% assign the_test = 'nutthin' %}
+                                  {% capture tag_id %}{{ tag }}{% endcapture %}
+                                  {% assign tag_size = tag_id.size %}
+                                  {% for tag in customer.tags %}
+                                  {% capture cur_tag %}{{ tag }}{% endcapture %}
+                                  {% if cur_tag contains tag_id %}
+                                  {% assign difference = tag_size | minus:cur_tag.size %}
+                                  {% if difference == 0 %}
+                                  {% assign the_test = tag_id %}
+                                  {% else %}
+                                  {% assign the_test = 'nutthin' %}
+                                  {% endif %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  {% for collection in collections %}
+                                  {% paginate collection.products by collection.all_products_count %}
+                                  {% for product in collection.products %}
+                                  {% capture product_id %}{{ product.id }}{% endcapture %}
+                                  {% unless used contains product_id %}
+                                  {% capture diff %}{{ tag_size | minus:product_id.size | money_without_currency | times:100 | divided_by:2 }}{% endcapture %}
+                                  {% assign check = diff | split:'.' %}
+                                  {% if check[1] contains '5' %}{% assign display = false %}{% else %}{% assign display = true %}{% endif %}
+                                  {% if display and the_test contains product_id %}
+
+                                  {% assign wish_list_active = true %}
+
+                                  {% assign sold_out = true %}
+                                  {% if product.available  %}
+                                  {% assign sold_out = false %}
+                                  {% endif %}
+
+									<tr class="cart_item">
+										<td class="product-remove">
+										
+                                         {% form 'customer' %}
+                                          <input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+                                          <input type="hidden" name="contact[tags]" value="x{{ tag_id }}" />
+                                          <button type="submit"><i class="fa fa-times"></i></button>
+                                          {% endform %}
+
+   
+										</td>
+										<td class="product-thumbnail">
+                                          <a href="{{ product.url }}" title=""><img src="{{ product.featured_image.src | product_img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" ></a>
+										</td>
+										<td class="product-name">
+											<a href="{{ product.url }}" title="">{{ product.title | split: '|' | first }} </a>
+										</td>
+                                      <td class="description">
+											{{ product.description | strip_html | truncatewords: 35}}
+										</td>
+										<td class="product-price">
+											{% if on_sale %}
+                                              <p class="sale no-margin">
+                                                <span class="old-price amount"> {{ product.compare_at_price_min | money }}</span>
+                                                <span class="special-price amount">{% if product.price_varies %}{% endif %}{{ product.price_min | money }}</span>
+                                              </p>
+                                              {% else %}
+                                              <p class="regular-product price no-margin">
+                                                <span class="amount">{% if product.price_varies %}{% endif %}{{ product.price_min | money }}</span>
+                                              </p>
+                                              {% endif %}
+										</td>
+										<td class="product-avai">
+												<span class="wishlist-{% if product.available %}InStock{% else %}OutOfStock{% endif %}">{% if product.available %}InStock{% else %}OutOfStock{% endif %}</span>
+                                         
+										</td>
+										<td class="add-cart">
+                                           <div class="action text-left">
+                                              {% assign variantCount = product.variants | size %}
+                                              <form action="/cart/add" method="post" class="variants" id="product-actions-{{ product.id }}" enctype="multipart/form-data" style="padding:0px;">    
+                                                {% if sold_out %}
+                                                <input class="btn link-button btn-primary" type="submit" value="{{ 'products.product.unavailable' | t }}" disabled="disabled"/>
+                                                {% else %}
+                                                {% if variantCount > 1 %}
+                                                <input class="btn link-button btn-primary" type="button" onclick="window.location.href='{{product.url}}'" value="{{ 'products.product.add_to_cart' | t }}"/>
+                                                {% else %}
+                                                <input type="hidden" name="id" value="{{ product.variants[0].id }}" />      
+                                                <input class="btn link-button btn-primary" type="submit" value="{{ 'products.product.add_to_cart' | t }}"/>
+                                                {% endif %}
+                                                {% endif %}
+                                              </form>
+                                            </div>
+										</td>
+									</tr>
+                                  {% capture used %}{{ product_id }} {{ used }}{% endcapture %}
+                                {% endif %}
+                                {% endunless %}
+                                {% endfor %}
+                                {% endpaginate %}
+                                {% endfor %}
+                                {% endfor %}
+
+								</tbody>
+							</table>
+                          <form method='post' action='/contact' id='remove-wishlist-form' accept-charset='UTF-8'>
+                            <input name='form_type' type='hidden' value='customer'/>
+                            <input name='utf8' type='hidden' value='✓'>
+                            <input type='hidden' name='contact[email]' value='{{ customer.email }}'/>
+                            <input type='hidden' name='contact[tags]'  value='' />
+                          </form>
+						</div>
+		
+				</div>
+			</div>	
+		</div>
+		<!-- End Content Page -->
+	</div>

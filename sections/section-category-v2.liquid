@@ -1,0 +1,100 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-category-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="hot-category-v2">
+    <div class="container">
+   <div class="pop-cat3">
+				<h2 class="title14 title-box3">{{section.settings.section_title}}</h2>
+				<div class="popcat-slider3 arrow-style3">
+					<div class="wrap-item" data-pagination="false" data-navigation="true" data-items="4">
+                      {%for block in section.blocks%}
+						<div class="item-popcat3">
+							<span class="white bg-color text-uppercase">{{block.settings.category_title}}</span>
+							<ul class="list-none">
+								{% for link in linklists[block.settings.category_menu].links %}
+								<li><a href="{{link.url}}">{{link.title}}</a></li>
+                              {%endfor%}
+							</ul>
+						</div>
+                       {%endfor%}
+
+					</div>
+				</div>
+			</div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "Category v2",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Title",
+        "default": "Hot category"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "category",
+      "name": "category",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "category_title",
+          "label": "Title",
+            "default":"Sport"
+        },
+        {
+          "type": "link_list",
+          "id": "category_menu",
+          "label": "Select menu"
+        }
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Category v2",
+        "category": "category",
+        "blocks": [
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

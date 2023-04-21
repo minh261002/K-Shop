@@ -1,0 +1,340 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-tab-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="collection-tab-v2">
+    <div class="container">
+    <div class="product-box2 color-blue color{{ section.id }}">
+				<div class="title-box1 style2">
+					<h2 class="title30"><span>{%if section.settings.colelction_icon != blank%}<img src="{{section.settings.colelction_icon|img_url:'icon'}}" alt="" />{%endif%}</span>{{section.settings.collection_title}}</h2>
+					<ul class="list-none">
+						{%for block in section.blocks %}
+							<li {%if forloop.index == 1%}class="active"{%endif%}><a href="#{{collections[block.settings.product_collection].handle}}{{ section.id }}" data-toggle="tab">{{block.settings.product_collection_title}}</a></li>
+                          {%endfor%}
+					</ul>
+				</div>
+      			{%if section.settings.style_product ==  'style_1' %}
+                  {%assign style = 'ls-ls' %}
+                  {%elsif section.settings.style_product ==  'style_2' %}
+                  {%assign style = 'ls-sl' %}
+                  {%elsif section.settings.style_product ==  'style_3' %}
+                  {%assign style = 'sl-ls' %}
+                  
+                  {%endif%}
+				<div class="content-box2 {{style}} tab-content border radius">
+                  {%for block in section.blocks %}
+                    {%if section.settings.style_product ==  'style_1' %}
+                      <div id="{{collections[block.settings.product_collection].handle}}{{ section.id }}" class="clearfix tab-pane {%if forloop.index == 1%}active{%endif%}">
+                          {%for product in collections[block.settings.product_collection].products limit: 6 %}
+                        {%assign count = collections.products_count %}
+                        {%if forloop.index == 1 %}
+                          <div class="large-box">
+                               {%include 'product-item-v5'%}
+                          </div>
+                        {%endif%}
+                        <!-- End Lage Box -->
+                        {%if forloop.index == 2 %}
+                          <div class="small-box">
+                        {%endif%}
+                            {%if forloop.index == 2 %}
+                               {%include 'product-item-v4'%}
+                            {%endif%}
+                            {%if forloop.index == 3 %}
+                              {%include 'product-item-v4'%}
+                            {%endif%}
+                        {%if forloop.index == 3 or forloop.index == count %}
+                          </div>
+                        {%endif%}
+                          <!-- End Small Box -->
+                        {%if forloop.index == 4 %}
+                          <div class="large-box">
+                              {%include 'product-item-v5'%}
+                          </div>
+                        {%endif%}
+                          <!-- End Lage Box -->
+                        {%if forloop.index == 5 %}
+                          <div class="small-box">
+                        {%endif%}
+                            {%if forloop.index == 5 %}
+                               {%include 'product-item-v4'%}
+                            {%endif%}
+                            {%if forloop.index == 6 %}
+                              {%include 'product-item-v4'%}
+                            {%endif%}
+                        {%if forloop.index == 6 or forloop.index == count %}
+                          </div>
+                        {%endif%}
+                          <!-- End Small Box -->
+                        <!--  if no collection show placehoder           -->
+                     {%else%} 
+                         {%include 'product-item-v5-empty'%}
+                         {%endfor%}
+                      </div>
+                   		
+                  {%endif%}
+                    {%if section.settings.style_product ==  'style_2' %}
+                      <div id="{{collections[block.settings.product_collection].handle}}{{ section.id }}" class="clearfix tab-pane {%if forloop.index == 1%}active{%endif%}">
+                          {%for product in collections[block.settings.product_collection].products limit: 6 %}
+                        {%if forloop.index == 1 %}
+                          <div class="large-box">
+                               {%include 'product-item-v5'%}
+                          </div>
+                        {%endif%}
+                          <!-- End Lage Box -->
+                          {%if forloop.index == 2 %}
+                          <div class="small-box">
+                        {%endif%}
+                            {%if forloop.index == 2 %}
+                               {%include 'product-item-v4'%}
+                            {%endif%}
+                            {%if forloop.index == 3 %}
+                              {%include 'product-item-v4'%}
+                            {%endif%}
+                        {%if forloop.index == 3 or forloop.index == count %}
+                          </div>
+                        {%endif%}
+                          <!-- End Small Box -->
+                          {%if forloop.index == 4 %}
+                          <div class="small-box">
+                        {%endif%}
+                            {%if forloop.index == 4 %}
+                               {%include 'product-item-v4'%}
+                            {%endif%}
+                            {%if forloop.index == 5 %}
+                              {%include 'product-item-v4'%}
+                            {%endif%}
+                        {%if forloop.index == 5 or forloop.index == count %}
+                          </div>
+                        {%endif%}
+                          <!-- End Small Box -->
+                          {%if forloop.index == 6 %}
+                          <div class="large-box">
+                              {%include 'product-item-v5'%}
+                          </div>
+                        {%endif%}
+                        <!--  if no collection show placehoder           -->
+                     {%else%} 
+                         {%include 'product-item-v5-empty'%}
+                       {%endfor%}
+                      </div>
+                    {%endif%}
+                    {%if section.settings.style_product ==  'style_3' %}
+                      <div id="{{collections[block.settings.product_collection].handle}}{{ section.id }}" class="clearfix tab-pane {%if forloop.index == 1%}active{%endif%}">
+                          {%for product in collections[block.settings.product_collection].products limit: 6 %}
+                        {%if forloop.index == 1 %}
+                          <div class="small-box">
+                        {%endif%}
+                            {%if forloop.index == 1 %}
+                               {%include 'product-item-v4'%}
+                            {%endif%}
+                            {%if forloop.index == 2 %}
+                              {%include 'product-item-v4'%}
+                            {%endif%}
+                        {%if forloop.index == 2 or forloop.index == count %}
+                          </div>
+                        {%endif%}
+                          <!-- End Small Box -->
+                        {%if forloop.index == 3 %}
+                          <div class="large-box">
+                               {%include 'product-item-v5'%}
+                          </div>
+                        {%endif%}
+
+                          {%if forloop.index == 4 %}
+                          <div class="large-box">
+                               {%include 'product-item-v5'%}
+                          </div>
+                        {%endif%}
+                          <!-- End Lage Box -->
+                          {%if forloop.index == 5 %}
+                          <div class="small-box">
+                        {%endif%}
+                            {%if forloop.index == 5 %}
+                               {%include 'product-item-v4'%}
+                            {%endif%}
+                            {%if forloop.index == 6 %}
+                              {%include 'product-item-v4'%}
+                            {%endif%}
+                        {%if forloop.index == 6 or forloop.index == count %}
+                          </div>
+                        {%endif%}
+                        <!--  if no collection show placehoder           -->
+                     {%else%} 
+                         {%include 'product-item-v5-empty'%}
+                         {%endfor%}
+                      </div>
+                    {%endif%}
+                   
+                  {%endfor%}
+					<!-- End Tab -->
+					
+				</div>
+			</div>
+
+    </div>
+  </section>
+</div>
+    {%if section.settings.enable_custom_color == true %}
+<style>
+
+  .color-blue.color{{ section.id }} .title-box1 .title30 span {
+    background: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .banner-box1 {
+    border-top: 3px solid {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .title-box1 .list-none li a:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .title-box1 .title30 span::after {
+    color:{{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .title-box1 .list-none li.active a::before {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .category-box1 .list-none li a:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .quickview-link.pos-bottom:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .quickview-link.pos-bottom span::after {
+    background-color: {{section.settings.section_color}};
+}
+.color-blue.color{{ section.id }} .product-extra-link2 .addcart-link:hover {
+    background-color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .product-extra-link2 .wishlist-link:hover{
+  color: {{section.settings.section_color}};
+  }
+  
+.color-blue.color{{ section.id }} .product-price ins {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .product-extra-link a {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .product-extra-link a:hover {
+    background-color: {{section.settings.section_color}};
+    color: #fff;
+}
+  .color-blue{{ section.id }} .product-title a:hover {
+    color:{{section.settings.section_color}};
+}
+    .color-blue.color{{ section.id }} .product-extra-link button {
+    color: {{section.settings.section_color}};
+}
+  .color-blue.color{{ section.id }} .product-extra-link button:hover {
+    background-color: {{section.settings.section_color}};
+    color: #fff;
+}
+  .color-blue{{ section.id }} .product-title button:hover {
+    color:{{section.settings.section_color}};
+}
+</style>
+    {%endif%}
+{% schema %}
+
+  {
+    "name": "collection tab v3",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "collection_title",
+        "label": "Title",
+        "default": "SPORT"
+      },
+      {
+        "type": "image_picker",
+        "id": "colelction_icon",
+        "label": "Icon"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_custom_color",
+        "label": "Custom color",
+        "default": true
+      },
+	  {
+        "type": "color",
+        "id": "section_color",
+        "label": "Section Color",
+        "default": "#ff3e3e"
+      },
+	  {
+        "type": "select",
+        "id": "style_product",
+        "label": "Style product",
+        "options": [
+          {
+            "value": "style_1",
+            "label": "large small large small"
+          },
+          {
+            "value": "style_2",
+            "label": "large small small large"
+          },
+          {
+            "value": "style_3",
+            "label": "small large large small"
+          }
+        ],
+		"default":"style_1"
+      },
+	  
+	  
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "Collection",
+      "name": "Collection",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "product_collection_title",
+          "label": "Title",
+            "default":"Featured"
+        },
+        {
+          "type": "collection",
+          "id": "product_collection",
+          "label": "Select collection"
+        }
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Collection tab v3",
+        "category": "Collection",
+        "blocks": [
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

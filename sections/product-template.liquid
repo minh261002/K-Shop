@@ -1,0 +1,620 @@
+<!-- /templates/product.liquid -->
+{% comment %}
+
+  Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
+  and allow search engines to easily understand what the content is.
+
+  For more information on these Scheme.org tags, visit:
+    - http://schema.org/docs/gs.html
+
+{% endcomment %}
+
+  
+  <div class="content-page" itemscope itemtype="http://schema.org/Product">
+			<meta itemprop="name" content="{{ product.title }}">
+            <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+            <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+    
+    <div class="container">
+				{%include 'breadcrumb' %}
+				<!-- End Bread Crumb -->
+				<div class="detail-special bg-white border rarius">
+					<div class="row">
+                     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                      <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+
+                      <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+                      <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-horizontal">
+						<div class="col-md-9 col-sm-8 col-xs-12">
+							<div class="product-detail">
+								<div class="row">
+									<div class="col-md-5 col-sm-12 col-xs-12">
+                                      {% if product.images.size > 0 %}
+										<div class="detail-gallery">
+											<div class="mid">
+                                              <img src="{{ product.featured_image | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" />
+											</div>
+                                          
+											<div class="gallery-control">
+												<a href="#" class="prev"><i class="fa fa-angle-left"></i></a>
+												<div class="carousel">
+													<ul>
+                                                      {%if product.images.size < 4 %}
+                                                      {% for image in product.images %}
+														<li><a href="#" {%if forloop.index ==1 %}class="active"{%endif%}><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                     
+                                                      {%if product.images.size == 1 %}
+                                                       {% for image in product.images %}
+														<li><a href="#" ><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                      {% for image in product.images %}
+														<li><a href="#" ><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                      {% for image in product.images %}
+														<li><a href="#"><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                      {%elsif product.images.size == 2 %}
+                                                     {% for image in product.images %}
+														<li><a href="#" ><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                      	{%elsif product.images.size == 3 %}
+                                                     {% for image in product.images %}
+														<li><a href="#" ><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                      {%endif%}
+                                                      {%else%}
+                                                      {% for image in product.images %}
+														<li><a href="#" {%if forloop.index ==1 %}class="active"{%endif%}><img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}" /></a></li>
+														
+                                                      {% endfor %}
+                                                      {%endif%}
+													</ul>
+												</div>
+												<a href="#" class="next"><i class="fa fa-angle-right"></i></a>
+											</div>
+										</div>
+                                      {%endif%}
+										<!-- End Gallery -->
+									</div>
+									<div class="col-md-7 col-sm-12 col-xs-12">
+										<div class="detail-info">
+											<h2 class="title-detail" itemprop="name">{{product.title}}</h2>
+											<ul class="list-inline-block rate-order">
+												<li>
+													<div class="product-rate">
+														<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+													</div>
+												</li>
+												
+											</ul>
+											<ul class="list-none special-list-price">
+                                              {% if product.compare_at_price > product.price %}
+												<li>
+													<label>{{ 'products.product.list_price' | t }}</label><span>{{ product.compare_at_price | money }}</span>
+												</li>
+                                              {% endif %}
+												<li>
+													<label>{{ 'products.product.price' | t }}</label> <span itemprop="price"><b class="title18 color">{{ product.price | money }}</b></span>
+												</li>
+                                              {% if product.compare_at_price > product.price %}
+                                       
+                                              {%assign price_sale = product.compare_at_price |minus: product.price%}
+                                              {% assign deals_percent = price_sale |times:100|divided_by: product.compare_at_price %}  
+												<li>
+													<label>{{ 'products.product.save' | t }}</label><span class="color">{{product.compare_at_price|minus: product.price |money}}</span><span> ( {{deals_percent}}%)</span>
+												</li>
+                                              {% endif %}
+                                              
+											</ul>
+
+                                          <select name="id" id="productSelect" class="engoj-except-select2 product-single__variants">
+                                          {% for variant in product.variants %}
+                                          {% if variant.available %}
+                                          {% assign sku = variant.sku %}
+
+                                          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+
+                                          {% else %}
+                                          <option disabled="disabled">
+                                            {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                                          </option>
+                                          {% endif %}
+                                          {% endfor %}
+                                          </select>
+
+
+
+                                          {%- assign swatch_include = false -%}
+                                          {% for option in product.options %}
+                                          {% if option != 'Title' %}
+                                          {%- assign swatch_include = true -%}
+                                          {% include 'swatch' with option %}
+                                          {% endif %}
+                                          {% endfor %}
+                                          
+										</div>
+										<!-- Detail Info -->
+									</div>
+								</div>
+							</div>
+							<!-- End Main Detail -->
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12">
+							<div class="special-total-cart">
+								<ul class="list-inline-block">
+									<li><label class="title18">{{'products.product.total_price'|t}}</label></li>
+									<li><strong id="ProductPrice" class="color amount" itemprop="price">{{ current_variant.price | money }}</strong></li>
+                                  
+									
+								</ul>
+                              
+								<div class="text-center quantity">
+									<span style="display: inline-block;">{{'products.product.quantity'|t}}</span>
+									
+                                <input type="number" size="4" class="input-text qty text quantity-selector" title="Qty" value="1" min="1" id="Quantity" name="quantity" />
+                              
+								</div>
+									 <button class="addcart-link bg-color addcart-special2 btn-addtocart-b enj-add-to-cart-btn" type="submit" name="add" id="AddToCart">
+                                
+                                   <i class="fa fa-shopping-basket" aria-hidden="true"></i> <span class="sprite sprite-add-to-cart" id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                              </button>
+								<ul class="list-none">
+									<li><a href="{{section.settings.policy1_url_1}}"><span class="color"><i class="fa fa-globe" aria-hidden="true"></i></span>{{section.settings.policy1_title_1}}</a></li>
+									<li><a href="{{section.settings.policy1_url_2}}"><span class="color"><i class="fa fa-check-circle-o" aria-hidden="true"></i></span>{{section.settings.policy1_title_2}}</a></li>
+									<li><a href="{{section.settings.policy1_url_3}}"><span class="color"><i class="fa fa-lock" aria-hidden="true"></i></span>{{section.settings.policy1_title_3}}</a></li>
+								</ul>
+							</div>
+						</div>
+                      </form>
+					</div>
+                  </div>
+				</div>
+				<!-- End Detail -->
+				<div class="protect-shipping border bg-white radius">
+					<div class="row">
+						<div class="col-md-7 col-sm-7 col-xs-12">
+							<ul class="list-inline-block">
+								<li><a href="#" class="protect-icon bg-color"><i class="{{section.settings.policy_icon_1}}" aria-hidden="true"></i></a></li>
+								<li><h2 class="title24">{{section.settings.policy_title_1}}</h2></li>
+								<li>
+									<p class="desc"><span class="color"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>{{section.settings.policy_text_1}}</p>
+									<p class="desc"><span class="color"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>{{section.settings.policy_text_2}}</p>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<div class="table">
+								<div><a href="#" class="protect-icon bg-color"><i class="{{section.settings.policy_icon_2}}" aria-hidden="true"></i></a></div>
+								<div><h2 class="title24">{{section.settings.policy_title_2}}</h2></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Protect -->
+				<div class="detail-tab-relate">
+					<div class="row">
+                        {%if section.settings.show_tab%}
+						<div class="col-md-9 col-sm-8 col-xs-12">
+							<div class="detail-tab-special border bg-white radius">
+								<ul class="title-tab-special list-inline-block">
+									
+                                  {%if section.settings.show_des_tab%}
+                                  <li class="active">
+                                    <a href="#tab1"  data-toggle="tab" >{{ 'product_detail.description' |t}}</a>
+                                  </li>
+                                  {% endif%}
+                                  {%if section.settings.show_review_tab %}
+                                  <li >
+                                    <a href="#tab2"  data-toggle="tab">{{ 'product_detail.review' |t}} </a>
+                                  </li>
+                                  {% endif%}
+                                  {%if section.settings.show_custom_tab %}
+                                  <li >
+                                    <a href="#tab3"  data-toggle="tab">{{section.settings.custom_tab_title}}</a>
+                                  </li>
+                                  {% endif%}
+                                  
+								</ul>
+								<div class="tab-content">
+                                   {%if section.settings.show_des_tab%}
+									<div id="tab1" class="tab-pane active">
+										{{product.description}} 
+									</div>
+                                  {%endif%}
+                                   {%if section.settings.show_des_tab%}
+									<div id="tab2" class="tab-pane " id="product-review" itemtype="http://schema.org/Review" itemscope="">
+										 {% comment %}
+                                        Add product review widget, must install Product Review App:
+                                        https://apps.shopify.com/product-reviews
+                                        {% endcomment %}
+                                        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+
+									</div>
+             					 {%endif%}
+               					{%if section.settings.show_des_tab%}
+									<div id="tab3" class="tab-pane">
+										 {{section.settings.custom_tab_content}}
+									</div>
+             					 {%endif%}
+								</div>
+							</div>
+						</div>
+						{%endif%}
+                       {%if section.settings.show_upsell_product %}
+                      
+						<div class="col-md-3 col-sm-4 col-xs-12">
+							<div class="widget widget-related-product">
+								<h2 class="widget-title title14">{{section.settings.upsell_product_title}}</h2>
+								<div class="widget-content">
+                                  <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1]]">
+                                    {%assign count = 1|plus:0 %}
+                                    {%assign num = 0|plus:0 %}
+                                    {%for product in collections[section.settings.upsel_collection].products limit: section.settings.product_limit %}
+                                    {%assign num = num|plus:1 %}
+                                    {%endfor%}
+                                    {%for product in collections[section.settings.upsel_collection].products limit: section.settings.product_limit %}
+                                    {%assign t = count|modulo:3 %}
+                                    {%if count == 1 or opendiv == count %}
+                                    <div class="list-pro-related">
+                                      {%endif%}
+                                      {% assign on_sale = false %}
+                                      {% if product.compare_at_price > product.price %}
+                                      {% assign on_sale = true %}
+                                      {% endif %}
+                                      	
+                                      <div class="item-pro-related">
+											<div class="product-thumb">
+												<a href="{{ product.url | within: collection }}" class="product-thumb-link">
+                                          <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="">
+
+                                        </a>
+											</div>
+											<div class="product-info">
+												<h3 class="product-title"><a href="{{ product.url | within: collection }}">{{ product.title}}</a></h3>
+												<div class="product-price">
+													 {% capture price %}{{ product.price | money }}{% endcapture %}
+                                            {% if product.price_varies %}<ins><span>{{ 'products.general.from_text_html' | t: price: price }}</span></ins>{% else %}<ins>{{ price }}</ins>{% endif %}
+
+                                            {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+
+												</div>
+												<div class="product-rate">
+													<span class="shopify-product-reviews-badge" data-id="{{product.id}}"></span>
+												</div>
+											</div>
+										</div>	
+
+                                      {%if t == 0 or count == num %}
+                                    </div>
+                                    {%endif%}
+                                    {%if t == 0 %}
+                                    {%assign opendiv = count|plus:1 %}
+                                    {%endif%}
+                                    {%assign count = count|plus:1 %}
+                                    {%else%}
+                                    
+                                    <div class="list-pro-related">
+										<div class="item-pro-related">
+											<div class="product-thumb">
+												<a href="/admin/products/new" class="product-thumb-link"><img src="{{'p3.png'|asset_url}}" alt=""></a>
+											</div>
+											<div class="product-info">
+												<h3 class="product-title"><a href="/admin/products/new">new favorite</a></h3>
+												<div class="product-price">
+													<ins><span>$360.00</span></ins>
+													<del><span>$400.00</span></del>
+												</div>
+												<div class="product-rate">
+													<div style="width:90%" class="product-rating"></div>
+												</div>
+											</div>
+										</div>	
+										<div class="item-pro-related">
+											<div class="product-thumb">
+												<a href="/admin/products/new" class="product-thumb-link"><img src="{{'p4.png'|asset_url}}" alt=""></a>
+											</div>
+											<div class="product-info">
+												<h3 class="product-title"><a href="/admin/products/new">new favorite</a></h3>
+												<div class="product-price">
+													<ins><span>$360.00</span></ins>
+													<del><span>$400.00</span></del>
+												</div>
+												<div class="product-rate">
+													<div style="width:90%" class="product-rating"></div>
+												</div>
+											</div>
+										</div>	
+										<div class="item-pro-related">
+											<div class="product-thumb">
+												<a href="/admin/products/new" class="product-thumb-link"><img src="{{'p5.png'|asset_url}}" alt=""></a>
+											</div>
+											<div class="product-info">
+												<h3 class="product-title"><a href="/admin/products/new">new favorite</a></h3>
+												<div class="product-price">
+													<ins><span>$360.00</span></ins>
+													<del><span>$400.00</span></del>
+												</div>
+												<div class="product-rate">
+													<div style="width:90%" class="product-rating"></div>
+												</div>
+											</div>
+										</div>		
+									</div>
+                                    {%endfor%}
+
+                                  </div>
+									
+								</div>
+							</div>
+						</div>
+                      {%endif%}
+					</div>
+				</div>
+				<!-- End Detail Tab  -->
+				
+			</div>
+		</div>
+
+
+
+
+  {% comment %}
+  To take advantage of a callback on the select dropdown, add option_selection.js
+  and customize the JS in timber.productPage as needed.
+
+  Currently, timber.productPage does the following:
+    - Hides your <select> tag from above
+    - Breaks out the product variants into separate product options, if more than one exists
+    - Generates a <select> tag for each product option
+    - Enables/disables elements based on variant availability
+
+  Callback notes:
+    - Keep the callback available to the global scope (window.selectCallback) so that advanced
+      addons can override it.
+      * E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
+{% endcomment %}
+  <style>
+    {% if section.settings.show_product_swatch =='dropdown' %}
+    .selector-wrapper{
+    display:block;
+    }
+    .swatch{
+    display:none;
+    }
+    {%endif%}
+  </style>
+<script>
+  var selectCallback = function(variant, selector) {
+    console.log(1);
+    var quantity = 1,
+        totalPrice;
+    if (variant) {
+      console.log(2);
+      if (variant.available) {
+        // Selected a valid variant that is available.
+        $('#AddToCart').removeClass('disabled').removeAttr('disabled').val('Add to Cart').fadeTo(200,1);
+        $('#AddToCartText').html('{{ 'products.product.add_to_cart' | t }}');
+        
+      } else {
+        // Variant is sold out.
+        $('#AddToCart').val('Sold Out').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);
+         $('#AddToCartText').html('{{ 'products.product.sold_out' | t }}');
+      }
+      	quantity = parseInt($('#Quantity').val(), 10);
+        totalPrice = variant.price * quantity;
+        
+        if ( variant.compare_at_price > variant.price ) {
+          $('.enj-product-price').html('<span class="br-product__price">'+ Shopify.formatMoney(variant.price, window.money_format) + '<del>'+Shopify.formatMoney(variant.compare_at_price, window.money_format)+ '</del>' +'</span>');
+          $('#ProductPrice').html('<span class="br-product__price engoj_price_main">'+ Shopify.formatMoney(totalPrice, window.money_format) + '</span>');
+        } else {
+          $('.enj-product-price').html('<span class="br-product__price">'+ Shopify.formatMoney(variant.price, window.money_format) + '</span>');
+          $('#ProductPrice').html('<span class="br-product__price engoj_price_main">'+ Shopify.formatMoney(totalPrice, window.money_format) + '</span>' );
+        }
+                                  
+    } else {
+      // variant doesn't exist.
+      $('#AddToCart').val('Unavailable').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);
+    }
+  }
+  jQuery(function($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+    {% endif %}
+
+    // Hide selectors if we only have 1 variant and its title contains 'Default'.
+    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+      $('.selector-wrapper').hide();
+    {% endif %}
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "select",
+        "id": "show_product_swatch",
+        "label": "variant display",
+        "options": [
+          
+          {
+            "value": "dropdown",
+            "label": "dropdown"
+          },
+  		  {
+            "value": "swatch",
+            "label": "swatch"
+          }
+  
+        ],
+        "default": "dropdown"
+      },
+	  {
+        "type": "header",
+        "content": "policy"
+
+      },
+		{
+        "type": "text",
+        "id": "policy1_title_1",
+        "label": "Policy title",
+        "default": "Free Worldwide Shipping"
+      },
+		{
+        "type": "url",
+        "id": "policy1_url_1",
+        "label": "Url"
+      },
+		{
+        "type": "text",
+        "id": "policy1_title_2",
+        "label": "Policy title",
+        "default": "100% Money Back Guarantee"
+      },
+		{
+        "type": "url",
+        "id": "policy1_url_2",
+        "label": "Url"
+      },
+		{
+        "type": "text",
+        "id": "policy1_title_3",
+        "label": "Policy title",
+        "default": "100% Secure Payments"
+      },
+		{
+        "type": "url",
+        "id": "policy1_url_3",
+        "label": "Url"
+      },
+	  {
+        "type": "header",
+        "content": "policy block"
+      },
+
+	 {
+        "type": "text",
+        "id": "policy_icon_1",
+        "label": "Icon 1",
+		"default":"fa fa-shopping-basket",
+		"info":"fontawesome.io\/icons\/"
+      },
+      {
+        "type": "text",
+        "id": "policy_title_1",
+        "label": "Policy title",
+        "default": "Buyer<br> Protection"
+      },
+		{
+        "type": "text",
+        "id": "policy_text_1",
+        "label": "Policy text 1",
+        "default": "<b>Full Refund</b> if you don't receive your order."
+      },
+		{
+        "type": "text",
+        "id": "policy_text_2",
+        "label": "Policy text 2",
+        "default": "<b>Refund & Keep</b> items, if not as described."
+      },
+		{
+        "type": "text",
+        "id": "policy_icon_2",
+        "label": "Icon 2",
+		"default":"fa fa-fighter-jet",
+		"info":"fontawesome.io\/icons\/"
+      },
+      {
+        "type": "text",
+        "id": "policy_title_2",
+        "label": "Policy title",
+        "default": "Free Shipping Worldwide"
+      },
+      
+      {
+        "type": "header",
+        "content": "Product Tab"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tab",
+        "label": "Show tab?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_des_tab",
+        "label": "Show des tab?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_custom_tab",
+        "label": "Show custom tab?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_review_tab",
+        "label": "Show review tab?",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Custom tab"
+      },
+      {
+        "type": "text",
+        "id": "custom_tab_title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "custom_tab_content",
+        "label": "Custom tab html"
+      },
+      {
+        "type": "header",
+        "content": "UPSELL product"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_upsell_product",
+        "label": "Show upsell product?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "upsell_product_title",
+        "label": "Upsell product title",
+        "default": "Upsell product"
+      },
+      {
+        "type": "collection",
+        "id": "upsel_collection",
+        "label": "select collection"
+      },
+      {
+        "type": "text",
+        "id": "product_limit",
+        "label": "limit",
+		"default":"9"
+      }
+    ]
+  }
+{% endschema %}

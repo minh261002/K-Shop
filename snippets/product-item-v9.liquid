@@ -1,0 +1,18 @@
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+
+<div class="item-hot-cat">
+  <div class="hot-cat-info">
+    <h3 class="product-title"><a href="{{ product.url | within: collection }}" title="{{product.title}}">{{product.title}}</a></h3>
+    <p class="price-from"> 
+      {% capture price %}{{ product.price | money }}{% endcapture %}
+       
+      {% if product.price_varies %}<span>{{ 'products.general.from_text_html' | t: price: price }}</span>{% else %}<span>{{ price }}</span>{% endif %}
+		</p>							
+  </div>
+  <div class="hot-cat-thumb"><img src="{{ product.featured_image.src | img_url: 'large' }}" alt=""><a href="{{ product.url | within: collection }}" class="shopnow"><span>{{section.settings.collection_shopnow}}</span></a></div>
+</div>

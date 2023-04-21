@@ -1,0 +1,71 @@
+{% paginate blog.articles by {{section.settings.article_per_page}} %}
+
+<div id="content">
+		<div class="content-page">
+			<div class="container">
+				{%include 'breadcrumb' %}
+				<!-- End Bread Crumb -->
+				<div class="content-blog-masonry">
+					<div class="sort-pagi-bar clearfix">
+						
+					</div>
+					<!-- End Sort PagiBar -->
+					<div class="list-post-masonry">
+                      {% for article in blog.articles %}
+						<div class="item-post-masonry">
+							<div class="post-item">
+								<h3 class="post-title"><a href="{{article.url}}">{{article.title}}</a></h3>
+								<div class="post-thumb">
+									<a class="post-thumb-link" href="{{article.url}}"><img src="{{ article.image.src | img_url: 'grande' }}" alt=""></a>
+								</div>
+								<div class="post-info">
+									<ul class="post-date-comment">
+										<li><i aria-hidden="true" class="fa fa-clock-o"></i><span>{{article.published_at | date: " %d . %B .%Y" }}</span></li>
+										<li><i aria-hidden="true" class="fa fa-comment"></i><a href="{{article.url}}#comments">{{article.comments_count}} {{'blogs.comments.comments_with_count.other'|t}}  </a></li>
+									</ul>
+									<p class="desc">
+                                      {% if article.excerpt == blank %}
+                                         
+                                                  {{ article.content | strip_html | truncate: 30 }}
+                                                  {% else %}
+
+                                                  {{ article.excerpt }}
+                                                  {% endif %}
+                                  
+                                  </p>
+									<a href="{{article.url}}" class="readmore">{{section.settings.article_button}}</a>
+								</div>
+							</div>
+						</div>
+						<!-- End Item -->
+					{% endfor %}
+					</div>
+					<!-- End List Post Masonry -->
+					{% if paginate.pages > 1 %}
+                                  {% include 'pagination' %}
+                                {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endpaginate %}
+{% schema %}
+{
+  "name": "Blog large image pages",
+  "settings": [
+    
+    {
+      "type": "text",
+      "id": "article_per_page",
+      "label": "article per page",
+		"default":"12"
+    },
+    {
+      "type": "text",
+      "id": "article_button",
+      "label": "text button",
+		"default":"read more"
+    }
+  ]
+}
+{% endschema %}

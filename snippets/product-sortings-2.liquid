@@ -1,0 +1,101 @@
+<!-- /snippets/collection-sorting.liquid -->
+<form class="products-sortby" method="get" action="#">
+
+  <div class="sort-pagi-bar clearfix">
+    <div class="view-type pull-left">
+
+ <a href="javascript:void(0)" class="change-view{% if template == 'collection' %} active{% endif %} grid-view" data-view="grid" data-layout="grid" data-remove="lists"  data-toggle="tooltip" data-placement="top"></a>
+ <a href="javascript:void(0)" class="change-view{% if template contains 'list' %} active{% endif %} list-view" data-view="list" data-layout="lists" data-remove="grid"  data-toggle="tooltip" data-placement="top" ></a>
+    </div>
+    <div class="sort-paginav pull-right">
+      <div class="sort-bar select-box">
+        <label>Sort By:</label>
+        <select  name="SortBy" id="SortBy">
+            <option value="manual">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.featured' | t }}</option>
+            <option value="best-selling">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.best_selling' | t }}</option>
+            <option value="title-ascending">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.az' | t }}</option>
+            <option value="title-descending">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.za' | t }}</option>
+            <option value="price-ascending">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.price_ascending' | t }}</option>
+            <option value="price-descending">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.price_descending' | t }}</option>
+            <option value="created-descending">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.date_descending' | t }}</option>
+            <option value="created-ascending">{{ 'collections.sorting.title' | t }}: {{ 'collections.sorting.date_ascending' | t }}</option>
+          </select>
+      </div>
+      <div class="show-bar select-box">
+        <label>Show:</label>
+        
+        {% assign product_per_page_default = section.settings.product_limit %}
+        {% assign current_page_size = paginate.page_size %}
+        <select name="Showby" id="Showby">
+        <option value="list" {% if current_page_size == product_per_page_default %} selected="selected" {% endif %}>{{product_per_page_default}}</option>
+        <option value="list24"{% if current_page_size == 24 %} selected="selected" {% endif %}>24</option>
+         <option value="list48"{% if current_page_size == 48 %} selected="selected" {% endif %}>48</option>
+    </select>
+      </div>
+      {% if paginate.pages > 1 %}
+      <div class="pagi-bar">
+    {% if paginate.previous %}
+    <a href="{{ paginate.previous.url }}" class="next-page" title="{{ 'collections.toolbar.previous' | t }}"  {% if settings.enable_multilang %}data-translate="collections.toolbar.previous" translate-item="title"{% endif %}><i class="fa fa-caret-left" aria-hidden="true"></i></a>
+      {% endif %}
+
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+      
+        <a href="{{ part.url }}">{{ part.title }}</a>
+    
+      {% else %}
+        {% if part.title == paginate.current_page %}
+        <a class="current-page">{{ part.title }}</a>
+        {% else %}
+        <a>{{ part.title }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if paginate.next %}
+<a href="{{ paginate.next.url }}" title="{{ 'collections.toolbar.next' | t }}"  {% if settings.enable_multilang %}data-translate="collections.toolbar.next" translate-item="title"{% endif %}><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+     {% endif %}
+  </div>
+      {% endif %}
+    </div>
+  </div>
+				<!-- End Sort PagiBar -->
+</form>
+
+{% comment %}
+  Toggle between collection.liquid and collection.list.liquid with the
+  ?view= parameter.
+{% endcomment %}
+
+<script>
+  /*============================================================================
+    Inline JS because collection liquid object is only available
+    on collection pages and not external JS files
+  ==============================================================================*/
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+
+  $(function() {
+    $('#SortBy')
+      .val('{{ collection.sort_by | default: collection.default_sort_by }}')
+      .bind('change', function() {
+        Shopify.queryParams.sort_by = jQuery(this).val();
+        location.search = jQuery.param(Shopify.queryParams);
+      }
+    );
+    $('#Showby')
+      .val('{{ collection.limit | default: product_per_page }}')
+      .bind('change', function() {
+        Shopify.queryParams.view = jQuery(this).val();
+        location.search = jQuery.param(Shopify.queryParams);
+      }
+    );
+  });
+</script>

@@ -1,0 +1,60 @@
+#productSearchResults {
+  border-top: 1px #dfdfdf solid;
+  background: #fff;
+  .engoc-header-s3 & {
+    border: 1px #dfdfdf solid;
+  }
+  ul {
+    display: block;
+    margin: 0;
+    padding: 5px 0;
+    overflow-y: auto;
+    max-height: 472px;
+    li {
+      display: block;
+      border-bottom: 1px solid #efefef;
+      padding: 5px;
+      &:last-child {
+        border-bottom: none;
+        > p {
+          padding: 0 15px;
+        }
+      }
+      &:after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+      &:nth-of-type(2) {
+        /*background: #fdfdfd;*/
+      }
+      .hightlight {
+        background-color: {{settings.m_primary_color}};
+        color: #fff;
+        padding: 0 1px;
+      }
+      .search-item-title {
+        display: block;
+      }
+      img {
+        max-width: 60px; 
+        float: left;
+        margin-right: 10px;
+      }
+      .item-price {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      del {
+        color: #bcbcbc;
+      }
+      .item-sold-out {
+        background: #bcbcbc;
+        color: #fff;
+        padding: 0 2px;
+        border-radius: 2px;
+        font-size: 11px;
+      }
+    }
+  }
+}

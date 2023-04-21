@@ -1,0 +1,160 @@
+
+
+
+<div data-section-id="{{ section.id }}" data-section-type="section-brand-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="brand-v1">
+    <div class="container">
+      <div class="category-color color-more">
+				<div class="header-cat-color">
+					<h2 class="title18">{{section.settings.section_title}}</h2>
+				</div>
+				<div class="content-shop-brand clearfix">
+                  {%for block in section.blocks%}
+					<a href="{{block.settings.brand_url}}">
+                      {%if block.settings.brand_image == blank%}
+                      <img class="wobble-horizontal" src="{{'br1.png'| asset_url }}" alt="">
+                      {%else%}
+                      <img class="wobble-horizontal" src="{{block.settings.brand_image|img_url:'compact'}}" alt="" />
+                      {%endif%}
+                     
+                  </a>
+                  {%endfor%}
+					
+				</div>
+			</div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "Brand v1",
+    "class" : "index-section",
+    "settings": [
+	  {
+        "type": "text",
+        "id": "section_title",
+        "label": "title",
+		"default":"top brand"
+      },
+     
+      
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+ "blocks": [
+      {
+      "type": "brand",
+      "name": "brand",
+      "settings": [
+    	{
+          "type": "image_picker",
+          "id": "brand_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "Url"
+        }
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Brand v1",
+        "category": "brand",
+        "blocks": [
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+				{
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                },
+                {
+                "type": "brand"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}
+

@@ -1,0 +1,74 @@
+
+<div id="content">
+		<div class="content-page">
+			<div class="container">
+              {%if settings.contact_enable_googlemap%}
+				<div class="contact-map">
+                  {{settings.contact_google_map}}
+				</div>
+              {%endif%}
+				<!-- End Map -->
+				<div class="contact-info-page">
+					<div class="list-contact-info">
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="item-contact-info">
+									<a class="contact-icon icon-mobile" href="#"><i class="fa fa-mobile"></i></a>
+									<h2>{{settings.contact_2_col_1_title}}</h2>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="item-contact-info">
+									<a class="contact-icon icon-phone" href="#"><i class="fa fa-phone"></i></a>
+									<h2>{{settings.contact_2_col_2_title}}</h2>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="item-contact-info last-item">
+									<a class="contact-icon icon-email" href="mailto:7uptheme@gmail.com"><i class="fa fa-envelope"></i></a>
+									<h2><a href="mailto:{{settings.contact_2_col_3_title}}">{{settings.contact_2_col_3_title}}</a></h2>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="desc">{{settings.contact_description}}</p>
+				</div>
+				<div class="contact-form-page">
+					<h2>{{settings.contact_form_title}}</h2>
+					<div class="form-contact">
+                      
+                       {% form 'contact' %}
+
+          {% if form.posted_successfully? %}
+            <p class="note form-success">
+              {{ 'contact.form.post_success' | t }}
+            </p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+          <form>
+							<div class="row">
+								<div class="col-md-3 col-sm-4 col-xs-12">
+									<input type="text" id="ContactFormName" value="Name *" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue">
+								</div>
+								<div class="col-md-3 col-sm-4 col-xs-12">
+									 <input type="email" id="ContactFormEmail" value="email *"  name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="{% if form.errors contains 'email' %}input--error{% endif %}"  onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue">
+								</div>
+								<div class="col-md-6 col-sm-4 col-xs-12">
+									<input type="text" value="Website" placehoder="website" name="contact[website]" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue">
+								</div>
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<textarea  cols="30" rows="8" id="ContactFormMessage" name="contact[body]" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue">Message</textarea>
+									<input type="submit" value="{{ 'contact.form.submit' | t }}" />
+								</div>
+							</div>
+						</form>
+
+        {% endform %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

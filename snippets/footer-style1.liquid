@@ -1,0 +1,173 @@
+	<div id="footer">
+		<div class="footer footer2">
+			<div class="container">
+				<div class="service-footer">
+					<div class="row">
+                      {%for i in (1..3) %}
+                      {%capture image %}f1_policy{{i}}_img.png{%endcapture%}
+                      {%capture title %}f1_policy{{i}}_title{%endcapture%}
+                      {%capture subtitle %}f1_policy{{i}}_subtitle{%endcapture%}
+                      {%capture text1 %}f1_policy{{i}}_text1{%endcapture%}
+                      {%capture text2 %}f1_policy{{i}}_text2{%endcapture%}
+                      {%capture text3 %}f1_policy{{i}}_text3{%endcapture%}
+                      
+						<div class="col-md-4 col-sm-4 col-xs-12">
+							<div class="item-service-footer">
+								<div class="service-icon">
+									<a href="#" class="wobble-horizontal"><img class="img-circle" src="{{image|asset_url}}" alt="" /></a>
+								</div>
+								<div class="service-info">
+									<h2 class="title14">{{settings[title]}}</h2>
+									<p>{{settings[subtitle]}}</p>
+									<ul class="list-unstyled">
+                                     	{%if settings[text1] != blank %}
+										<li><a href="#">{{settings[text1]}}</a></li>
+                                       {%endif%}
+                                      {%if settings[text2] != blank %}
+										<li><a href="#">{{settings[text2]}}</a></li>
+                                      {%endif%}
+                                      {%if settings[text3] != blank %}
+                                        <li><a href="#">{{settings[text3]}}</a></li>
+                                      {%endif%}
+									</ul>
+								</div>
+							</div>
+						</div>
+                      {%endfor%}
+						
+					</div>
+				</div>
+				<!-- End Service Footer -->
+				<div class="footer-list-box">
+					<div class="row">
+						<div class="col-md-5 col-sm-12 col-xs-12">
+							<div class="newsletter-form footer-box">
+								<h2 class="title14">{{settings.f1_newsletter}}</h2>
+                              {% if settings.newsletter_form_action != blank %}
+                                {% assign form_action = settings.newsletter_form_action %}
+                                {% else %}
+                                {% assign form_action = '//myshopify.us12.list-manage.com/subscribe/post?u=9ade7b39da179308b891bd263&amp;id=e9dbec7f92' %}
+                                {% endif %}
+                                <form action="{{ form_action }}" method="get">
+                                    <input type="text" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{settings.f1_newsletter_placehoder}}" name="EMAIL" id="mail">
+                                    <input type="submit"  name="subscribe" id="subscribe" value="{{settings.f1_newsletter_button}}">
+                                </form>
+							</div>
+                          {%if settings.f1_social_enable%}
+							<div class="social-footer footer-box">
+								<h2 class="title14">{{settings.f1_social_title}}</h2>
+								<div class="list-social">
+                                  {%for i in (1..6)%}
+                                  {%capture _enable%}social{{i}}_enable{%endcapture%}
+                                  {%capture _text%}social{{i}}_text{%endcapture%}
+                                  {%capture _icon%}social{{i}}_icon{%endcapture%}
+                                  {%capture _url%}social{{i}}_url{%endcapture%}
+
+                                  {%assign enable = settings[_enable]%}
+                                  {%assign icon = settings[_icon]%}
+                                  {%assign url = settings[_url]%}
+                                  {%if enable%}
+                                  <a href="{{url}}" target="_blank"><i class="{{icon}}" aria-hidden="true"></i></a>
+                                  {%endif%}
+                                  {%endfor%}
+								</div>
+							</div>
+                          {%endif%}
+						</div>
+						<div class="col-md-2 col-sm-3 col-xs-6">
+							<div class="menu-footer-box footer-box">
+								<h2 class="title14">{{settings.f1_column1_title}}</h2>
+								<ul class="list-unstyled">
+                                  	{% for link in linklists[settings.f1_column1_menu].links %}
+                                    <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+                                    {%endfor%}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-3 col-xs-6">
+							<div class="menu-footer-box footer-box">
+								<h2 class="title14">{{settings.f1_column2_title}}</h2>
+								<ul class="list-unstyled">
+									{% for link in linklists[settings.f1_column2_menu].links %}
+                                    <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+                                    {%endfor%}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="contact-footer-box footer-box">
+								<h2 class="title14">{{settings.f1_about_title}}</h2>
+								<p class="formule-address">{{settings.f1_about_location}}</p>
+								<p class="formule-phone">{{settings.f1_about_phone}}</p>
+								<p class="formule-email"><a href="mailto:{{settings.f1_about_email}}">{{settings.f1_about_email}}</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Footer List Box -->
+			</div>
+			<div class="payment-method text-center">
+              
+				<a href="{{settings.f1_payment1_url}}" class="wobble-vertical"><img src="{{'f1_payment1_img.png'|asset_url}}" alt="" /></a>
+				<a href="{{settings.f1_payment2_url}}" class="wobble-vertical"><img src="{{'f1_payment2_img.png'|asset_url}}" alt="" /></a>
+				<a href="{{settings.f1_payment3_url}}" class="wobble-vertical"><img src="{{'f1_payment3_img.png'|asset_url}}" alt="" /></a>
+				<a href="{{settings.f1_payment4_url}}" class="wobble-vertical"><img src="{{'f1_payment4_img.png'|asset_url}}" alt="" /></a>
+			</div>
+			<!-- End Payment -->
+			<div class="footer-tabs">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:130px">{{settings.f1_menu1}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f1_menu1_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:130px">{{settings.f1_menu2}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f1_menu2_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:80px">{{settings.f1_menu3}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f1_menu3_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:80px">{{settings.f1_menu4}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f1_menu4_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Footer Tab -->
+			<div class="footer-copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<p class="copyright">{{settings.f1_copyright}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Footer Copyright -->
+		</div>
+	</div>
+	<!-- End Footer -->
+	<a href="#" class="radius scroll-top style1"><i class="fa fa-angle-up" aria-hidden="true"></i></a>

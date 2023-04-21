@@ -1,0 +1,108 @@
+<!-- section-slider-v1.liquid -->
+
+<div data-section-id="{{ section.id }}" data-section-type="section-today-deals-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="today-deals">
+    <div class="container">
+    <div class="product-tab5 hotdeal-pro5 border">
+				<div class="title-tabpro5">
+					<h2 class="title18 color">{{section.settings.deals_title}}</h2>
+					<div class="hotdeal5">
+						<span>Ends in:</span>
+						<div class="countdown-master"></div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0, 1], [480, 2], [768, 3],[992, 4],[1200, 5]]">
+						  {%for product in collections[section.settings.deals_collection].products limit: section.settings.deals_limit %}
+                      <div class="item-product5 item-product">
+                            {%include 'product-item-v4'%}
+                          </div>
+                      {%else%}
+                          <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                            </div>
+                            <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                              </div>
+                              <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                                </div>
+                                <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                                  </div>
+                                  <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                                    </div>
+                                    <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                                      </div>
+                                      <div class="item-product5 item-product">
+                          {%include 'product-item-v4-empty-single'%}
+                                        </div>
+                      {%endfor%}
+					</div>
+					<!-- End Tab -->
+				</div>
+			</div>
+    </div>
+  </section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Section today deals v2",
+  "class": "index-section",
+  "settings": [
+	 {
+        "type": "header",
+        "content": "deals"
+      },
+	
+	 {
+        "type": "text",
+        "id": "deals_title",
+        "label": "Title",
+        "default": "Hot deals"
+      },
+	  {
+        "type": "text",
+        "id": "deals_end_time",
+        "label": "text Deals End",
+        "default": " Deals End in:"
+      },
+      {
+        "type": "collection",
+        "id": "deals_collection",
+        "label": "select collection"
+      },
+	  {
+        "type": "text",
+        "id": "deals_limit",
+        "label": "product limit"
+      },
+	 
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+  ],
+  
+  "presets": [{
+    "name": "today deals v2",
+    "category": "Deals"
+  }]
+}
+{% endschema %}

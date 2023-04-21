@@ -1,0 +1,123 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-product-carousel-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="product-carousel-v3">
+    <div class="product-tab5 trending5">
+			<div class="container">
+				<div class="trend-box5">
+					<h2 class="title18">{{section.settings.section_title}}</h2>
+					<div class="trend-slider5">
+						<div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[600,2],[1024,3]]">
+                           
+                          
+   
+      {%assign n = 0 %}
+       {%assign number = collections[section.settings.collection].all_products_count %}                 
+     {%for product in collections[section.settings.collection].products limit: section.settings.product_limit %}
+       {%assign a1 = 5 |times:n |plus:1 %}
+       {%assign a2 = 5 |times:n |plus:2 %}
+       {%assign a3 = 5 |times:n |plus:3 %}
+       {%assign a4 = 5 |times:n |plus:4 %} 
+       {%assign a5 = 5 |times:n |plus:5 %}
+      {%if forloop.index == a1 %}
+         <div class="item-trend5">
+            {%include 'product-item-v10-ver'%}
+       </div>
+      {%endif%}
+      {%if forloop.index == a2%}
+        <div class="item-trend5">
+           {%include 'product-item-v10-hoz'%}
+          {%if number == forloop.index %}
+           </div>
+          {%endif%}
+      {%endif%}
+      {%if forloop.index == a3%}
+         {%include 'product-item-v10-hoz'%}
+         </div>
+      {%endif%}
+      {%if forloop.index == a4%}
+        <div class="item-trend5">
+          {%include 'product-item-v10-hoz'%}
+          {%if number == forloop.index %}
+           	</div>
+          {%endif%}
+      {%endif%}
+      {%if forloop.index == a5%}
+        {%include 'product-item-v10-hoz'%}
+         </div>
+      {%endif%}
+      
+     {%assign m = forloop.index | modulo:5 %}
+      {% if m == 0 %}
+      {%assign n = n|plus:1 %}
+      {%endif%}
+      
+     {%endfor%}
+   
+   
+                          
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+   
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "product carousel v3",
+    "class" : "index-section",
+    "settings": [
+	  {
+        "type": "text",
+        "id": "section_title",
+        "label": "title",
+		"default":"top trending"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select collection"
+      },
+	  {
+        "type": "text",
+        "id": "collection_shopnow",
+        "label": "Text Shop now",
+		"default":"Shop now"
+      },
+	  {
+        "type": "text",
+        "id": "product_limit",
+        "label": "Limit",
+        "default": "8"
+      },
+      
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product carousel v3",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+

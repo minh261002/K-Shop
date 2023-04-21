@@ -1,0 +1,78 @@
+{% if template == 'index' %}
+  {%if section.settings.header_in_homepage =='header_style1'%}
+  {% include 'header-style1' %}
+  {%elsif section.settings.header_in_homepage =='header_style2'%}
+  {% include 'header-style2' %}
+  {%elsif section.settings.header_in_homepage =='header_style3'%}
+  {% include 'header-style3' %}
+  {%elsif section.settings.header_in_homepage =='header_style4'%}
+  {% include 'header-style4' %}
+  
+  {%endif%}
+
+{%else%}
+
+  {%if section.settings.header_in_orther_page =='header_style1'%}
+  {% include 'header-style1' %}
+  {%elsif section.settings.header_in_orther_page =='header_style2'%}
+  {% include 'header-style2' %}
+  {%elsif section.settings.header_in_orther_page =='header_style3'%}
+  {% include 'header-style3' %}
+  {%elsif section.settings.header_in_orther_page =='header_style4'%}
+  {% include 'header-style4' %}
+  {%endif%}
+
+{%endif%}
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "select",
+        "id": "header_in_homepage",
+        "label": "Header in homepage",
+        "options": [
+          {
+            "value": "header_style1",
+            "label": "header style 01"
+          },
+		  {
+            "value": "header_style2",
+            "label": "header style 02"
+          },
+		  {
+            "value": "header_style3",
+            "label": "header style 03"
+          },
+		  {
+            "value": "header_style4",
+            "label": "header style 04"
+          }
+        ]
+      },
+		{
+        "type": "select",
+        "id": "header_in_orther_page",
+        "label": "Header in orther page",
+        "options": [
+          {
+            "value": "header_style1",
+            "label": "header style 01"
+          },
+		  {
+            "value": "header_style2",
+            "label": "header style 02"
+          },
+		  {
+            "value": "header_style3",
+            "label": "header style 03"
+          },
+		  {
+            "value": "header_style4",
+            "label": "header style 04"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

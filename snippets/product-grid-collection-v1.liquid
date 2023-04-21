@@ -1,0 +1,55 @@
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+<div class="item-pro-ajax">
+  
+  <div class="product-thumb">
+	<div class="product-label">
+      {%if on_sale %}
+      <span class="sale-label">sale</span>
+      {%endif%}
+    </div>
+    <a href="{{ product.url | within: collection }}" class="product-thumb-link">
+      <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="">
+
+    </a>
+    <a href="javascript:void(0)" data-id="{{ product.handle }}" class="quickview-link pos-bottom quick-view engoj-btn-quickview" title="{{ settings.product_quickview_name }}">
+          <span>{{ settings.product_quickview_name }}</span>
+        </a> 
+  </div>
+  <div class="product-info">
+    <h3 class="product-title"><a href="{{ product.url | within: collection }}">{{product.title}}</a></h3>
+    <div class="product-price">
+      
+       {% capture price %}{{ product.price | money }}{% endcapture %}
+        {% if product.price_varies %}<ins><span>{{ 'products.general.from_text_html' | t: price: price }}</span></ins>{% else %}<ins>{{ price }}</ins>{% endif %}
+        {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+    
+    </div>
+    <div class="product-rate">
+      <span class="shopify-product-reviews-badge" data-id="{{product.id}}"></span>
+    </div>
+    <div class="product-extra-link2">
+      {% if product.variants.size > 1 %}
+            <a class="button add-to-cart addcart-link" href="{{ product.url | within: collection }}">
+
+         		{{settings.product_select_option_name }}  
+            </a>
+               
+          {% else %}
+              
+            <form method="post" action="/cart/add" class="add-to-cart">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+              <button type="submit" name="add" id="AddToCart{{ product.id }}" class="button addcart-link add-to-cart-button enj-add-to-cart-btn">
+               <span>
+                 {{ settings.product_cart_name }}
+                </span>
+              </button>
+            </form>
+          {% endif %}
+      {%include 'add-wishlist'%}
+    </div>
+  </div>
+</div>

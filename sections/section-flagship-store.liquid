@@ -1,0 +1,173 @@
+
+
+<div data-section-id="{{ section.id }}" data-section-type="section-flagship" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="flagship">
+    <div class="container">
+  <div class="flagship-store">
+  <h2 class="title18">{{section.settings.collection_title}}</h2>
+  <div class="list-flagship-box">
+    <div class="row">
+      {%assign count = 1|plus:0 %}
+      {%assign num = 0|plus:0 %}
+      {%for block in section.blocks %}
+      {%assign num = num|plus:1 %}
+      {%endfor%}
+       {%for block in section.blocks %}
+      {%assign t = count|modulo:2 %}
+      {%if count == 1 or opendiv == count %}
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        {%endif%}
+      <div class="flagship-box">
+          <div class="flagship-header">
+            <div class="flagship-brand">
+              <a href="#">
+              {%if block.settings.flagship_logo == blank%}
+                <img  src="{{'flagship.png'| asset_url }}" alt="">
+                {%else%}
+                <img src="{{block.settings.flagship_logo|img_url:'compact'}}" alt="" />
+                {%endif%}
+              </a>
+            </div>
+            <div class="flagship-info">
+              <h2>{{block.settings.flagship_title}}</h2>
+              <p>{{block.settings.flagship_text}}</p>
+            </div>
+            <div class="flagship-link">
+              <a href="{{block.settings.flagship_url}}">{{block.settings.flagship_button}}</a>
+            </div>
+          </div>
+          <div class="flagship-content">
+            <div class="wrap-item" data-itemscustom="[[0,1],[480,2],[768,3],[1024,2],[1200,3]]" data-pagination="false">
+               {%for product in collections[block.settings.product_collection].products limit:block.settings.product_limit%}
+              {%include 'product-item-v4'%}
+              {%else%}
+              {%include 'product-item-v4-empty-single'%}
+              {%include 'product-item-v4-empty-single'%}
+              {%include 'product-item-v4-empty-single'%}
+              {%include 'product-item-v4-empty-single'%}
+              {%endfor%}
+              
+            </div>
+          </div>
+        </div>
+        {%if t == 0 or count == num %}
+      </div>
+      {%endif%}
+       {%if t == 0 %}
+      {%assign opendiv = count|plus:1 %}
+      {%endif%}
+      {%assign count = count|plus:1 %}
+      {%endfor%}
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "Flagship store",
+    "class" : "index-section",
+    "settings": [
+	  
+		
+      {
+        "type": "text",
+        "id": "collection_title",
+        "label": "Title",
+        "default": "FLAGSHIP STORES"
+      },
+	  
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "Collection",
+      "name": "Collection",
+	  "limit":4,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "flagship_logo",
+          "label": "logo"
+        },
+    	{
+          "type": "textarea",
+          "id": "flagship_title",
+          "label": "Title",
+          "default":"<span style=\"color:#00a7cd \">Milanno</span> official flagship store"
+        },
+		{
+          "type": "textarea",
+          "id": "flagship_text",
+          "label": "text",
+          "default":"Do eiusmod tempor incididunt"
+        },
+	    
+	    {
+          "type": "text",
+          "id": "flagship_button",
+          "label": "Text button",
+          "default":"Browse Store"
+        },
+		{
+          "type": "url",
+          "id": "flagship_url",
+          "label": "URL"
+        },
+        {
+          "type": "collection",
+          "id": "product_collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "product_limit",
+          "label": "Product limit",
+          "default":"4"
+        }
+
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Flagship store",
+        "category": "Collection",
+        "blocks": [
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}
+

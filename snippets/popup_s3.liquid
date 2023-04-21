@@ -1,0 +1,39 @@
+<div class="newsletterwrapper">
+  <div id="email-modal" class="popup popup-v3 popup-open">
+    <div class="modal-overlay"></div>
+    <div class="modal-window" >
+      <div class="window-window">
+        <div class="window-content clearfix">
+          <a href="javascript:void(0)" class="btn close popup-close mfp-close" title="Close">x</a>
+          <div class="center">
+            <img src="{{'popup_image.jpg' | asset_url}}" alt="">
+            <h1 class="title">{{settings.popup_newletter_title}}</h1>           
+            <p class="sub-title">{{settings.popup_newletter_des}}</p>
+            <div id="mailchimp-email-subscibe">
+              <div id="mc_embed_signup">
+                {% if settings.newsletter_form_action != blank %}
+                {% assign form_action = settings.newsletter_form_action %}
+                {% else %}
+                {% assign form_action = '//myshopify.us12.list-manage.com/subscribe/post?u=9ade7b39da179308b891bd263&amp;id=e9dbec7f92' %}
+                {% endif %}
+                <form action="{{ form_action }}" method="get" id="mc-embedded-subscribe-form" class="subscible-form">
+                  <div class="form-group inline-block">
+                    <input class="form-control" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{settings.popup_newletter_input_title}}" name="EMAIL" id="mail">
+                    <button type="submit" class="btn btn-lg " name="subscribe" id="subscribe" >{{settings.popup_newletter_button_title}}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="again-popup">
+              <div class="checkbox">
+                <input type="checkbox" name="payment_method" id="showpopup">
+                <label>{{settings.dont_show_popup}}</label>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="mask popup-close"></div>
+  </div>
+</div>

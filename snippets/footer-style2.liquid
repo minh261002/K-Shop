@@ -1,0 +1,160 @@
+<div id="footer">
+		<div class="footer footer3">
+			<div class="service-footer3">
+				<div class="container">
+					<div class="service-slider3">
+						<div class="wrap-item" data-pagination="false" data-navigation="false" data-items="6">
+                          {%for i in (1..10) %}
+                           {%capture enable %}f2_policy{{i}}_enable{%endcapture%}  
+                      {%capture image %}f2_policy{{i}}_img.png{%endcapture%}
+                      {%capture title %}f2_policy{{i}}_title{%endcapture%}
+                      {%capture subtitle %}f2_policy{{i}}_subtitle{%endcapture%}
+                       {%capture url %}f2_policy{{i}}_url{%endcapture%}   
+                    			
+                      	{%if settings[enable] %}
+							<div class="item-service3 white">
+								<a class="service-icon" href="{{settings[url]}}"><img src="{{image|asset_url}}" alt="" /></a>
+								<h2 class="title14">{{settings[title]}}</h2>
+								<p>{{settings[subtitle]}}</p>
+							</div>
+                          {%endif%}
+                          {%endfor%}
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Service Footer3 -->
+			<div class="container">
+				<div class="footer-list-box">
+					<div class="row">
+						<div class="col-md-5 col-sm-12 col-xs-12">
+							<div class="newsletter-form footer-box">
+								<h2 class="title14">{{settings.f2_newsletter}}</h2>
+                              {% if settings.newsletter_form_action != blank %}
+                                {% assign form_action = settings.newsletter_form_action %}
+                                {% else %}
+                                {% assign form_action = '//myshopify.us12.list-manage.com/subscribe/post?u=9ade7b39da179308b891bd263&amp;id=e9dbec7f92' %}
+                                {% endif %}
+                                <form action="{{ form_action }}" method="get">
+                                    <input type="text" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{settings.f2_newsletter_placehoder}}" name="EMAIL" id="mail">
+                                    <input type="submit"  name="subscribe" id="subscribe" value="{{settings.f2_newsletter_button}}">
+                                </form>
+							</div>
+                          {%if settings.f2_social_enable%}
+							<div class="social-footer footer-box">
+								<h2 class="title14">{{settings.f2_social_title}}</h2>
+								<div class="list-social">
+                                  {%for i in (1..6)%}
+                                  {%capture _enable%}social{{i}}_enable{%endcapture%}
+                                  {%capture _text%}social{{i}}_text{%endcapture%}
+                                  {%capture _icon%}social{{i}}_icon{%endcapture%}
+                                  {%capture _url%}social{{i}}_url{%endcapture%}
+
+                                  {%assign enable = settings[_enable]%}
+                                  {%assign icon = settings[_icon]%}
+                                  {%assign url = settings[_url]%}
+                                  {%if enable%}
+                                  <a href="{{url}}" target="_blank"><i class="{{icon}}" aria-hidden="true"></i></a>
+                                  {%endif%}
+                                  {%endfor%}
+								</div>
+							</div>
+                          {%endif%}
+						</div>
+						<div class="col-md-2 col-sm-3 col-xs-6">
+							<div class="menu-footer-box footer-box">
+								<h2 class="title14">{{settings.f2_column1_title}}</h2>
+								<ul class="list-unstyled">
+                                  	{% for link in linklists[settings.f2_column1_menu].links %}
+                                    <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+                                    {%endfor%}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-3 col-xs-6">
+							<div class="menu-footer-box footer-box">
+								<h2 class="title14">{{settings.f2_column2_title}}</h2>
+								<ul class="list-unstyled">
+									{% for link in linklists[settings.f2_column2_menu].links %}
+                                    <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+                                    {%endfor%}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="contact-footer-box footer-box">
+								<h2 class="title14">{{settings.f2_about_title}}</h2>
+								<p class="formule-address">{{settings.f2_about_location}}</p>
+								<p class="formule-phone">{{settings.f2_about_phone}}</p>
+								<p class="formule-email"><a href="mailto:{{settings.f2_about_email}}">{{settings.f2_about_email}}</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Footer List Box -->
+			</div>
+			<div class="payment-method text-center">
+              
+				<a href="{{settings.f2_payment1_url}}" class="wobble-vertical"><img src="{{'f2_payment1_img.png'|asset_url}}" alt="" /></a>
+				<a href="{{settings.f2_payment2_url}}" class="wobble-vertical"><img src="{{'f2_payment2_img.png'|asset_url}}" alt="" /></a>
+				<a href="{{settings.f2_payment3_url}}" class="wobble-vertical"><img src="{{'f2_payment3_img.png'|asset_url}}" alt="" /></a>
+				<a href="{{settings.f2_payment4_url}}" class="wobble-vertical"><img src="{{'f2_payment4_img.png'|asset_url}}" alt="" /></a>
+			</div>
+			<!-- End Payment -->
+			<div class="footer-tabs">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:130px">{{settings.f2_menu1}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f2_menu1_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:130px">{{settings.f2_menu2}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f2_menu2_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:80px">{{settings.f2_menu3}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f2_menu3_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+							<div class="item-tag-footer">
+								<div class="title-tag-footer"><span style="width:80px">{{settings.f2_menu4}}</span></div>
+								<div class="list-tag-footer">
+                                  {% for link in linklists[settings.f2_menu4_link].links %}
+                                    <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                                    {%endfor%}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Footer Tab -->
+			<div class="footer-copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<p class="copyright">{{settings.f2_copyright}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Footer Copyright -->
+		</div>
+	</div>
+<a href="#" class="radius scroll-top style1"><i class="fa fa-angle-up" aria-hidden="true"></i></a>

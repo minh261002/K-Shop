@@ -1,0 +1,130 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-tab-v4" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="collection-tab-v1">
+    <div class="container">
+    <div class="product-tab-ajax">
+				<div class="tab-pro-ajax-header">
+					<h2>{{section.settings.collection_title}}</h2>
+					<ul>
+						
+                      {%for block in section.blocks %}
+							<li {%if forloop.index == 1%}class="active"{%endif%}><a href="#{{collections[block.settings.product_collection].handle}}{{ section.id }}" data-toggle="tab">{{block.settings.product_collection_title}}</a></li>
+                          {%endfor%}
+					</ul>
+				</div>
+				<div class="tab-content">
+                   {%for block in section.blocks %}
+				<div id="{{collections[block.settings.product_collection].handle}}{{ section.id }}" class="tab-pane {%if forloop.index == 1%}active{%endif%}">
+				
+				
+						<div class="clearfix">
+							{%for product in collections[block.settings.product_collection].products limit:block.settings.product_limit%}
+
+                            {%include 'product-item-v4'%}
+                          {%else%}
+                          {%include 'product-item-v4-empty-single'%}
+                          {%include 'product-item-v4-empty-single'%}
+                          {%include 'product-item-v4-empty-single'%}
+                          {%include 'product-item-v4-empty-single'%}
+                          {%include 'product-item-v4-empty-single'%}
+                          {%endfor%}
+						
+                  		</div>
+						<div class="btn-loadmore"><a href="{{block.settings.collection_view_more_url}}">{{block.settings.collection_view_more}}</a></div>
+					</div>
+                  {%endfor%}
+					
+				</div>
+			</div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "collection tab v4",
+    "class" : "index-section",
+    "settings": [
+	  
+		
+      {
+        "type": "text",
+        "id": "collection_title",
+        "label": "Title",
+        "default": "Deals"
+      },
+		
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "Collection",
+      "name": "Collection",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "product_collection_title",
+          "label": "Title",
+            "default":"BEST SELLERS"
+        },
+        {
+          "type": "collection",
+          "id": "product_collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "product_limit",
+          "label": "Product limit",
+          "default":"5"
+        },
+	    {
+          "type": "text",
+          "id": "collection_view_more",
+          "label": "View more",
+          "default": "View more"
+        },
+        {
+          "type": "url",
+          "id": "collection_view_more_url",
+          "label": "Url"
+        }
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Collection tab v4",
+        "category": "Collection",
+        "blocks": [
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

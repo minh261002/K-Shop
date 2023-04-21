@@ -1,0 +1,150 @@
+<!-- section-slider-v1.liquid -->
+
+<div data-section-id="{{ section.id }}" data-section-type="section-today-deals-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="today-deals">
+    <div class="container">
+    <div class="today-deal3">
+				<div class="row">
+					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+						<div class="pro-deal3 border">
+							<div class="title-deal3">
+								<strong>{{section.settings.deals_title}}</strong> <span>{{section.settings.deals_end_time}}</span>
+								<div class="countdown-master"></div>
+							</div>
+							<div class="deal-slider3 arrow-style3">
+								<div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[600,2],[1200,3]]">
+                                  {%assign count = 1|plus:0 %}
+                                      {%assign num = 0|plus:0 %}
+                                {%for product in collections[section.settings.deals_collection].products limit: section.settings.deals_limit %}
+                                    {%assign num = num|plus:1 %}
+                                {%endfor%}
+                                      {%for product in collections[section.settings.deals_collection].products limit: section.settings.deals_limit %}
+                                      {%assign t = count|modulo:2 %}
+                                  {%if count == 1 or opendiv == count %}
+                                        <div class="item-deal3">
+                                         {%endif%}
+									 {%include 'product-item-v8'%}
+										
+                                    {%if t == 0 or count == num %}
+                                    </div>
+                                    {%endif%}
+                                      {%if t == 0 %}
+                                      {%assign opendiv = count|plus:1 %}
+                                      {%endif%}
+                                      {%assign count = count|plus:1 %}
+                                  {%else%}
+                                    {% include 'product-item-v8-empty' %}
+                                      {%endfor%}
+									<!-- End Item -->
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+						<div class="banner-zoom">
+							
+                          <a href="{{section.settings.deals_url}}" class="thumb-zoom">
+                              {%if section.settings.deals_banner == blank%}
+                              <img  src="{{'banner_deals.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{section.settings.deals_banner|img_url:'grande'}}" alt="" />
+                              {%endif%}
+                          </a>
+							<div class="banner-info white">
+								<h2 class="title60">{{section.settings.deals_banner_text1}}</h2>
+								<h3 class="title30">{{section.settings.deals_banner_text2}}</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+  </section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Section today deals v1",
+  "class": "index-section",
+  "settings": [
+	 {
+        "type": "header",
+        "content": "deals"
+      },
+	
+	 {
+        "type": "text",
+        "id": "deals_title",
+        "label": "Title",
+        "default": "today's deals"
+      },
+	  {
+        "type": "text",
+        "id": "deals_end_time",
+        "label": "text Deals End",
+        "default": " Deals End in:"
+      },
+      {
+        "type": "collection",
+        "id": "deals_collection",
+        "label": "select collection"
+      },
+	  {
+        "type": "text",
+        "id": "deals_limit",
+        "label": "product limit"
+      },
+	 
+      {
+        "type": "header",
+        "content": "banner"
+      },
+		{
+        "type": "image_picker",
+        "id": "deals_banner",
+        "label": "Banner"
+      },
+		{
+        "type": "url",
+        "id": "deals_url",
+        "label": "Url"
+      },
+      {
+        "type": "text",
+        "id": "deals_banner_text1",
+        "label": "Text 1",
+        "default": "Sale"
+      },
+	  {
+        "type": "text",
+        "id": "deals_banner_text2",
+        "label": "text 2",
+        "default": "-40% off"
+      },
+
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+  ],
+  
+  "presets": [{
+    "name": "today deals v1",
+    "category": "Deals"
+  }]
+}
+{% endschema %}

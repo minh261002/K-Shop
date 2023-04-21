@@ -1,0 +1,109 @@
+{% assign product_label_new = false %}
+{% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+{% assign time = _time|plus:0 %}
+{% assign now = 'now' | date: '%s'|plus:0 %}
+
+{% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+{% assign value = _value|plus:0 %}
+
+{% if now < value %}
+{% assign product_label_new = true %}
+{% endif %}
+
+
+{% assign label_popular = false %}
+{% if product.tags contains "popular" %}
+{% assign label_popular = true %}
+{% endif %} 
+
+{% assign label_hot = false %}
+{% if product.tags contains "hot" %}
+{% assign label_hot = true %}
+{% endif %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %} 	
+
+<div class="product product-grid product-list product-item clearfix">
+  <div id="product-{{ product.id }}" class="product-inner" data-publish-date="{{ product.published_at }}">
+    <div class="product-media ">
+      <div class="product-thumbnail">
+        <a href="{{ product.url | within: collection }}" title="">
+          <img class="product-featured-image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+			{% if settings.show_soldout_label and sold_out%}
+              <span class="label-p" style="background:{{settings.sold_out_label_color}};color:{{settings.sold_out_label_text_color}};font-size: {{settings.sold_out_label_text_size}}px;" >{{settings.sold_out_label_name }}</span>
+              {% endif %}
+
+              {% if settings.show_new_label and product_label_new == true %}
+              <span class="label-p" style="background:{{settings.new_label_color}};color:{{settings.new_label_text_color}};font-size: {{settings.new_label_text_size}}px;" >{{settings.new_label_name}}</span>
+              {% endif %}
+
+              {% if settings.show_sale_label and on_sale %}
+              <span class="label-p"  style="background:{{settings.sale_label_color}};color:{{settings.sale_label_text_color}};font-size: {{settings.sale_label_text_size}}px;" >{{settings.sale_label_name}}</span>
+             {% endif %}
+        </a>
+      </div><!-- /.product-thumbnail -->
+
+
+    </div><!-- /.product-media -->
+
+    <div class="product-body-list">
+      <h2 class="product-name">
+        <a href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a>
+      </h2><!-- /.product-product -->
+
+      <div class="star-rating">
+		<span class="shopify-product-reviews-badge" data-id="{{product.id}}"></span>
+
+      </div>
+
+      <div class="product-price">
+        {% capture price %}{{ product.price | money }}{% endcapture %}
+        {% capture price %}{{ product.price | money }}{% endcapture %}
+        <span >{% if product.price_varies %}{{ 'products.general.from_text_html' | t: price: price }}{% else %}{{ price }}{% endif %}</span>
+        {% if on_sale %} <del class="sale-price">{{ product.compare_at_price | money }}</del> {% endif %}
+      </div><!-- /.product-price -->
+
+
+      <div class="product-description">
+        <p>{{product.description | strip_html | truncatewords: 40}}</p>
+      </div>
+
+      <div class="product-list-actions">
+
+        {% if sold_out %}
+        <input type="submit" name="add" class="btn btn-lg btn-primary" id="product-addTocart" disabled="" value="Sold Out">
+          {% else %}
+        {% if product.variants.size > 1 %}
+            <a class="button add-to-cart" href="{{ product.url | within: collection }}">
+
+         		{{settings.product_select_option_name }}  
+            </a>
+               
+          {% else %}
+              
+            <form method="post" action="/cart/add" class="add-to-cart">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+              <button type="submit" name="add" id="AddToCart{{ product.id }}" class="button add-to-cart-button enj-add-to-cart-btn">
+               <span>
+                 {{ settings.product_cart_name }}
+                </span>
+              </button>
+            </form>
+          {% endif %}
+		{% endif %}
+      </div><!-- /.product-actions -->
+
+    </div><!-- /.product-body -->
+  </div>
+
+</div><!-- /.product -->
+

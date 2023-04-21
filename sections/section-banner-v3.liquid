@@ -1,0 +1,136 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+<section class="banner-v3">
+      <div class="container">
+        <div class="list-banner-adv5">
+				<div class="row">
+                 {%for block in section.blocks %}
+					<div class="col-md-4 col-sm-4 col-xs-12">
+						<div class="item-adv5">
+							<div class="banner-zoom">
+						
+                              <a href="{{block.settings.banner1_url}}" class="thumb-zoom">
+                              {%if block.settings.banner1_image == blank%}
+                              <img  src="{{'banner-v3.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{block.settings.banner1_image|img_url:'grande'}}" alt="" />
+                              {%endif%}
+                          </a>
+							</div>
+							<div class="adv-info5">
+								<ul class="list-none">
+									<li>
+							<a href="{{block.settings.banner1_url}}">{%if block.settings.banner1_icon == blank%}
+                              <img  src="{{'icon-banner-v3.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{block.settings.banner1_icon|img_url:'icon'}}" alt="" />
+                              {%endif%}</a>
+									</li>
+									<li>
+										<h3 class="title18"><a href="{{block.settings.banner1_url}}">{{block.settings.banner1_title}}</a></h3>
+										<p class="desc">{{block.settings.banner1_text}}</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+                  {%endfor%}
+					
+				</div>
+			</div>	
+        
+  </div>
+  </section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Section banner v3",
+  "class": "index-section",
+  "settings": [
+	 
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+      
+  ],
+"blocks": [
+      {
+      "type": "banner",
+      "name": "banner",
+      "settings": [
+    	{
+        "type": "header",
+        "content": "Banner 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner1_image",
+        "label": "Image "
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner1_icon",
+        "label": "Icon "
+      },
+  	  {
+        "type": "text",
+        "id": "banner1_title",
+        "label": "title",
+        "default": "HEADPHONE"
+      },
+      {
+        "type": "textarea",
+        "id": "banner1_text",
+        "label": "text",
+        "default": "Employment respond comed meaningful fight"
+      },
+	  {
+        "type": "text",
+        "id": "banner1_shopnow",
+        "label": "Button",
+        "default": "shop now"
+      },
+	  {
+        "type": "url",
+        "id": "banner1_url",
+        "label": "Url"
+      }
+      ]
+      }
+
+    ],
+
+ 
+  "presets": [{
+    "name": "Banner v3",
+    "category": "Banner",
+        "blocks": [
+                {
+                "type": "banner"
+                },
+                {
+                "type": "banner"
+                },
+                {
+                "type": "banner"
+                }
+            ]
+   
+  }]
+}
+{% endschema %}

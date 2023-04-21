@@ -1,0 +1,89 @@
+
+
+window.jQuery = window.$ = jQuery;
+var engoApps = {
+  init: function() {
+    this.init_MobileMenu();
+  },
+  init_MobileMenu: function(){
+        $(document).on('click','#hamburger_icon',function(e){
+          e.preventDefault();
+          $(this).toggleClass('active');
+          $('body').toggleClass('opened-nav-animate');
+          setTimeout(function(){
+            $('body').toggleClass('opened-nav');
+          }, 100);
+        });
+
+        $('ul.navigation-mobile ul.sub-menu-dropdown, ul.navigation-mobile .engoj-megamenu-wrapper').each(function(){
+            $(this).parent().children('a').prepend( '<span class="open-submenu"></span>' );
+        });
+
+        $(document).on('click','.open-submenu', function(e){
+            e.stopPropagation();
+            e.preventDefault();          
+            $( this ).closest('li').toggleClass('active-menu-item');
+            $( this ).closest('li').children( '.sub-menu-dropdown, .engoj-megamenu-wrapper' ).slideToggle();
+        });
+
+        $(window).resize(function(){
+            var $navHeight = $(window).height() - $('.navbar-container').height();
+            $('.main-nav-mobile').css({'max-height': $navHeight});
+        });
+    }
+}
+engoApps.init();
+
+
+/* fillter collection tablet mobile*/   
+function aweProductSidebar() {
+  var $filterSidebar = $('#shop-widgets-filters');
+  var $toggleButton = $('#open-filters');
+
+  var $overlay = $('body').find('.widgets-filter-overlay');
+
+  function _open() {
+    $filterSidebar.addClass('open');
+	$toggleButton.addClass('open');
+    if (! $overlay.length) {
+      $('body').append('<div class="widgets-filter-overlay"></div>');
+    }
+
+    $('body').addClass('open-filters-open');
+  }
+
+  function _close() {
+    $filterSidebar.removeClass('open');
+    $toggleButton.removeClass('open');
+    $(document).find('.widgets-filter-overlay').remove();
+    $('body').removeClass('open-filters-open');
+  }
+
+  $toggleButton.on('click', function() {
+    if (! $filterSidebar.hasClass('open')) {
+      _open();
+    } else {
+      _close();
+    }
+  });
+
+  $('body').on('click', '.widgets-filter-overlay', function() {
+    _close();
+  });
+}
+/* Hover color change image product */
+jQuery(document).ready(function($) {
+  jQuery('.engoj_select_color a').each(function(){
+    jQuery(this).on("mouseover",function(){
+      var engoImage = jQuery(this).data('engojvariant-img');
+      jQuery(this).parents('.engoj_grid_parent').find('.engoj_find_img img').attr({ src: engoImage }); 
+      return false;
+    });
+  });
+});
+
+
+
+
+
+

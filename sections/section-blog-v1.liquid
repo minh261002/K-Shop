@@ -1,0 +1,83 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-blog-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="hot-blog-v1">
+
+			<div class="container">
+				<div class="from-blog3">
+				<h2 class="title14 title-box3">{{section.settings.section_title}}</h2>
+				<div class="blog-slider3 arrow-style3">
+					<div class="wrap-item" data-pagination="false" data-navigation="true" data-items="4">
+                       {% for article in blogs[section.settings.select_blog].articles limit: section.settings.blog_limit %}
+						<div class="item-blog3">
+							<div class="post-thumb">
+								<a href="{{ article.url}}" class="post-thumb-link"><img src="{{ article.image.src | img_url: 'original' }}" alt="" /></a>
+								<a href="{{ article.image.src | img_url: 'master' }}" class="post-zoom-link"></a>
+							</div>
+							<div class="post-info">
+								<ul class="list-none post-date-comment">
+									<li><i class="fa fa-comment" aria-hidden="true"></i><a href="#">{{article.comments_count}}</a></li>
+									<li><img class="img-circle" src="{{'admin.jpg'|asset_url}}" alt="" /><a href="#">{{article.author}}</a></li>
+								</ul>
+								<h3 class="title14"><a href="{{ article.url}}">{{article.title}}</a></h3>
+								<p class="post-date">{{'blogs.article.date_post'|t }}: {{article.published_at | date: " %d %B , %Y " }}</p>
+							</div>
+						</div>
+                      {% endfor %}
+						
+					</div>
+				</div>
+			</div>
+			</div>
+	
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "Blog v1",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Title",
+        "default": "FROM THE BLOG"
+      },
+	  {
+        "type": "blog",
+        "id": "select_blog",
+        "label": "Select blog"
+      },
+	  {
+        "type": "text",
+        "id": "blog_limit",
+        "label": "Limit",
+        "default": "8"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+   
+    "presets": [
+      {
+        "name": "Blog v1",
+        "category": "Blog"
+      }
+    ]
+  }
+{% endschema %}

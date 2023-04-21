@@ -1,0 +1,1998 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-main-content-and-sidebar" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="main-and-sidebar">
+    <div class="container">
+   <div class="main-content-home3">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                      
+                        <div class="content-left3">
+                        {%for block in section.blocks%}
+                          {%if block.type == 'slider' %}
+                            <div class="banner-slider banner-slider3">
+                                <div class="wrap-item" data-transition="fade" data-autoplay="true" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1]]">
+                                    
+                                  {%for i in (1..3)%}
+                                  {%capture style %}style_slider{{i}}{%endcapture%}
+                                  {%capture image %}image_slider{{i}}{%endcapture%}
+                                  {%capture text1 %}slider{{i}}_text_1{%endcapture%}
+                                  {%capture color1 %}slider{{i}}_text_1_color{%endcapture%}
+                                  {%capture text2 %}slider{{i}}_text_2{%endcapture%}
+                                  {%capture color2 %}slider{{i}}_text_2_color{%endcapture%}
+                                  {%capture text3 %}slider{{i}}_text_3{%endcapture%}
+                                  {%capture color3 %}slider{{i}}_text_3_color{%endcapture%}
+                                  {%capture button %}slider{{i}}_text_button{%endcapture%}
+                                  {%capture url %}slider{{i}}_text_button_url{%endcapture%}
+                                  {%capture button_color %}slider{{i}}_text_button_color{%endcapture%}
+                                  {%capture button_background %}slider{{i}}_button_background{%endcapture%}
+                                  <div class="item-banner">
+                                        <div class="banner-thumb">
+                                            <a href="{{block.settings[url]}}">
+                                              
+                                           {%if block.settings[image] == blank%}
+                                            <img  src="{{'slider_home3.png'| asset_url }}" alt="">
+                                            {%else%}
+                                            <img src="{{block.settings[image]|img_url:'master'}}" alt="" />
+                                            {%endif%}
+
+                                          </a>
+                                        </div>
+                                    {%if block.settings[style] =="style1"%}
+                                        <div class="banner-info white animated" data-animated="zoomInLeft">
+                                            
+                                          <h2 class="title60" style="color:{{block.settings[color1]}}">{{block.settings[text1]}}</h2>
+                                          <h2 class="title30" style="color:{{block.settings[color2]}}">{{block.settings[text2]}}</h2>
+                                          
+                                          <a href="{{block.settings[url]}}" class="shopnow" style="color:{{block.settings[button_color]}}; background:{{block.settings[button_background]}};"><span>{{block.settings[button]}}</span></a>
+
+                                        </div>
+                                    {%else%}
+                                    <div class="banner-info style2 animated" data-animated="zoomInRight">
+                                            <h3 class="title30"  style="color:{{block.settings[color1]}}">{{block.settings[text1]}}</h3>
+                                            <h2 class="title60"  style="color:{{block.settings[color2]}}">{{block.settings[text2]}}</h2>
+                                            <h4 class="title18" style="color:{{block.settings[color3]}}">{{block.settings[text3]}}</h4>
+                                             <a href="{{block.settings[url]}}" class="shopnow" style="color:{{block.settings[button_color]}}; background:{{block.settings[button_background]}};"><span>{{block.settings[button]}}</span></a>
+                                            </div>
+                                    {%endif%}
+                                    </div>
+                                  {%endfor%}
+                                  
+                                </div>
+                            </div>
+                          {%endif%}
+
+                            <!-- End Banner Slider -->
+                       
+                          {%if block.type == 'coupon' %}
+                            <div class="top-coupon">
+                                <h2 class="title14 white">{{block.settings.coupon_title}}</h2>
+                                <div class="coupon-slider arrow-style3">
+                                  
+                                    <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[480,2],[1024,3]]">
+                                      {%for i in (1..8) %}
+                                      {%capture enable%}coupon{{i}}_enable{%endcapture%}
+                                      {%capture image%}coupon{{i}}_image{%endcapture%}
+                                      {%capture text%}coupon{{i}}_text{%endcapture%}
+                                      {%capture color%}coupon{{i}}_button_color{%endcapture%}
+                                      {%capture button%}coupon{{i}}_button{%endcapture%}
+                                      {%capture url%}coupon{{i}}_url{%endcapture%}
+                                      {%if block.settings[enable]%}
+                                        <div class="item-coupon">
+                                            <a href="{{block.settings[url]}}" class="logo-coupon">
+                                              
+                                              {%if block.settings[image] == blank %}
+                                              <img class="pulse-shrink" alt="" src="{{'br1.png'|asset_url}}">
+                                              {%else%}
+                                              <img class="pulse-shrink" alt="" src="{{block.settings[image]|img_url:'medium'}}">
+                                              {%endif%}
+                                          </a>
+                                            <p>{{block.settings[text]}} </p>
+                                            <a href="{{block.settings[url]}}" class="btn-coupon wobble-horizontal" style="background:{{block.settings[color]}}">{{block.settings[button]}}</a>
+                                        </div>
+                                      {%endif%}
+                                      {%endfor%}
+                                    </div>
+                                </div>
+                            </div>
+                          {%endif%}
+                       
+                            <!-- End Coupon -->
+                           
+                            {%if block.type == 'new-arrival' %}
+                            <div class="new-product3">
+                                <h2 class="title14 bg-color white">{{block.settings.arrival_title}}</h2>
+                                <div class="newpro-slider3 arrow-style3">
+                                    <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[480,2],[1024,3]]">
+                                      {%assign count = 1|plus:0 %}
+                                      {%assign num = 0|plus:0 %}
+                                {%for product in collections[block.settings.select_collection].products limit: block.settings.product_limit %}
+                                    {%assign num = num|plus:1 %}
+                                {%endfor%}
+                                      {%for product in collections[block.settings.select_collection].products limit: block.settings.product_limit %}
+                                      {%assign t = count|modulo:2 %}
+                                    <!-- dk mo the div -->
+                                      {%if count == 1 or opendiv == count %}
+                                        <div class="item-newpro3">
+                                         {%endif%}
+                                          
+                                            {%include 'product-item-v6'%}
+                
+                                    {%if t == 0 or count == num %}
+                                    </div>
+                                    {%endif%}
+                                      {%if t == 0 %}
+                                      {%assign opendiv = count|plus:1 %}
+                                      {%endif%}
+                                      {%assign count = count|plus:1 %}
+                                  {%else%}
+                                    {% include 'product-item-v6-empty' %}
+                                      {%endfor%}
+                                        <!-- End Item -->
+                                
+                                    </div>
+                                </div>
+                            </div>
+                          {%endif%}
+                    
+                            <!-- End New Product -->
+                       
+                            {%if block.type == 'category' %}
+                            <div class="cat-pro3  {%if block.settings.category_banner == false %} hidden-banner {%endif%}">
+                                <h2 class="title14 title-catpro3">{{block.settings.category_title}}</h2>
+                                <div class="catbn-slider3">
+                                    <div class="wrap-item" data-pagination="false" data-navigation="false" data-itemscustom="[[0,1]]">
+                                        <div class="banner-zoom">
+                                            <a href="{{block.settings.category_url1}}" class="thumb-zoom">
+                                              
+                                              {%if block.settings.category_image1 == blank%}
+                                                <img  src="{{'banner_category.png'| asset_url }}" alt="">
+                                                {%else%}
+                                                <img src="{{block.settings.category_image1|img_url:'grande'}}" alt="" />
+                                                {%endif%}
+                                          </a>
+                                        </div>
+                                      {%if block.settings.category_image2 != blank%}
+                                        <div class="banner-zoom">
+                                            <a href="{{block.settings.category_url2}}" class="thumb-zoom">
+                                              
+                                              {%if block.settings.category_image2 == blank%}
+                                                <img  src="{{'banner_category.png'| asset_url }}" alt="">
+                                                {%else%}
+                                                <img src="{{block.settings.category_image2|img_url:'grande'}}" alt="" />
+                                                {%endif%}
+                                          </a>
+                                        </div>
+                                       {%endif%}
+                                    </div>
+                                </div>
+                                <div class="catpro-slider3 arrow-style3">
+                                    <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[480,2],[980,3],[1200,4]]">
+                                         {%for product in collections[block.settings.collection].products limit: block.settings.category_limit %}
+                                            {%include 'product-item-v7'%}
+                                      {%else%}
+                                            {%include 'product-item-v7-empty'%}
+                                      {%endfor%}
+                                      
+                                        
+                                    </div>
+                                </div>
+                                <a href="#" class="btn-control-banner hide-cat-banner">hidden</a>
+                                <a href="#" class="btn-control-banner show-cat-banner">show</a>
+                            </div>
+                          {%endif%}
+                       {%endfor%}
+                            <!-- End Cat Pro -->
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="content-right3">
+                          {%for block in section.blocks%}
+                          {%if block.type == 'sidebar-bestseller' %}
+                            <div class="betpro3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.bestseller_title}}</h2>
+                                <div class="content-side toggle-tab toggle-betsale">
+                                  {%for i in (1..5)%}
+                                  {%capture enable%}colection_enable{{i}}{%endcapture%}
+                                  {%capture title%}title_collection{{i}}{%endcapture%}
+                                  {%capture collection%}select_collection{{i}}{%endcapture%}
+                                  {%if block.settings[enable]%}
+                                    <div class="item-toggle-tab {%if forloop.index == 1%}active{%endif%}">
+                                        <h3 class="toggle-tab-title title14">{{block.settings[title]}} </h3>
+                                        <div class="toggle-tab-content">
+                                            <div class="row">
+                                              
+                                                    {%for product in collections[block.settings[collection]].products limit: block.settings.product_limit %}
+                                      
+                                                  <div class="col-md-6 col-sm-6 col-xs-6">
+                                                
+                                                    {%include 'sidebar-product-item-v8'%}
+
+                                                    </div>
+
+                                            {%else%}
+                                              {% include 'sidebar-product-item-v8-empty' %}
+                                                {%endfor%}
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                             
+                                  {%endif%}
+                                  {%endfor%}
+                                    
+                                </div>
+                            </div>
+                          {%endif%}
+                            <!-- End Bet Pro -->
+                           {%if block.type == 'sidebar-top-review' %}
+                            <div class="box-side top-review3">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.review_title}}</h2>
+                                <div class="content-side">
+                                    <div class="review-slider3 arrow-style3">
+                                        <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1]]">
+                                          {%assign count = 1|plus:0 %}
+                                            {%assign num = 0|plus:0 %}
+                                      {%for product in collections[block.settings.select_collection].products limit: block.settings.product_limit %}
+                                          {%assign num = num|plus:1 %}
+                                      {%endfor%}
+                                      {%for product in collections[block.settings.select_collection].products limit: block.settings.product_limit %}
+                                      {%assign t = count|modulo:3 %}
+                                            
+                                          <!-- dk mo the div -->
+                                      {%if count == 1 or opendiv == count %}
+                                        <div class="list-review3">
+                                         {%endif%}
+                                          
+                                            {%include 'sidebar-product-itemlist-v9'%}
+                
+                                    {%if t == 0 or count == num %}
+                                    </div>
+                                    {%endif%}
+                                      {%if t == 0 %}
+                                      {%assign opendiv = count|plus:1 %}
+                                      {%endif%}
+                                      {%assign count = count|plus:1 %}
+                                  {%else%}
+                                    {% include 'sidebar-product-itemlist-v9-empty' %}
+                                      {%endfor%}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          {%endif%}
+                            <!-- End Top Review -->
+                          {%if block.type == 'sidebar-top-brand' %}
+                            <div class="top-brand3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.brand_title}}</h2>
+                                <div class="content-side">
+                                    <div class="brand-slider3 arrow-style3">
+                                        <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[480,2],[768,1]]">
+                                           {%assign count = 1|plus:0 %}
+                                            {%assign num = 12|plus:0 %}
+                                          {%for i in (1..12)%}
+                                          {%capture enable %}brand{{i}}_enable{%endcapture%}
+                                          {%capture image %}brand{{i}}_image{%endcapture%}
+                                          {%capture url %}brand{{i}}_url{%endcapture%}
+                                          {%assign t = count|modulo:6 %}
+                                            
+                                          <!-- dk mo the div -->
+                                      {%if count == 1 or opendiv == count %}
+                                        <div class="list-brand3">
+                                         {%endif%}
+                                          {%if block.settings[enable]%}
+                                                <div class="logo-brand">
+                                                    <a class="pulse" href="{{block.settings[url]}}">
+                                                      {%if block.settings[image] == blank%}
+                                                      <img  src="{{'br1.png'| asset_url }}" alt="">
+                                                      {%else%}
+                                                      <img src="{{block.settings[image]|img_url:'medium'}}" alt="" />
+                                                      {%endif%}
+                                                      
+                                                  </a>
+                                                </div>
+                                             {%endif%}   
+                                         {%if t == 0 or count == num %}
+                                        </div>
+                                        {%endif%}
+                                          {%if t == 0 %}
+                                          {%assign opendiv = count|plus:1 %}
+                                          {%endif%}
+                                          {%assign count = count|plus:1 %}
+                                    
+                                          {%endfor%}
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          {%endif%}
+                            <!-- End Top Brand -->
+                          {%if block.type == 'sidebar-advertisement' %}
+                            <div class="advert3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.advertisement_title}}</h2>
+                                <div class="content-side">
+                                    <div class="advert-slider3 arrow-style3">
+                                        <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[480,2],[768,1]]">
+                                            {%for i in(1..4)%}
+                                          {%capture enable %}ads{{i}}_enable{%endcapture%}
+                                          {%capture image %}ads{{i}}_image{%endcapture%}
+                                          {%capture title %}ads{{i}}_title{%endcapture%}
+                                          {%capture text %}ads{{i}}_text{%endcapture%}
+                                          {%capture button %}ads{{i}}_button{%endcapture%}
+                                          {%capture url %}ads{{i}}_url{%endcapture%}
+                                          {%if block.settings[enable]%}
+                                          <div class="item-advert3">
+                                                <div class="banner-zoom">
+                                                    <a class="thumb-zoom" href="{{block.settings[url]}}">
+                                                      {%if block.settings[image] == blank%}
+                                                      <img  src="{{'banner-sidebar.png'| asset_url }}" alt=""/>
+                                                      {%else%}
+                                                      <img src="{{block.settings[image]|img_url:'medium'}}" alt="" />
+                                                      {%endif%}
+                                                  </a>
+                                                </div>
+                                                <h2 class="title14">{{block.settings[title]}}</h2>
+                                                <p>{{block.settings[text]}}</p>
+                                                <a href="{{block.settings[url]}}" class="btn-rect radius white bg-color">{{block.settings[button]}}</a>
+                                            </div>
+                                          {%endif%}
+                                          {%endfor%}
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           {%endif%}
+                            <!-- End Advert -->
+                          {%if block.type == 'sidebar-tags' %}
+                            <div class="tags3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.tags_title}}</h2>
+                                <div class="content-side">
+                                    <div class="list-tags3">
+                                      {%for i in (1..16)%}
+                                      {%capture name %}tag{{i}}_name{%endcapture%}
+                                      {%capture url %}url{{i}}_url{%endcapture%}
+                                      {%if block.settings[name] !=blank%}
+                                        <a href="{{block.settings[url]}}">{{block.settings[name]}}</a>
+                                      {%endif%}
+                                      {%endfor%}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                           {%endif%}
+                            <!-- End Tags -->
+                          {%if block.type == 'sidebar_testimonial' %}
+                            <div class="testimo3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.testimonial_title}}</h2>
+                                <div class="content-side">
+                                    <div class="arrow-style3">
+                                      
+                                        <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1]]">   
+                                          {%for i in (1..4)%}
+                                          {%capture enable %}enable_testimonial{{i}}{%endcapture%}
+                                          	{%capture image %}testimonial{{i}}_image{%endcapture%}
+                                      		
+                                          	{%capture text %}testimonial{{i}}_text{%endcapture%}
+                                      		{%capture name %}testimonial{{i}}_name{%endcapture%}
+                                          {%if block.settings[enable]%}
+                                            <div class="item-testimo3">
+                                                <div class="testimo-icon"><a href="#">
+                                                  {%if block.settings[image] == blank%}
+                                                      <img  src="{{'banner-sidebar.png'| asset_url }}" alt=""/>
+                                                      {%else%}
+                                                      <img src="{{block.settings[image]|img_url:'medium'}}" alt="" />
+                                                      {%endif%}
+                                                  </a></div>
+                                                <p class="desc">{{block.settings[text]}}</p>
+                                                <h3 class="title14"><a href="#">{{block.settings[name]}}</a></h3>
+                                            </div>
+                                          {%endif%}
+                                          {%endfor%}
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           {%endif%}
+                            <!-- End Testimo -->
+                          {%if block.type == 'sidebar_store' %}
+                            <div class="outstore3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.store_title}}</h2>
+                                <div class="content-side">
+                                    <div class="outstore-link">
+                                        <a href="{{block.settings.store_url}}">
+                                          {%if block.settings.store_image == blank%}
+                                          <img class="pulse"  src="{{'banner-sidebar.png'| asset_url }}" alt=""/>
+                                          {%else%}
+                                          <img class="pulse" src="{{block.settings.store_image|img_url:'medium'}}" alt="" />
+                                          {%endif%}</a>
+                                    </div>
+                                </div>
+                            </div>
+                           {%endif%}
+                            <!-- End Our Store -->
+                          {%if block.type == 'sidebar_why_choose_us' %}
+                            <div class="whyus3 box-side">
+                                <h2 class="title14 white bg-color title-side">{{block.settings.choose_title}}</h2>
+                                <div class="content-side">
+                                    <ul class="list-none list-why">
+                                        <li>
+                                            <h3 class="title14"><strong>1.</strong>{{block.settings.why1_title}}</h3>
+                                            <p>{{block.settings.why1_text}}</p>
+                                        </li>
+                                        <li>
+                                            <h3 class="title14"><strong>2.</strong>{{block.settings.why2_title}}</h3>
+                                            <p>{{block.settings.why2_text}}</p>
+                                        </li>
+                                        <li>
+                                            <h3 class="title14"><strong>3.</strong>{{block.settings.why3_title}}</h3>
+                                            <p>{{block.settings.why3_text}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                           {%endif%}
+                          {%endfor%}
+                            <!-- Why Choise Us -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "Main content and sidebar",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+    {
+      "type": "slider",
+      "name": "Slider",
+      "limit":1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Slider 1"
+        },
+        {
+            "type": "select",
+            "id": "style_slider1",
+            "options": [
+              {
+                "value": "style1",
+                "label": "Style 1"
+              },
+              {
+                "value": "style2",
+                "label": "Style 2"
+              }
+
+            ],
+            "label": "Select style",
+            "default": "style1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_slider1",
+          "label": "Image"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider1_text_1",
+          "label": "Text 1",
+          "default":"<span>mo</span>dell"
+        },
+        {
+          "type": "color",
+          "id": "slider1_text_1_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider1_text_2",
+          "label": "Text 2",
+          "default":"for Women <span>2016</span>"
+        },
+        {
+          "type": "color",
+          "id": "slider1_text_2_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider1_text_3",
+          "label": "Text 3",
+          "default":"All product for girl",
+          "info":"Use for style 2"
+        },
+        {
+          "type": "color",
+          "id": "slider1_text_3_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider1_text_button",
+          "label": "Text button",
+          "default":"Shop now!"
+        },
+        {
+          "type": "url",
+          "id": "slider1_text_button_url",
+          "label": "Url"
+        },
+        {
+          "type": "color",
+          "id": "slider1_text_button_color",
+          "label": "Text color"
+        },
+        {
+          "type": "color",
+          "id": "slider1_button_background",
+          "label": "bachground button"
+        },
+        {
+          "type": "header",
+          "content": "Slider 2"
+        },
+        {
+            "type": "select",
+            "id": "style_slider2",
+            "options": [
+              {
+                "value": "style1",
+                "label": "Style 1"
+              },
+              {
+                "value": "style2",
+                "label": "Style 2"
+              }
+
+            ],
+            "label": "Select style",
+            "default": "style1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_slider2",
+          "label": "Image"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider2_text_1",
+          "label": "Text 1",
+          "default":"<span>mo</span>dell"
+        },
+        {
+          "type": "color",
+          "id": "slider2_text_1_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider2_text_2",
+          "label": "Text 2",
+          "default":"for Women <span>2016</span>"
+        },
+        {
+          "type": "color",
+          "id": "slider2_text_2_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider2_text_3",
+          "label": "Text 3",
+          "default":"All product for girl",
+          "info":"Use for style 2"
+        },
+        {
+          "type": "color",
+          "id": "slider2_text_3_color",
+          "label": "Text color"
+        },
+        {
+          "type": "text",
+          "id": "slider2_text_button",
+          "label": "Text button",
+          "default":"Shop now!"
+        },
+        {
+          "type": "url",
+          "id": "slider2_text_button_url",
+          "label": "Url"
+        },
+        {
+          "type": "color",
+          "id": "slider2_text_button_color",
+          "label": "Text color"
+        },
+        {
+          "type": "color",
+          "id": "slider2_button_background",
+          "label": "bachground button"
+        },
+        {
+          "type": "header",
+          "content": "Slider 3"
+        },
+        {
+            "type": "select",
+            "id": "style_slider3",
+            "options": [
+              {
+                "value": "style1",
+                "label": "Style 1"
+              },
+              {
+                "value": "style2",
+                "label": "Style 2"
+              }
+
+            ],
+            "label": "Select style",
+            "default": "style1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_slider3",
+          "label": "Image"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider3_text_1",
+          "label": "Text 1",
+          "default":"<span>mo</span>dell"
+        },
+        {
+          "type": "color",
+          "id": "slider3_text_1_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider3_text_2",
+          "label": "Text 2",
+          "default":"for Women <span>2016</span>"
+        },
+        {
+          "type": "color",
+          "id": "slider3_text_2_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider3_text_3",
+          "label": "Text 3",
+          "default":"All product for girl",
+          "info":"Use for style 2"
+        },
+        {
+          "type": "color",
+          "id": "slider3_text_3_color",
+          "label": "Text color"
+        },
+        
+        {
+          "type": "text",
+          "id": "slider3_text_button",
+          "label": "Text button",
+          "default":"Shop now!"
+        },
+        {
+          "type": "url",
+          "id": "slider3_text_button_url",
+          "label": "Url"
+        },
+        {
+          "type": "color",
+          "id": "slider3_text_button_color",
+          "label": "Text color"
+        },
+        {
+          "type": "color",
+          "id": "slider3_button_background",
+          "label": "bachground button"
+        }
+
+      ]
+    },
+      {
+      "type": "coupon",
+      "name": "Coupon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "coupon_title",
+          "label": "Title",
+          "default":"Today's Top Coupons"
+        },
+        {
+          "type": "header",
+          "content": "coupon 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon1_enable",
+          "label": "Enable coupon",
+          "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon1_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon1_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon1_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon1_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon1_url",
+          "label": "Url"
+        },
+        
+        {
+          "type": "header",
+          "content": "coupon 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon2_enable",
+          "label": "Enable coupon",
+          "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon2_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon2_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon2_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon2_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon2_url",
+          "label": "Url"
+        },
+        {
+          "type": "header",
+          "content": "coupon 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon3_enable",
+          "label": "Enable coupon",
+          "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon3_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon3_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon3_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon3_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon3_url",
+          "label": "Url"
+        },
+        {
+          "type": "header",
+          "content": "coupon 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon4_enable",
+          "label": "Enable coupon",
+          "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon4_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon4_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon4_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon4_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon4_url",
+          "label": "Url"
+        },
+        {
+          "type": "header",
+          "content": "coupon 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon5_enable",
+          "label": "Enable coupon",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon5_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon5_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon5_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon5_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon5_url",
+          "label": "Url"
+        },
+        {
+          "type": "header",
+          "content": "coupon 6"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon6_enable",
+          "label": "Enable coupon",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon6_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon6_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon6_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon6_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon6_url",
+          "label": "Url"
+        },
+        {
+          "type": "header",
+          "content": "coupon 7"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon7_enable",
+          "label": "Enable coupon",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon7_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon7_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon7_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon7_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon7_url",
+          "label": "Url"
+        },
+        {
+          "type": "header",
+          "content": "coupon 8"
+        },
+        {
+          "type": "checkbox",
+          "id": "coupon8_enable",
+          "label": "Enable coupon",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon8_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "coupon8_text",
+          "label": "Text",
+          "default":"Flat 50% Off On Entire Products "
+        },
+        {
+          "type": "color",
+          "id": "coupon8_button_color",
+          "label": "background button",
+            "default":"#ff9933"
+        },
+        {
+          "type": "text",
+          "id": "coupon8_button",
+          "label": "Text button",
+          "default":"Get this coupon"
+        },
+        {
+          "type": "url",
+          "id": "coupon8_url",
+          "label": "Url"
+        }
+
+      ]
+      },
+     {
+      "type": "new-arrival",
+      "name": "new-arrival",
+      "settings": [
+        {
+          "type": "text",
+          "id": "arrival_title",
+          "label": "Title",
+          "default":"NEW ARRIVALS"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "product_limit",
+          "label": "product limit",
+          "default":"10"
+        }
+      ]
+      },
+      {
+      "type": "category",
+      "name": "collection",
+      "settings": [
+        
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Title",
+            "default":"Sport"
+        },
+        {
+          "type": "checkbox",
+          "id": "category_banner",
+          "label": "Show banner ?",
+            "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "category_image1",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "category_url1",
+          "label": "Url"
+        },
+        {
+          "type": "image_picker",
+          "id": "category_image2",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "category_url2",
+          "label": "Url"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "category_limit",
+          "label": "product_limit",
+          "default":"8"
+        }
+        
+      ]
+      },
+    {
+      "type": "sidebar-bestseller",
+      "name": "sidebar-bestseller",
+      "settings": [
+        {
+          "type": "text",
+          "id": "bestseller_title",
+          "label": "Title",
+          "default":"bestseller"
+        },
+        {
+          "type": "checkbox",
+          "id": "colection_enable1",
+          "label": "enable tab 1"
+        },
+        {
+          "type": "text",
+          "id": "title_collection1",
+          "label": "Title colection"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection1",
+          "label": "Select collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "colection_enable2",
+          "label": "enable tab 2"
+        },
+        {
+          "type": "text",
+          "id": "title_collection2",
+          "label": "Title colection"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection2",
+          "label": "Select collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "colection_enable3",
+          "label": "enable tab 3"
+        },
+        {
+          "type": "text",
+          "id": "title_collection3",
+          "label": "Title colection"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection3",
+          "label": "Select collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "colection_enable4",
+          "label": "enable tab 4"
+        },
+        {
+          "type": "text",
+          "id": "title_collection4",
+          "label": "Title colection"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection4",
+          "label": "Select collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "colection_enable5",
+          "label": "enable tab 5"
+        },
+        {
+          "type": "text",
+          "id": "title_collection5",
+          "label": "Title colection"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection5",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "product_limit",
+          "label": "product limit",
+          "default":"6"
+        }
+       ]
+      },
+    {
+      "type": "sidebar-top-review",
+      "name": "sidebar-top-review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Title",
+          "default":"top review"
+        },
+        
+        {
+          "type": "collection",
+          "id": "select_collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "product_limit",
+          "label": "product limit",
+          "default":"6"
+        }
+       ]
+      },
+        {
+      "type": "sidebar-top-brand",
+      "name": "sidebar-top-brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_title",
+          "label": "Title",
+          "default":"top brand"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand1_enable",
+          "label": "enable brand 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand1_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand1_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand2_enable",
+          "label": "enable brand 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand2_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand2_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand3_enable",
+          "label": "enable brand 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand3_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand3_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand4_enable",
+          "label": "enable brand 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand4_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand4_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand5_enable",
+          "label": "enable brand 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand5_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand5_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand6_enable",
+          "label": "enable brand 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand6_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand6_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand7_enable",
+          "label": "enable brand 7"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand7_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand7_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand8_enable",
+          "label": "enable brand 8"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand8_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand8_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand9_enable",
+          "label": "enable brand 9"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand9_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand9_url",
+          "label": "image"
+        },
+		{
+          "type": "checkbox",
+          "id": "brand10_enable",
+          "label": "enable brand 10"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand10_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand10_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand11_enable",
+          "label": "enable brand 11"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand11_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand11_url",
+          "label": "image"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand12_enable",
+          "label": "enable brand 12"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand12_image",
+          "label": "image"
+        },
+        {
+          "type": "url",
+          "id": "brand12_url",
+          "label": "image"
+        }
+        
+       ]
+      },
+		{
+      "type": "sidebar-advertisement",
+      "name": "sidebar-advertisement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "advertisement_title",
+          "label": "Title",
+          "default":"Advertisement"
+        },
+        {
+          "type": "checkbox",
+          "id": "ads1_enable",
+          "label": "Enable ads 1",
+          "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "ads1_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "ads1_title",
+          "label": "Title",
+          "default":"Fashion & Accessories"
+        },
+		{
+          "type": "textarea",
+          "id": "ads1_text",
+          "label": "Text",
+          "default":"Be for bag, Oleva, Unistar & more"
+        },
+		{
+          "type": "text",
+          "id": "ads1_button",
+          "label": "Text button",
+          "default":"shop now!"
+        },
+		{
+          "type": "url",
+          "id": "ads1_url",
+          "label": "Url"
+        },
+        {
+          "type": "checkbox",
+          "id": "ads2_enable",
+          "label": "Enable ads 1",
+          "default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "ads2_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "ads2_title",
+          "label": "Title",
+          "default":"Fashion & Accessories"
+        },
+		{
+          "type": "textarea",
+          "id": "ads2_text",
+          "label": "Text",
+          "default":"Be for bag, Oleva, Unistar & more"
+        },
+		{
+          "type": "text",
+          "id": "ads2_button",
+          "label": "Text button",
+          "default":"shop now!"
+        },
+		{
+          "type": "url",
+          "id": "ads2_url",
+          "label": "Url"
+        },
+        {
+          "type": "checkbox",
+          "id": "ads3_enable",
+          "label": "Enable ads 1",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "ads3_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "ads3_title",
+          "label": "Title",
+          "default":"Fashion & Accessories"
+        },
+		{
+          "type": "textarea",
+          "id": "ads3_text",
+          "label": "Text",
+          "default":"Be for bag, Oleva, Unistar & more"
+        },
+		{
+          "type": "text",
+          "id": "ads3_button",
+          "label": "Text button",
+          "default":"shop now!"
+        },
+		{
+          "type": "url",
+          "id": "ads3_url",
+          "label": "Url"
+        },
+        {
+          "type": "checkbox",
+          "id": "ads4_enable",
+          "label": "Enable ads 1",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "ads4_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "ads4_title",
+          "label": "Title",
+          "default":"Fashion & Accessories"
+        },
+		{
+          "type": "textarea",
+          "id": "ads4_text",
+          "label": "Text",
+          "default":"Be for bag, Oleva, Unistar & more"
+        },
+		{
+          "type": "text",
+          "id": "ads4_button",
+          "label": "Text button",
+          "default":"shop now!"
+        },
+		{
+          "type": "url",
+          "id": "ads4_url",
+          "label": "Url"
+        }
+       ]
+      },
+	{
+      "type": "sidebar-tags",
+      "name": "sidebar-tags",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tags_title",
+          "label": "Title",
+          "default":"tags"
+        },
+        
+        {
+          "type": "text",
+          "id": "tag1_name",
+          "label": "Tag 1"
+        },
+        {
+          "type": "url",
+          "id": "tag1_url",
+          "label": "Url 1"
+        },
+		{
+          "type": "text",
+          "id": "tag2_name",
+          "label": "Tag 2"
+        },
+        {
+          "type": "url",
+          "id": "tag2_url",
+          "label": "Url 2"
+        },
+		{
+          "type": "text",
+          "id": "tag3_name",
+          "label": "Tag 3"
+        },
+        {
+          "type": "url",
+          "id": "tag3_url",
+          "label": "Url 3"
+        },
+		{
+          "type": "text",
+          "id": "tag4_name",
+          "label": "Tag 4"
+        },
+        {
+          "type": "url",
+          "id": "tag4_url",
+          "label": "Url 4"
+        },
+		{
+          "type": "text",
+          "id": "tag5_name",
+          "label": "Tag 5"
+        },
+        {
+          "type": "url",
+          "id": "tag5_url",
+          "label": "Url 5"
+        },
+		{
+          "type": "text",
+          "id": "tag6_name",
+          "label": "Tag 6"
+        },
+        {
+          "type": "url",
+          "id": "tag6_url",
+          "label": "Url 6"
+        },
+		{
+          "type": "text",
+          "id": "tag7_name",
+          "label": "Tag 7"
+        },
+        {
+          "type": "url",
+          "id": "tag7_url",
+          "label": "Url 7"
+        },
+		{
+          "type": "text",
+          "id": "tag8_name",
+          "label": "Tag 8"
+        },
+        {
+          "type": "url",
+          "id": "tag8_url",
+          "label": "Url 8"
+        },
+		{
+          "type": "text",
+          "id": "tag9_name",
+          "label": "Tag 9"
+        },
+        {
+          "type": "url",
+          "id": "tag9_url",
+          "label": "Url 9"
+        },
+		{
+          "type": "text",
+          "id": "tag10_name",
+          "label": "Tag 10"
+        },
+        {
+          "type": "url",
+          "id": "tag10_url",
+          "label": "Url 10"
+        },
+		{
+          "type": "text",
+          "id": "tag11_name",
+          "label": "Tag 11"
+        },
+        {
+          "type": "url",
+          "id": "tag11_url",
+          "label": "Url 11"
+        },
+		{
+          "type": "text",
+          "id": "tag12_name",
+          "label": "Tag 12"
+        },
+        {
+          "type": "url",
+          "id": "tag12_url",
+          "label": "Url 12"
+        },
+		{
+          "type": "text",
+          "id": "tag13_name",
+          "label": "Tag 13"
+        },
+        {
+          "type": "url",
+          "id": "tag13_url",
+          "label": "Url 13"
+        },
+		{
+          "type": "text",
+          "id": "tag14_name",
+          "label": "Tag 14"
+        },
+        {
+          "type": "url",
+          "id": "tag14_url",
+          "label": "Url 14"
+        },
+		{
+          "type": "text",
+          "id": "tag15_name",
+          "label": "Tag 15"
+        },
+        {
+          "type": "url",
+          "id": "tag15_url",
+          "label": "Url 15"
+        },
+		{
+          "type": "text",
+          "id": "tag16_name",
+          "label": "Tag 16"
+        },
+        {
+          "type": "url",
+          "id": "tag16_url",
+          "label": "Url 16"
+        }
+       ]
+      },
+	{
+      "type": "sidebar_testimonial",
+      "name": "sidebar_testimonial",
+      "settings": [
+        
+        {
+          "type": "text",
+          "id": "testimonial_title",
+          "label": "Title",
+            "default":"Testimonial"
+        },
+		{
+          "type": "checkbox",
+          "id": "enable_testimonial1",
+          "label": "Enable testimonial 1",
+			"default":true
+        },
+        {
+          "type": "image_picker",
+          "id": "testimonial1_image",
+          "label": "Image"
+			
+        },
+		{
+          "type": "textarea",
+          "id": "testimonial1_text",
+          "label": "Text",
+		  "default":"Spooner is simply the BEST there is! Great Shop, big portions. nice”atmosphere..."
+        },
+        {
+          "type": "text",
+          "id": "testimonial1_name",
+          "label": "Name",
+		  "default":"john doe"
+        },
+		{
+          "type": "checkbox",
+          "id": "enable_testimonial2",
+          "label": "Enable testimonial 2",
+			"default":true
+        },
+		{
+          "type": "image_picker",
+          "id": "testimonial2_image",
+          "label": "Image"
+			
+        },
+		{
+          "type": "textarea",
+          "id": "testimonial2_text",
+          "label": "Text",
+		  "default":"Spooner is simply the BEST there is! Great Shop, big portions. nice”atmosphere..."
+        },
+        {
+          "type": "text",
+          "id": "testimonial2_name",
+          "label": "Name",
+		  "default":"john doe"
+        },
+		{
+          "type": "checkbox",
+          "id": "enable_testimonial3",
+          "label": "Enable testimonial 3",
+			"default":true
+        },
+		{
+          "type": "image_picker",
+          "id": "testimonial3_image",
+          "label": "Image"
+			
+        },
+		{
+          "type": "textarea",
+          "id": "testimonial3_text",
+          "label": "Text",
+		  "default":"Spooner is simply the BEST there is! Great Shop, big portions. nice”atmosphere..."
+        },
+        {
+          "type": "text",
+          "id": "testimonial3_name",
+          "label": "Name",
+		  "default":"john doe"
+        },
+		{
+          "type": "checkbox",
+          "id": "enable_testimonial4",
+          "label": "Enable testimonial 4",
+		  "default":true
+        },
+		{
+          "type": "image_picker",
+          "id": "testimonial4_image",
+          "label": "Image"
+			
+        },
+		{
+          "type": "textarea",
+          "id": "testimonial4_text",
+          "label": "Text",
+		  "default":"Spooner is simply the BEST there is! Great Shop, big portions. nice”atmosphere..."
+        },
+        {
+          "type": "text",
+          "id": "testimonial4_name",
+          "label": "Name",
+		  "default":"john doe"
+        }  
+      ]
+      },
+	{
+      "type": "sidebar_store",
+      "name": "Sidebar_store",
+      "settings": [
+        
+        {
+          "type": "text",
+          "id": "store_title",
+          "label": "Title",
+            "default":"Our store"
+        },
+        
+        {
+          "type": "image_picker",
+          "id": "store_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "store_url",
+          "label": "Url"
+        } 
+      ]
+      },
+	 {
+      "type": "sidebar_why_choose_us",
+      "name": "sidebar_why_choose_us",
+      "settings": [
+        {
+          "type": "text",
+          "id": "choose_title",
+          "label": "Title",
+            "default":"Why choose us"
+        },
+        {
+          "type": "text",
+          "id": "why1_title",
+          "label": "Title 1",
+          "default":"FREE SHIPPING"
+        },
+        {
+          "type": "textarea",
+          "id": "why1_text",
+          "label": "Url",
+          "default":"Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed"
+        },
+        {
+          "type": "text",
+          "id": "why2_title",
+          "label": "Title 1",
+          "default":"RETURN"
+        },
+        {
+          "type": "textarea",
+          "id": "why2_text",
+          "label": "Url",
+          "default":"Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed"
+        },
+        {
+          "type": "text",
+          "id": "why3_title",
+          "label": "Title 1",
+          "default":"OTHER"
+        },
+        {
+          "type": "textarea",
+          "id": "why3_text",
+          "label": "Url",
+          "default":"Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed"
+        }  
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "main content and sidebar",
+        "category": "content and sidebar",
+        "blocks": [
+                {
+                "type": "slider"
+                },
+                {
+                "type": "coupon"
+                },
+                {
+                "type": "new-arrival"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+
+                {
+                "type": "sidebar-bestseller"
+                },
+                {
+                "type": "sidebar-top-review"
+                },
+                {
+                "type": "sidebar-top-brand"
+                },
+                {
+                "type": "sidebar-advertisement"
+                },
+                
+                {
+                "type": "sidebar-tags"
+                },
+				{
+                "type": "sidebar_testimonial"
+                },
+				{
+                "type": "sidebar_store"
+                },
+                {
+                "type": "sidebar_why_choose_us"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

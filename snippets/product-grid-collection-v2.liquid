@@ -1,0 +1,47 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+<div class="item-pro-color">
+  <div class="product-thumb">
+      <a href="{{ product.url | within: collection }}" class="engoj_find_img product-thumb-link"><img src="{{ product.featured_image.src | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}"></a>
+
+          <a href="javascript:void(0)"  data-id="{{ product.handle }}" class="quickview-link plus quick-view engoj-btn-quickview" title="{{ settings.product_quickview_name }}">
+          <span>{{ settings.product_quickview_name }}</span>
+        </a> 
+  </div>
+  <div class="product-info">
+    {%if section.settings.show_color_variant == true %}
+    {% include 'engo-swatch-hover-color-change-image-product' %}
+    {%endif%}
+    <h3 class="product-title"><a href="{{ product.url | within: collection }}">{{product.title}}</a></h3>
+    <div class="product-price">
+         {% capture price %}{{ product.price | money }}{% endcapture %}
+        {% if product.price_varies %}<ins><span>{{ 'products.general.from_text_html' | t: price: price }}</span></ins>{% else %}<ins>{{ price }}</ins>{% endif %}
+        {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+    
+    </div>
+    <div class="product-extra-link">
+
+      {% if product.variants.size > 1 %}
+            <a class="add-to-cart addcart-link" href="{{ product.url | within: collection }}">
+				<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+              <span>{{settings.product_select_option_name }}</span>
+            </a>
+               
+          {% else %}
+              
+            <form method="post" action="/cart/add" class="add-to-cart">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+              <button type="submit" name="add" id="AddToCart{{ product.id }}" class="addcart-link add-to-cart-button enj-add-to-cart-btn">
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+               <span>
+                 {{ settings.product_cart_name }}
+                </span>
+              </button>
+            </form>
+          {% endif %}
+      {%include 'add-wishlist'%}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,168 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-tab-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="collection-tab-v1">
+    <div class="product-hotdeal color{{ section.id }}">
+			<div class="header-hotdeal">
+				<div class="container">
+					<div class="title-box1">
+						<h2 class="title30"><span>{{ section.settings.collection_title | truncate: 1,""}}</span><a href="{{section.settings.url_title}}">{{section.settings.collection_title}}</a></h2>
+						<ul class="list-none">
+                           {%for block in section.blocks %}
+							<li {%if forloop.index == 1%}class="active"{%endif%}><a href="#{{collections[block.settings.product_collection].handle}}{{ section.id }}" data-toggle="tab">{{block.settings.product_collection_title}}</a></li>
+                          {%endfor%}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- End Header Hotdeal -->
+			<div class="content-hotdeal tab-content">
+               {%for block in section.blocks %}
+				<div id="{{collections[block.settings.product_collection].handle}}{{ section.id }}" class="tab-pane {%if forloop.index == 1%}active{%endif%}">
+					<div class="hotdeal-slider">
+						<div class="wrap-item" data-itemscustom="[[0,1],[560,2],[768,3],[1024,4],[1200,5],[1366,6]]" data-pagination="false" data-autoplay="true" data-navigation="true">
+							 {%for product in collections[block.settings.product_collection].products limit:block.settings.product_limit%}
+
+                            {%include 'product-item'%}
+                          {%else%}
+                          {%include 'product-item-empty'%}
+                          {%endfor%}
+                          
+						</div>
+					</div>
+				</div>
+               {%endfor%}
+				<!-- ENd Tab -->
+			</div>
+			<!-- End Content Hot Deal -->
+		</div>
+  </section>
+</div>
+
+<style>
+  {%if section.settings.enable_custom_color == true %}
+  
+.color{{ section.id }} .title-box1 .title30 span  {
+  background-color: {{section.settings.section_color}};
+}
+
+  .color{{ section.id }} .title-box1 .title30 a:hover{
+  color: {{section.settings.section_color}};
+  }
+.color{{ section.id }} .header-hotdeal .title-box1 {
+    border-bottom: 1px solid {{section.settings.section_color}};
+}
+  
+.color{{ section.id }} .title-box1 .list-none li a:hover,.color{{ section.id }} .title-box1 .list-none li.active a::before,.color{{ section.id }} .title-box1 .title30 span::after {
+    color: {{section.settings.section_color}};
+}
+.color{{ section.id }} .product-extra-link2 .addcart-link:hover {
+    background: {{section.settings.section_color}};
+}
+.color{{ section.id }} .product-extra-link2 .compare-link:hover,.color{{ section.id }} .product-extra-link2 .wishlist-link:hover {
+    color: {{section.settings.section_color}};
+}
+ .color{{ section.id }} .quickview-link.pos-bottom:hover {
+   color: {{section.settings.section_color}};
+}
+ .color{{ section.id }} .quickview-link.pos-bottom span::after {
+    background-color: {{section.settings.section_color}};
+}
+  .color{{ section.id }} .product-title a:hover{
+  	color: {{section.settings.section_color}};
+  }
+  {%endif%}
+</style>
+{% schema %}
+
+  {
+    "name": "collection tab v1",
+    "class" : "index-section",
+    "settings": [
+	  
+		
+      {
+        "type": "text",
+        "id": "collection_title",
+        "label": "Title",
+        "default": "Deals"
+      },
+	  {
+        "type": "text",
+        "id": "url_title",
+        "label": "Url title",
+        "default": "#"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_custom_color",
+        "label": "Custom color",
+        "default": true
+      },
+	  {
+        "type": "color",
+        "id": "section_color",
+        "label": "Section Color",
+        "default": "#ff3e3e"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "Collection",
+      "name": "Collection",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "product_collection_title",
+          "label": "Title",
+            "default":"Featured"
+        },
+        {
+          "type": "collection",
+          "id": "product_collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "text",
+          "id": "product_limit",
+          "label": "Product limit",
+          "default":"8"
+        }
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Collection tab v1",
+        "category": "Collection",
+        "blocks": [
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,28 @@
+<div class="language-box">
+  <a href="#" class="language-current"><img src="{{'language_default_image' |asset_url}}" alt="" /><span>{{settings.language_default}}</span></a>
+  <ul class="language-list list-unstyled">
+
+    {%for i in (1..6)%}
+    {%capture _enable%}language{{i}}_enable{%endcapture%}
+    {%capture _text%}language{{i}}_text{%endcapture%}
+    {%capture _url%}Language{{i}}_url{%endcapture%}
+    {%capture _img%}language{{i}}_image{%endcapture%}
+
+    {%assign enable = settings[_enable]%}
+    {%assign text = settings[_text]%}
+    {%assign url = settings[_url]%}
+    {%if enable%}
+    <li><a href="{{url}}" title="{{text}}"><img src="{{_img |asset_url}}" alt="" /><span>{{text}}</span></a></li>
+    {%endif%}
+    {% endfor %}
+  </ul>
+</div>
+<div class="currency-box">
+  <a data-target="#" href="#" data-toggle="dropdown" role="button" class="currency-current selected-currency"><span>{{shop.currency}}</span></a>
+  <ul class="currency-list list-unstyled" id="currencies">
+    {% assign supported = settings.supported_currencies | split: ' ' %}
+    {% for c in supported %}
+    <li><a data-currency="{{c}}">{{c}}</a></li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,114 @@
+/**
+ * Ultimate Media Background CSS Document
+ * For: UMBG jQuery Plugin v1.1, v1.2, v1.3
+ *      http://codecanyon.net/user/theefarmer?ref=theefarmer
+ *      http://theefarmer.com
+ *
+ * Author: TheeFarmer | Alendee Internet Solutions
+ * Copyright: (c) 2015 Alendee Internet Solutions
+ *
+ * Last Change: 2015-09-22 - Add FIO class styles (.umbg-fade-in-out).
+ *              2015-06-16 - Fix CSS class rule .umbg-player-controls z-index for mobile phone issue.
+ *              2015-05-25 - Initial release.
+ **/
+
+/*------------------------------------------------------------------------------
+    Table of Contents
+
+    1. Import Font-Awesome Styles
+
+    2. Iframe Player & Poster Styles
+
+    3. Overlay Styles
+        3.1 Overlay Pattern Styles
+        3.2 Background Patterns From TransparentTextures.com
+
+------------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------------------
+    2. Iframe Player & Poster Styles
+------------------------------------------------------------------------------*/
+
+#umbg, .umbg {
+    max-height: none;
+    max-width: none;
+    position: absolute;
+    z-index: -100;
+}
+
+.umbg-mobile-poster {
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    left: 50%;
+    min-height: 100% !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -95;
+}
+
+.umbg-player-controls {
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1.325rem;
+    line-height: 1rem;
+    padding: 5px 5px 3px;
+    position: fixed;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+
+}
+
+/* Control Placement */
+.umbg-br {
+    bottom: 0.5rem;
+    right: 0.5rem;
+}
+
+.umbg-bl {
+    bottom: 0.5rem;
+    left: 0.5rem;
+}
+
+.umbg-tr {
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
+.umbg-tl {
+    left: 0.5rem;
+    top: 0.5rem;
+}
+
+/* Control Buttons */
+.umbg-volume-button,
+.umbg-play-button,
+.umbg-page-up-down,
+.umbg-fade-in-out {
+    /*padding: 3px 5px;*/
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px;
+    /*overflow: hidden;*/
+    padding: 0;
+    text-align: center;
+    width: 19px;
+}
+
+.umbg-volume-button:hover,
+.umbg-play-button:hover,
+.umbg-page-up-down:hover,
+.umbg-fade-in-out:hover {
+    color: #fff
+}
+
+.umbg-volume-button {
+    margin-left: 3px;
+    text-align: left;
+}

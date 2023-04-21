@@ -1,0 +1,91 @@
+
+
+<ul>
+  {% for link in linklists.main-menu.links %}
+  {% assign item = link.title | downcase %}
+  {% assign child_list_handle = link.title | handleize %}
+  {% if linklists[child_list_handle].links != blank %}
+  <li class="menu-item-has-children {% if childlink.active %} active{% endif %}">
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    <ul class="sub-menu">
+      {% for childlink in linklists[child_list_handle].links %}
+      <li class="menu-item-has-children {% if childlink.active %} active{% endif %}">
+        <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+        
+        {% assign grand_list_handle = childlink.title | handleize %}
+  		{% if linklists[grand_list_handle].links != blank %}
+        <ul class="sub-menu">
+          {% for grandlink in linklists[grand_list_handle].links %}
+          <li class="{% if childlink.active %} active{% endif %}"><a href="{{ grandlink.url }}">{{ grandlink.title | escape }}</a></li>
+          {%endfor%}
+        </ul>
+        {%endif%}
+      </li>
+      {% endfor %}
+     
+    </ul>
+  </li>
+  {% else %}
+  {% capture megamenu_1 %}megamenu_1_parent{% endcapture %}
+  {% capture megamenu_2 %}megamenu_2_parent{% endcapture %}
+  {% capture megamenu_3 %}megamenu_3_parent{% endcapture %}
+  {% capture megamenu_4 %}megamenu_4_parent{% endcapture %}
+  {% capture megamenu_5 %}megamenu_5_parent{% endcapture %}
+  {% if settings[megamenu_1] == item or settings[megamenu_2] == item  or settings[megamenu_3] == item or settings[megamenu_4] == item  or settings[megamenu_5] == item %}
+  {% for i in (1..5) %}
+  {%capture megamenu%}megamenu_{{i}}_parent{%endcapture%}
+  {%capture image%}megamenu_{{i}}_image.jpg{%endcapture%}
+  {%capture url%}megamenu_{{i}}_url{%endcapture%}
+  {%capture title_banner%}megamenu_{{i}}_title{%endcapture%}
+  {%capture text_banner%}megamenu_{{i}}_text{%endcapture%}
+  {%capture title_collection%}megamenu_{{i}}_collection_title{%endcapture%}
+  {%capture collection%}megamenu_{{i}}_collection{%endcapture%}
+  {%capture limit%}megamenu_{{i}}_collection_limit{%endcapture%}
+
+  {% if settings[megamenu] == item %}
+  <li class="has-mega-menu {% if link.active %} active{% endif %}">
+    <a href="{{link.url}}">{{link.title}}</a>
+    <div class="mega-menu">
+      <div class="row">
+        <div class="col-md-5 col-sm-4 col-xs-12">
+          <div class="mega-adv">
+            <div class="banner-image">
+              <a href="{{settings[url]}}"><img src="{{ image |asset_url}}" alt="" ></a>
+            </div>
+            <div class="mega-adv-info">
+              <h3 class="title18"><a href="{{settings[url]}}">{{settings[title_banner]}}</a></h3>
+              <p class="desc">{{settings[text_banner]}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 col-sm-8 col-xs-12">
+          <div class="mega-new-arrival">
+            <h2 class="mega-menu-title">{{settings[title_collection]}}</h2>
+            <div class="mega-new-arrival-slider">
+              <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[768,2]]">
+                {%for product in collections[settings[collection]].products limit:settings[limit] %}
+                <div class="item">
+                  {%include 'product-item-v4' %}
+                </div>
+                <!-- End Item -->
+                {%endfor%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Mega Menu -->
+  </li>
+   {% endif %} 
+  {% endfor %}
+  {% else %}
+  <li {% if link.active %}class="active"{% endif %}>
+    <a href="{{ link.url }}">{{ link.title }}</a>
+  </li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+
+  
+</ul>

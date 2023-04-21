@@ -1,0 +1,119 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-category-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="hot-category-v3">
+   <div class="container">
+     <div class="category-color color-more">
+				<div class="header-cat-color">
+					<h2 class="title18">{{section.settings.section_title}}</h2>
+				</div>
+				<div class="content-cat-color-more">
+					<div class="wrap-item" data-itemscustom="[[0,1],[480,2],[768,3],[980,4],[1200,5]]" data-pagination="false" data-navigation="false">
+						
+                      {%for block in section.blocks%}
+                      <div class="item-cat-color-more">
+							<div class="cat-thumb">
+								<a  href="{{block.settings.category_viewmore_url}}">
+                               {%if block.settings.category_image == blank %}
+                              	<img alt="" src="{{'category_v3.png'|asset_url}}">
+                          		{%else%}
+                          	  	<img alt="" src="{{block.settings.category_image|img_url:'medium'}}">
+                          		{%endif%}
+								</a>
+							</div>
+							<h2 class="title18"><a href="{{block.settings.category_viewmore_url}}">{{block.settings.category_title}}</a></h2>
+							<ul class="list-unstyled">
+								{% for link in linklists[block.settings.category_menu].links %}
+								<li><a href="{{link.url}}">{{link.title}}</a></li>
+                              {%endfor%}
+							</ul>
+						</div>
+                      {%endfor%}
+						
+					</div>
+				</div>
+			</div>
+    </div>
+    
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "Category v3",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Title",
+        "default": "MORE CATEGORY"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "category",
+      "name": "category",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "category_title",
+          "label": "Title",
+            "default":"Sport"
+        },
+		{
+          "type": "image_picker",
+          "id": "category_image",
+          "label": "Image"
+        },
+        {
+          "type": "link_list",
+          "id": "category_menu",
+          "label": "Select menu"
+        }
+        
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Category v3",
+        "category": "category",
+        "blocks": [
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                },
+                {
+                "type": "category"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}

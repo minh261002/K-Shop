@@ -1,0 +1,178 @@
+<!-- section-slider-v1.liquid -->
+
+<div data-section-id="{{ section.id }}" data-section-type="section-flash-eller" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="slider-show">
+    <div class="list-flash">
+      <div class="container">
+        <h2 class="title24 title-flash"><span class="bg-color white">{{section.settings.seller_title}}</span></h2>
+        <div class="row">
+          {%for block in section.blocks%}
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="banner-flash">
+              <div class="banner-zoom">
+                <a href="{{block.settings.product_url}}" class="thumb-zoom">
+                  {%if block.settings.product_image == blank %}
+                  <img  src="{{'flash_seller.png'| asset_url }}" alt="">
+                  {%else%}
+                  <img src="{{block.settings.product_image | img_url:'master' }}" alt="">
+                  {%endif%}
+                </a>
+                {%if section.settings.seller_enable_label %}
+                <div class="flash-label">
+                  <span class="text-uppercase white">{{section.settings.seller_title_lable}}</span>
+                </div>
+                {%endif%}
+              </div>
+              <div class="flash-info">
+                <ul class="list-none clearfix">
+                  <li>
+                    <div class="flash-timer">
+                      <p>{{block.settings.product_name}}</p>
+                      <div class="flash-countdown" data-date="{{block.settings.product_date_sale}}"></div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="info-pro-hotdeal">
+                      <div class="deal-percent">
+                        {{block.settings.product_percent}}
+                      </div>
+                      <div class="product-price">
+                        {{block.settings.product_price}}
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="{{block.settings.product_url}}" class="btn-rect white bg-color radius"><span>{{block.settings.product_button}}</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Section flash seller",
+  "class": "index-section",
+  "settings": [
+	 {
+        "type": "text",
+        "id": "seller_title",
+        "label": "Title",
+        "default": "Flash seller"
+      },
+      {
+        "type": "checkbox",
+        "id": "seller_enable_label",
+        "label": "Enable label",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "seller_title_lable",
+        "label": "Title label",
+        "default": "Flash seller"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+  ],
+  "blocks": [
+	{
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "product_name",
+          "label": "tile",
+		  "default":"Start Summer in Style"
+        },
+		{
+          "type": "text",
+          "id": "product_date_sale",
+          "label": "End date coundown",
+		  "default":"7/30/2018",
+          "info":"Format:m/d/y"
+        },
+		{
+          "type": "textarea",
+          "id": "product_percent",
+          "label": "Deals percent",
+		  "default":"<span>55</span><sup>%</sup>"
+        },
+		{
+          "type": "textarea",
+          "id": "product_price",
+          "label": "Price",
+		  "default":"<label>From</label><ins><span>$90.00</span></ins>"
+        },
+        {
+          "type": "text",
+          "id": "product_button",
+          "label": "Text button",
+		  "default":"shop now!"
+        },
+		{
+          "type": "url",
+          "id": "product_url",
+          "label": "Url"
+        }
+		
+		
+      ]
+    }
+    
+  ],
+  "presets": [{
+    "name": "Flash seller",
+    "category": "Banner",
+    "blocks": [
+      
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      },
+	  {
+        "type": "banner"
+      }
+    ]
+  }]
+}
+{% endschema %}

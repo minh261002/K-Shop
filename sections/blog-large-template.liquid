@@ -1,0 +1,92 @@
+{% paginate blog.articles by {{section.settings.article_per_page}} %}
+<div id="content">
+		<div class="content-page">
+			<div class="container">
+				{%include 'breadcrumb' %}
+				<!-- End Bread Crumb -->
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12">
+						{%include 'blog-sidebar' %}
+					</div>
+					<div class="col-md-9 col-sm-8 col-xs-12">
+						<div class="content-blog-page border radius">
+							<div class="sort-pagi-bar clearfix">
+								
+								<div class="sort-paginav pull-right">
+									
+									{% if paginate.pages > 1 %}
+                                  {% include 'pagination' %}
+                                {% endif %}
+								</div>
+							</div>
+							<!-- End Sort PagiBar -->
+							<div class="content-blog-large">
+								
+                               {% for article in blog.articles %}
+								<div class="item-post-large">
+									<div class="post-thumb">
+										<div class="wrap-item" data-itemscustom="[[0,1]]" data-navigation="true" data-pagination="false">
+											<a href="{{ article.url}}" class="post-thumb-link"><img src="{{ article.image.src | img_url: 'master' }}" alt=""></a>
+										</div>
+										<div class="post-format-date">
+											<i class="fa fa-calendar-o" aria-hidden="true"></i>
+											<span>{{article.published_at | date: " %d . %B " }}</span>
+										</div>
+									</div>
+									<div class="post-info">
+										<h3 class="post-title"><a href="{{article.url}}">{{article.title}}</a></h3>
+										<p class="desc">
+                                      
+                                          {% if article.excerpt == blank %}
+                                         
+                                          {{ article.content | strip_html | truncate: 30 }}
+                                          {% else %}
+                                        
+                                          {{ article.excerpt }}
+                                          {% endif %}
+                                       
+                                      </p>
+										<ul class="post-date-comment">
+											<li><i class="fa fa-user" aria-hidden="true"></i><label>{{'blogs.article.posted_by'|t}}:</label><a href="#">{{article.author}}</a></li>
+											<li><i aria-hidden="true" class="fa fa-comment"></i><a href="{{article.url}}#comments">{{article.comments_count}} {{'blogs.comments.comments_with_count.other'|t}}  </a></li>
+										</ul>
+										<ul class="post-date-comment list-post-tag">
+											<li>
+												<i class="fa fa-tags" aria-hidden="true"></i><label>{{'blogs.article.tags'|t}}:</label>
+
+                                              {%for tag in article.tags%}
+                                              {{ tag | link_to_tag: tag }}
+                                              {%endfor%}
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Item -->
+                              {% endfor %}  
+								
+								{% if paginate.pages > 1 %}
+                                  {% include 'pagination' %}
+                                {% endif %}
+								<!-- ENd Pagibar -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endpaginate %}
+{% schema %}
+{
+  "name": "Blog large image pages",
+  "settings": [
+    
+    {
+      "type": "text",
+      "id": "article_per_page",
+      "label": "article per page",
+		"default":"3"
+    }
+  ]
+}
+{% endschema %}

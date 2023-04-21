@@ -1,0 +1,222 @@
+{% comment %}
+
+  Comments will not appear right after they are submitted, either to be checked for spam
+  or to await moderation. When a comment is submitted, the browser is redirected to a page
+  that includes the new comment id in its URL.
+    Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+
+  More information:
+    - http://docs.shopify.com/themes/liquid-variables/comment
+
+{% endcomment %}
+
+{% assign number_of_comments = article.comments_count %}
+
+{% comment %}
+  If a comment was just submitted and it has no blank fields, we have an extra comment to count.
+{% endcomment %}
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+
+<div id="content">
+		<div class="content-page">
+			<div class="container">
+				{%include 'breadcrumb' %}
+				<!-- End Bread Crumb -->
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12">
+						{%include 'blog-sidebar' %}
+					</div>
+					<div class="col-md-9 col-sm-8 col-xs-12">
+						<div class="content-single single-with-sidebar">
+							<div class="main-single">
+								<div class="post-format-date">
+									<i aria-hidden="true" class="fa fa-calendar-o"></i>
+									<span>{{article.published_at | date: " %d . %B .%Y" }}</span>
+								</div>
+								<h2 class="title-single">{{article.title}}</h2>
+								<p class="desc post-intro">{% if article.excerpt == blank %}
+                                         
+                                                  {{ article.content | strip_html | truncate: 30 }}
+                                                  {% else %}
+
+                                                  {{ article.excerpt }}
+                                                  {% endif %}</p>
+								<ul class="post-date-comment">
+									<li><i aria-hidden="true" class="fa fa-user"></i><label>{{'blogs.article.posted_by'|t}}</label><a href="#">{{article.author}}</a></li>
+									<li><i class="fa fa-comment" aria-hidden="true"></i><a href="#comments">{{article.comments_count}} {{'blogs.comments.comments_with_count.other'|t}}  </a></li>
+								</ul>
+								<div class="post-date-comment list-post-tag">
+									<i aria-hidden="true" class="fa fa-tags"></i><label>{{'blogs.article.tags'|t}}:</label>
+									{%for tag in article.tags%}
+                                                        {{ tag | link_to_tag: tag }}
+                                                        {%endfor%}
+								</div>
+							</div>
+							<!-- End Main Single -->
+							<div class="post-thumb">
+								<div class="wrap-item" data-itemscustom="[[0,1]]" data-navigation="true" data-pagination="false">
+									<a href="#" class="post-thumb-link"><img src="{{ article.image.src | img_url: 'master' }}" alt=""></a>
+
+								</div>
+							</div>
+							<div class="content">
+                              {{article.content}}
+                          </div>
+                        
+							<div class="single-post-control">
+								<div class="row">
+									<div class="col-md-6 col-sm-6 col-xs-6">
+										<div class="post-control prev-control">
+<!-- 											<div class="post-thumb">
+												<a href="{{blog.previous_article}}" class="post-thumb-link"><img src="images/photos/blog/1.jpg" alt="" /></a>
+											</div> -->
+											<div class="post-info">
+												<a href="{{blog.previous_article}}" class="btn-control"><i class="fa fa-angle-left" aria-hidden="true"></i>Preview</a>
+<!-- 												<h3 class="post-title"><a href="{{blog.previous_article}}">{{blog.next_article.title}}</a></h3> -->
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6 col-xs-6">
+										<div class="post-control next-control">
+<!-- 											<div class="post-thumb">
+												<a href="{{blog.next_article}}" class="post-thumb-link"><img src="images/photos/blog/10.jpg" alt="" /></a>
+											</div> -->
+											<div class="post-info">
+												<a href="{{blog.next_article}}" class="btn-control">Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<!-- 												<h3 class="post-title"><a href="{{blog.next_article}}">{{blog.next_article.title}}</a></h3> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{%if section.settings.enable_blog_related %}
+							<!-- End Post Author -->
+							<div class="related-post">
+								<h2>{{section.settings.title_related}}</h2>
+								<div class="related-post-slider">
+									<div class="wrap-item" data-itemscustom="[[0,1],[980,2]]" data-pagination="false" data-navigation="true">
+                                       {% for article in blogs[section.settings.blog_related].articles limit: section.settings.blog_limit %}
+										<div class="post-thumb">
+											<a href="{{ article.url}}" class="post-thumb-link"><img src="{{ article.image.src | img_url: 'original' }}" alt="" /></a>
+											<h3 class="post-title"><a href="{{ article.url}}">{{article.title}}</a></h3>
+										</div>
+                                      {% endfor %}
+										
+									</div>
+								</div>
+							</div>
+                           {%endif%}
+                           
+							<!-- End Related Post -->
+                          
+                           {% if blog.comments_enabled? %}
+                        {% comment %}
+                          Just like blog.liquid page, define how many comments should be on each page.
+                        {% endcomment %}
+                        {% paginate article.comments by 5 %}
+                          {% comment %}
+                            #comments is required, it is used as an anchor link by Shopify.
+                          {% endcomment %}
+
+                          {% if comment and comment.created_at %}
+                          <p class="note form-success">
+                            {% if blog.moderated? %}
+                              {{ 'blogs.comments.success_moderated' | t }}
+                            {% else %}
+                              {{ 'blogs.comments.success' | t }}
+                            {% endif %}
+                          </p>
+                        {% endif %}
+                          <div class="comment-list" id="comments">
+								<h2>{{'blogs.comments.comments_with_count.other'|t}} ({{article.comments_count}})</h2>
+								<ol>
+                                  {% for comment in article.comments %}
+									<li>
+										<div class="item-comment">
+											<div class="author-avatar"><a href="#"><img src="{{section.settings.image_avata|img_url:'small'}}" alt="" /></a></div>
+											<div class="comment-info">
+												<h3><a href="#">{{ comment.author }}</a></h3>
+												<ul class="post-date-comment">
+													<li><span>{{ comment.created_at | date: format: 'month_day_year' }}</span></li>
+													
+												</ul>
+												<p class="desc">{{ comment.content }}</p>
+											</div>
+										</div>
+										
+									</li>
+                                  {% endfor %}
+									{% if paginate.pages > 1 %}
+                                  <div class="pagination">
+                                   {%include 'pagination'%}
+                                  </div>
+                                  {% endif %}
+                                    {% endpaginate %}
+								</ol>
+							</div>
+                          <!-- End Comment List -->
+							<div class="leave-comment">
+								<h2>{{'blogs.comments.title'|t}}</h2>
+								<p>{{'blogs.comments.description'|t}}</p>
+                              {% form 'new_comment', article %}
+							
+									<input class="border radius" value="" type="text" name="comment[author]" id="CommentAuthor" placeholder="{{'blogs.comments.name'|t}} *">
+									<input class="border radius" value="" type="email" name="comment[email]" id="CommentEmail" placeholder="{{'blogs.comments.email'|t}} *">
+									<input class="border radius" type="text" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" value="Url Site" name="web">
+									<textarea class="border radius" cols="30" rows="10" placeholder="{{'blogs.comments.comments_with_count.one'|t}} *" name="comment[body]" id="CommentBody" ></textarea>
+									<input class="radius" type="submit" value="{{ 'blogs.comments.post' | t }}" />
+							
+                              {% endform %}
+							</div>
+							<!-- End Leave Comment -->
+      
+                       {%endif%}
+						</div>
+						<!-- End Content Single -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% schema %}
+{
+  "name": "article pages",
+  "settings": [
+		{
+		  "type":"image_picker",
+		  "id":"image_avata",
+          "label": "Customer avatar in Comments"
+        },
+	    {
+		  "type":"header",
+		  "content":"blog related "
+        },
+		{
+		  "type":"checkbox",
+		  "id":"enable_blog_related",
+          "label": "enable blog related",
+		  "default":true
+        },
+		{
+		  "type":"text",
+		  "id":"title_related",
+          "label": "blog related"
+        },
+		{
+		  "type":"blog",
+		  "id":"blog_related",
+          "label": "select blog"
+        },
+		{
+		  "type":"text",
+		  "id":"blog_limit",
+          "label": "limit",
+			"default":"6"
+        }
+	
+  ]
+}
+{% endschema %}

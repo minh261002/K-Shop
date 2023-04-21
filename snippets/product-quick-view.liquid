@@ -1,0 +1,68 @@
+<div id="quick-view" class="hidden-label br-product-popup">
+  <div class="overlay no-background"></div>
+  <div class="content product-single br-product br-product-detail br-product-slide-vertical">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="product-media thumbnai-left">
+          <div class="featured-image product-single-photos br-product__media br-product-slide-vertical-image pb-0" style="margin-right: 0px;"></div>
+          <div class="more-views owl-carousel-play pt-5 {% if settings.enable_rtl %}engoc_no_rtl{% endif %}">
+            <div class="owl-carousel"  data-items="4" data-dots="false" data-lazyLoad="true" data-nav="false" data-autoHeight="false"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <div class="br-product-detail__container">
+          <div class="product-shop product-info-main">
+            <div class="product-item">
+              <h2 class="product-name text-uppercase normal"><a>&nbsp;</a></h2>
+
+              <div class="details clearfix">
+                <form action="/cart/add" method="post" class="variants CartContainer">
+                  <div class="prices product-price variation-price mb-15">                  
+                    <span class="price br-product__price"></span>
+                    <del class="compare-price"></del>
+                  </div>
+
+                  <div class="br-product__description br-bb">
+                    <p class="des description dark mb-10"></p>
+                  </div>
+                  
+                  <select name='id' style="display:none;" class="engoj-except-select2">
+
+                  </select>
+
+                  <div class="product-actions">
+                    <div class="product-quantity">
+                      <label>{{ 'products.product.quantity' | t }}</label>
+                      <div class="quantity-all js-qty">
+                        <span  class='qtyminus' data-field='quantity'><i class="icon icon-minus"></i></span>
+                        <input type="text" name="quantity" value="1" class="qty quantity margin-bottom-30">
+                        <span class='qtyplus' data-field='quantity'><i class="icon icon-plus"></i></span>
+                      </div>
+                      <div class="total-price product-price">
+                        <label class="engoc_subtt_qw">{{ 'products.general.subtotal_price' | t }}:</label>
+                        <span class="br-product__price fz-16"></span>
+                      </div>
+                    </div>
+
+                    <div class="actions">
+                      <button type="button" class="btn-addToCart btn btn-lg btn-primary">{{ 'products.product.add_to_cart' | t }}</button>
+                    </div>
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close-window"><i class="fa fa-remove"></i></a>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  Shopify.doNotTriggerClickOnThumb = false;
+</script>
+

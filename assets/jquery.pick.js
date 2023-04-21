@@ -1,0 +1,1 @@
+!function(a){a.fn.pick=function(b){for(var b=b||4,c=[],d=this.size(),e=0;e<d;e++)c.push(e);var f=function(a){for(var b,c,d=a.length;d;b=parseInt(Math.random()*d),c=a[--d],a[d]=a[b],a[b]=c);return a},g=f(c).slice(0,b);return this.each(function(b){a.inArray(b,g)===-1&&a(this).remove()}).filter(function(){return null!==this.parentNode})}}(jQuery);

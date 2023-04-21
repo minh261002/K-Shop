@@ -1,0 +1,159 @@
+<!-- /snippets/collection-sidebar.liquid -->
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+<div class="filter-block sidebar sidebar-left">
+ {%if settings.sidebar_enable_category_collection == true %}
+  <div class="widget widget-product-cat">
+    <h2 class="widget-title title14">{{settings.sidebar_category_title}}</h2>
+    <div class="widget-content">
+      <ul>
+        {% for link in linklists[settings.sidebar_category_collection].links %}
+         {% assign child_list_handle = link.title | handleize %}
+  			{% if linklists[child_list_handle].links != blank %}
+              <li class="has-sub-cat" >
+                <a href="{{link.url}}">{{link.title}}</a>
+                <ul>
+                {% for childlink in linklists[child_list_handle].links %}
+                <li><a href="{{childlink.url}}">{{ childlink.title | escape }}</a></li>
+                {% endfor %}
+                </ul>
+              </li>
+              {%else%}
+              <li>
+                <a href="{{link.url}}">{{link.title}}</a>
+              </li>
+        {%endif%}
+        {%endfor%}
+        
+      </ul>
+    </div>
+  </div>
+  {%endif%}
+
+{% if template contains 'collection' %}
+  {% if settings.filter_enable %}
+    {% include 'collection.shopby-price' %}
+    {% include 'collection.shopby-size' %}
+    {% include 'collection.shopby-color' %}
+    {% include 'collection.shopby-brand' %}
+  {% endif %}
+{% endif %}
+</div>
+
+
+
+<div class="collection-sidebar">
+  {%if settings.bestseller_enable%}
+<div class="widget widget-seller">
+  <h2 class="widget-title title14">{{settings.bestseller_title}}</h2>
+  <div class="widget-content">
+    <div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1]]">
+      {%assign count = 1|plus:0 %}
+      {%assign num = 0|plus:0 %}
+      {%for product in collections[settings.bestseller_collection].products limit: settings.bestseller_limit %}
+      {%assign num = num|plus:1 %}
+      {%endfor%}
+      {%for product in collections[settings.bestseller_collection].products limit: settings.bestseller_limit %}
+      {%assign t = count|modulo:3 %}
+      {%if count == 1 or opendiv == count %}
+      <div class="list-pro-seller">
+        {%endif%}
+        {% assign on_sale = false %}
+        {% if product.compare_at_price > product.price %}
+        {% assign on_sale = true %}
+        {% endif %}
+        <div class="item-pro-seller">
+          <a href="{{ product.url | within: collection }}" class="product-thumb-link">
+            <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="">
+
+          </a>
+          <div class="product-info">
+            <h3 class="product-title"><a href="{{ product.url | within: collection }}">{{ product.title}}</a></h3>
+            <div class="product-price">
+              {% capture price %}{{ product.price | money }}{% endcapture %}
+              {% if product.price_varies %}<ins><span>{{ 'products.general.from_text_html' | t: price: price }}</span></ins>{% else %}<ins>{{ price }}</ins>{% endif %}
+
+              {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+
+            </div>
+            <div class="product-rate">
+              <span class="shopify-product-reviews-badge" data-id="{{product.id}}"></span>
+            </div>
+          </div>
+        </div>	
+
+        {%if t == 0 or count == num %}
+      </div>
+      {%endif%}
+      {%if t == 0 %}
+      {%assign opendiv = count|plus:1 %}
+      {%endif%}
+      {%assign count = count|plus:1 %}
+      {%else%}
+      <div class="list-pro-seller">
+        <div class="item-pro-seller">
+          <div class="product-thumb">
+            <a href="/admin/products/new" class="product-thumb-link"><img src="{{'p1.png'|asset_url}}" alt="" /></a>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title"><a href="/admin/products/new">new favorite</a></h3>
+            <div class="product-price">
+              <ins><span>$360.00</span></ins>
+              <del><span>$400.00</span></del>
+            </div>
+            <div class="product-rate">
+              <div style="width:90%" class="product-rating"></div>
+            </div>
+          </div>
+        </div>	
+        <div class="item-pro-seller">
+          <div class="product-thumb">
+            <a href="/admin/products/new" class="product-thumb-link"><img src="{{'p2.png'|asset_url}}" alt="" /></a>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title"><a href="/admin/products/new">new favorite</a></h3>
+            <div class="product-price">
+              <ins><span>$360.00</span></ins>
+              <del><span>$400.00</span></del>
+            </div>
+            <div class="product-rate">
+              <div style="width:90%" class="product-rating"></div>
+            </div>
+          </div>
+        </div>	
+        <div class="item-pro-seller">
+          <div class="product-thumb">
+            <a href="/admin/products/new" class="product-thumb-link"><img src="{{'p3.png'|asset_url}}" alt="" /></a>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title"><a href="/admin/products/new">new favorite</a></h3>
+            <div class="product-price">
+              <ins><span>$360.00</span></ins>
+              <del><span>$400.00</span></del>
+            </div>
+            <div class="product-rate">
+              <div style="width:90%" class="product-rating"></div>
+            </div>
+          </div>
+        </div>	
+
+      </div>
+      {%endfor%}
+
+    </div>
+  </div>
+  </div>
+{%endif%}
+                                
+          
+
+</div>
+
+

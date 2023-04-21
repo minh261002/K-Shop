@@ -1,0 +1,69 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-product-carousel-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="product-carousel-v1">
+    <div class="container">
+    <div class="hot-cat-slider">
+				<div class="wrap-item" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[375,2],[560,3],[768,4],[980,5],[1200,6]]">
+                  {%for product in collections[section.settings.collection].products limit:block.settings.product_limit%}
+
+                            {%include 'product-item-v9'%}
+                          {%else%}
+                          {%include 'product-item-v9-empty'%}
+                          {%endfor%}
+					
+				</div>
+			</div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+
+  {
+    "name": "product-carousel_v1",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select collection"
+      },
+	  {
+        "type": "text",
+        "id": "collection_shopnow",
+        "label": "Text Shop now",
+		"default":"Shop now"
+      },
+	  {
+        "type": "text",
+        "id": "product_limit",
+        "label": "Limit",
+        "default": "8"
+      },
+      
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product carousel v1",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+

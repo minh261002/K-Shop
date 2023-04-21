@@ -1,0 +1,235 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+  {% if settings.favicon != blank %}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {% capture seo_title %}
+  {{ page_title }}
+  {% if current_tags %}
+  {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+  {% endif %}
+  {% if current_page != 1 %}
+  &ndash; {{ 'general.meta.page' | t: page: current_page }}
+  {% endif %}
+  {% unless page_title contains shop.name %}
+  &ndash; {{ shop.name }}
+  {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+ {{ 'theme.scss.css' | asset_url | stylesheet_tag }} 
+
+
+<!--  css theme  -->
+  {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+  {{ 'bootstrap-theme.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery-ui.min.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.transitions.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.mCustomScrollbar.css' | asset_url | stylesheet_tag }}
+  {{ 'animate.css' | asset_url | stylesheet_tag }}
+  {{ 'color-red.css' | asset_url | stylesheet_tag }}
+
+  {{ 'flipclock.css' | asset_url | stylesheet_tag }}
+  {{ 'theme2.scss' | asset_url | stylesheet_tag }}
+  {{ 'responsive.css' | asset_url | stylesheet_tag }}
+  {{ 'browser.css' | asset_url | stylesheet_tag }}
+  {{ 'ajax-search.scss' | asset_url | stylesheet_tag }}
+  {{ 'hover.css' | asset_url | stylesheet_tag }}
+  {%if settings.rtl_enable%}
+  {{ 'rtl.css' | asset_url | stylesheet_tag }}
+  {%endif%}
+  
+<!--  end  -->
+  
+  {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+  {{ 'pe-icon-7-stroke.css' | asset_url | stylesheet_tag }}
+  {{ 'fontElegan.css' | asset_url | stylesheet_tag }}
+  {{ 'linea-basic.css' | asset_url | stylesheet_tag }}
+  {{ 'simple-line-icons.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.flipster.min.css' | asset_url | stylesheet_tag }}
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+  {{ 'umbg.css' | asset_url | stylesheet_tag }}
+  {{ 'engo_plugins.css' | asset_url | stylesheet_tag }} 
+  {{ 'engo_base.scss.css' | asset_url | stylesheet_tag }} 
+
+  
+  
+
+  <!--[if (lte IE 9) ]>{{ 'match-media.min.js' | asset_url | script_tag }}<![endif]-->
+
+  {% if template contains 'customers' %}
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  {% endif %}
+{{ content_for_header }}
+  {{ 'jquery.min.js' | asset_url | script_tag }}
+  {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+  {{ 'modernizr.min.js' | asset_url | script_tag }}
+<!-- swatch   -->
+   {{ 'bootstrap-custom.js' | asset_url | script_tag }}
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+<!-- end   -->
+  
+<!--   jstheme -->
+
+  
+  {{ 'bootstrap.min.js' | asset_url | script_tag }}
+   {{ 'jquery.fancybox.js' | asset_url | script_tag }}
+   {{ 'jquery-ui.min.js' | asset_url | script_tag }}
+   {{ 'owl.carousel.js' | asset_url | script_tag }} 
+   {{ 'jquery.jcarousellite.js' | asset_url | script_tag }}
+   {{ 'jquery.elevatezoom.js' | asset_url | script_tag }}
+   {{ 'jquery.mCustomScrollbar.js' | asset_url | script_tag }}
+   {{ 'TimeCircles.js' | asset_url | script_tag }}
+  {{ 'TimeCircles.js' | asset_url | script_tag }}
+  {{ 'flipclock.js' | asset_url | script_tag }}
+  {{ 'theme.js' | asset_url | script_tag }}
+  {{ 'engo-autocomplate.js' | asset_url | script_tag }}
+  
+<!--  end  -->
+  {{ 'engo-plugins.js' | asset_url | script_tag }}
+	{{ 'engo-theme.js' | asset_url | script_tag }}
+  {{ 'slick.min.js' | asset_url | script_tag }}
+  {{ 'jquery.flipster.min.js' | asset_url | script_tag }}
+  
+  
+  <script>
+  window.ajax_cart = true;
+  window.money_format = '{{shop.money_with_currency_format}}';
+  window.shop_currency = '{{ shop.currency }}';
+  window.show_multiple_currencies = true;
+  window.loading_url = "{{ 'loader.gif' | asset_url}}";
+  window.use_color_swatch = true;
+  window.product_image_resize = true;
+  window.enable_sidebar_multiple_choice = true;
+
+  window.file_url = "{{''|file_url}}";
+  window.asset_url = "{{''|asset_url}}";
+  window.images_size = {
+    is_crop: true,
+    ratio_width : 1,
+    ratio_height : 1,
+  };
+  window.inventory_text = {
+    in_stock: "{{ 'products.product.in_stock' | t }}",
+    many_in_stock: "{{ 'products.product.many_in_stock' | t }}",
+    out_of_stock: "{{ 'products.product.out_of_stock' | t }}",
+    add_to_cart: "{{ 'products.product.add_to_cart' | t }}",
+    sold_out: "{{ 'products.product.sold_out' | t }}",
+    unavailable: "{{ 'products.product.unavailable' | t }}"
+  };
+
+  window.sidebar_toggle = {
+    show_sidebar_toggle: "{{ 'general.sidebar_toggle.show_sidebar_toggle' | t }}",
+    hide_sidebar_toggle: "{{ 'general.sidebar_toggle.hide_sidebar_toggle' | t }}"
+  };
+
+</script>
+ 
+</head>
+
+<body class="template-{{ template | split: '.' | first }}" {%if template contains 'index' %}style="background:{{settings.color_background_body}}"{%else%}style="background:#f4f4f4"{%endif%}>
+<!-- preloader -->
+  {%if settings.preloader_enable%}
+  {%capture _logo_preload %}preloader_logo.png{%endcapture%}
+  {%capture _gif %}preloader_logo.gif{%endcapture%}
+  <div class="noo-spinner">
+      <div class="spinner">
+        <img class="top" src="{{_logo_preload|asset_url}}" alt="creative">
+        <img src="{{_gif|asset_url}}" alt="">
+      </div>
+    </div>
+  {%endif%}
+<!-- end preloader -->
+  
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  <div id="SearchDrawer" class="search-bar drawer drawer--top">
+    <div class="search-bar__table">
+      <div class="search-bar__table-cell search-bar__form-wrapper">
+        <form class="search search-bar__form" action="/search" method="get" role="search">
+          <button class="search-bar__submit search__submit btn--link" type="submit">
+            {% include 'icon-search' %}
+            <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+          <input class="search__input search-bar__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+        </form>
+      </div>
+      <div class="search-bar__table-cell text-right">
+        <button type="button" class="btn--link search-bar__close js-drawer-close">
+          {% include 'icon-close' %}
+          <span class="icon__fallback-text">{{ 'general.search.close' | t }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  
+  {% section 'header' %}
+
+  <div class="page-container" id="PageContainer">
+
+    <main class="main-content" id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+ </div>
+    {% section 'footer' %}
+    
+    {{ 'handlebars.min.js' | asset_url | script_tag }}
+    {% include 'ajax-cart-template' %}
+    {{ 'ajax-cart.js' | asset_url | script_tag }}
+    <script>
+      var ajaxCartConfig = {
+          cartContainer: '#CartContainer',
+          addToCartSelector: '.enj-add-to-cart-btn',
+          cartCountSelector: '#CartCount',
+          cartCostSelector: '#CartCost',
+          moneyFormat: {{ shop.money_format | json }}
+        };
+      jQuery(function($) {
+        ajaxCart.init(ajaxCartConfig);
+      });
+
+      jQuery('body').on('ajaxCart.afterCartLoad', function(evt, cart) {
+        // Bind to 'ajaxCart.afterCartLoad' to run any javascript after the cart has loaded in the DOM
+        /*   timber.RightDrawer.open(); */
+      });
+    </script>
+  
+	{%section 'popup-template'%}
+ 
+  {{ 'fastclick.min.js' | asset_url | script_tag }}
+  {% include 'currencies' %}
+  {% include 'product-quick-view' %}
+  {% include 'template-popup' %}
+  {{ 'timber.js' | asset_url | script_tag }}
+<!--   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.20&sensor=false"></script> -->
+<!--   {{ 'map.js' | asset_url | script_tag }} -->
+  {{ 'main.js' | asset_url | script_tag }}
+  {{ 'quickview.js' | asset_url | script_tag }}
+    {{ 'wish-list.js' | asset_url | script_tag }}
+  {{ 'countdown.js' | asset_url | script_tag }}
+  {{ 'collection.js' | asset_url | script_tag }}
+    
+ 
+</body>
+</html>

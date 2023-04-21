@@ -1,0 +1,186 @@
+<div id="header">
+
+			
+		<div class="header">
+          {%if settings.h3_banner_enable%}
+          <div class="banner-topheader" style="background: rgba(0, 0, 0, 0) url({{'h3_banner.jpg'|asset_url}}) no-repeat scroll center top / auto 100%;">
+				<div class="container">
+					<div class="inner-top-banner">
+						<h2 class="title18 color">{{settings.h3_banner_text1}}</h2>
+						<p class="desc"><b>{{settings.h3_banner_text2}}</b></p>
+						<a href="{{settings.h3_banner_url}}" class="shopnow radius white text-uppercase">{{settings.h3_banner_button}}</a>
+					</div>
+				</div>
+			</div>
+          {%endif%}
+			<div class="top-header top-header4">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="account-login">
+                                {% if customer %}
+                                  <a href="/account">{{ customer.name }}</a>
+                                 <a href="/account/logout">{{ 'layout.customer.log_out' | t}}</a>
+                                 {% else %}
+                                  <a href="/account/login">{{ 'layout.customer.log_in' | t }}</a>
+                                  <a href="/account/register">{{ 'layout.customer.create_account' | t}}</a>
+                                  {%endif%}
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 hidden-xs">
+							<div class="currency-language">
+								{%include "currency-picker"%}
+								{%if settings.address_1 != blank or settings.address_2 != blank or settings.address_3 != blank %}
+								<div class="address-box">
+									<a href="#" class="address-toggle"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+									<ul class="address-list list-unstyled">
+                                      {%if settings.address_1 != blank %}
+										<li><p>{{settings.address_1}}</p></li>
+                                      {%endif%}
+                                      {%if settings.address_2 != blank %}
+										<li><p>{{settings.address_2}}</p></li>
+                                      {%endif%}
+                                      {%if settings.address_3 != blank %}
+                                      	<li><p>{{settings.address_3}}</p></li>
+                                      {%endif%}
+									</ul>
+								</div>
+                              {%endif%}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Top Header -->
+			<div class="main-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-xs-12">
+							<div class="logo logo4">
+								<h1 class="hidden">kuteshop wordpress theme</h1>
+								
+							<a href="{{shop.url}}"><img src="{{'h3_logo1.png'|asset_url}}" alt="" style="max-width:{{settings.h3_logo2_max_width}}px" /></a>
+							
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="smart-search smart-search4">
+								<div class="select-category">
+										<a class="category-toggle-link" href="#"><span>{{settings.h1_menu_search_title}}</span></a>
+                                      
+										<ul class="list-category-toggle list-unstyled">
+                                          {% for link in linklists[settings.h1_menu_search].links %}
+                                          
+                                          <li><a href="{{link.url}}">{{link.title}}</a></li>
+                                          
+                                          {% endfor %}
+											
+										</ul>
+									</div>
+									{%include 'header-search-form' %}
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-9">
+							<div class="check-cart check-cart4">
+								<div class="mini-cart-box">
+									<a class="mini-cart-link" href="cart.html">
+										<span class="mini-cart-icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></span>
+										<span class="mini-cart-number" id="CartCount" >{{ cart.item_count }}</span>
+									</a>
+									{% include "mini-cart" %}
+								</div>
+								<!-- End Mini Cart -->
+								<div class="wishlist-box">
+								
+                                  <a href="/pages/wish-list" class="wishlist-top-link"><i class="fa fa-heart-o"></i></a>
+								</div>
+								<!-- End Wishlist -->
+								<div class="checkout-box">
+									<a href="#" class="checkout-link"><i class="fa fa-lock" aria-hidden="true"></i></a>
+									<ul class="list-checkout list-unstyled">
+										
+                                       {% if shop.customer_accounts_enabled %}
+                                       {% if customer == blank %}
+
+                                        <li><a href="/account/login"><i class="fa fa-user"></i>{{ 'layout.customer.log_in' | t }}</a></li>
+                                        <li><a href="/account/register"><i class="fa fa-key" aria-hidden="true"></i>{{ 'layout.customer.create_account' | t}}</a></li>
+                                       {%else%}
+
+                                        <li><a href="/account/logout"><i class="fa fa-sign-in"></i> {{ 'layout.customer.log_out' | t}}</a></li>
+                                        <li><a href="/account"><i class="fa fa-key" aria-hidden="true"></i>{{ 'layout.customer.account' | t }}</a></li>
+                                        {% endif %}
+                                      {% endif %}
+									</ul>
+								</div>
+								<!-- End Check Out Box -->
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-3">
+							<nav class="main-nav main-nav4">
+								{% include "menu" %}
+								<a href="#" class="toggle-mobile-menu"><span></span></a>
+							</nav>
+							<!-- End Main Nav -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Main Header -->
+		</div>
+		<div class="header-ontop">
+			<div class="container">
+			<div class="row">
+				<div class="col-md-2 col-sm-2 col-xs-12">
+					<div class="logo">
+						<a href="{{shop.url}}"><img src="{{"h3_logo2.png"|asset_url}}" alt="" style="max-width:{{settings.h3_logo2_max_width}}px"></a>
+					</div>
+				</div>
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<nav class="main-nav main-nav-ontop">
+						{% include "menu" %}
+					</nav>
+					<!-- End Main Nav -->
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-12">
+					<div class="check-cart check-cart-ontop">
+						<div class="checkout-box">
+							<a href="#" class="checkout-link"><i class="fa fa-lock" aria-hidden="true"></i></a>
+							<ul class="list-checkout list-unstyled">
+								{% if shop.customer_accounts_enabled %}
+                                       {% if customer == blank %}
+
+                                        <li><a href="/account/login"><i class="fa fa-user"></i>{{ 'layout.customer.log_in' | t }}</a></li>
+                                        <li><a href="/account/register"><i class="fa fa-key" aria-hidden="true"></i>{{ 'layout.customer.create_account' | t}}</a></li>
+                                       {%else%}
+
+                                        <li><a href="/account/logout"><i class="fa fa-sign-in"></i> {{ 'layout.customer.log_out' | t}}</a></li>
+                                        <li><a href="/account"><i class="fa fa-key" aria-hidden="true"></i>{{ 'layout.customer.account' | t }}</a></li>
+                                        {% endif %}
+                                      {% endif %}
+                              <li><a href="/pages/wish-list"><i class="fa fa-heart-o"></i> {{ 'layout.customer.wishlist' | t }}</a></li>
+							</ul>
+						</div>
+						<!-- End Check Out Box -->
+						<div class="search-hover-box">
+							<a href="#" class="search-hover-link"><i class="fa fa-search" aria-hidden="true"></i></a>
+							<form class="search-form-hover" method="get" action="/search" role="search">
+                                <input type="text" id="engo_autocomplate" value="{{ search.terms | escape }}" autocomplete="off" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" name="q" />
+                                <input value="" type="hidden">
+                            </form>
+						</div>
+						<!-- End Wishlist -->
+						<div class="mini-cart-box">
+							<a class="mini-cart-link" href="/cart">
+								<span class="mini-cart-icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></span>
+								<span id="CartCount" class="mini-cart-number">{{ cart.item_count }}</span>
+							</a>
+							{% include "mini-cart" %}
+						</div>
+						<!-- End Mini Cart -->
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<!-- End Header On Top -->
+	</div>

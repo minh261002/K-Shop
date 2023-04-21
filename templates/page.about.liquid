@@ -1,0 +1,125 @@
+<div id="content">
+		<div class="content-page">
+			<div class="container">
+              {%if settings.about_banner_enable%}
+				<div class="about-banner banner-image">
+					<a href="#"><img src="{{'about_banner_image.jpg'|asset_url}}" alt="" /></a>
+				</div>
+              {%endif%}
+				<ul class="about-menu">
+                  {%if settings.introduction_enable%}
+					<li><a href="#introduction">{{settings.introduction_title }}</a></li>
+                  {%endif%}
+                  {%if settings.protection_enable%}
+					<li><a href="#protection">{{settings.protection_title }}</a></li>
+                  {%endif%}
+                  {%if settings.review_enable%}
+					<li><a href="#review">{{settings.review_title }}</a></li>
+                  {%endif%}
+				</ul>
+               {%if settings.introduction_enable%}
+				<div class="contact-info-page about-info-page" id="introduction">
+					<div class="list-contact-info">
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="item-contact-info">
+									<a class="contact-icon icon-quality" href="#"><i class="fa fa-diamond"></i></a>
+									<h2><a href="{{settings.introduction_text1_url}}">{{settings.introduction_text1}}</a></h2>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="item-contact-info">
+									<a class="contact-icon icon-shipment" href="#"><i class="fa fa-clock-o"></i></a>
+									<h2><a href="{{settings.introduction_text2_url}}">{{settings.introduction_text2}}</a></h2>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="item-contact-info last-item">
+									<a class="contact-icon icon-payment" href="#"><i class="fa fa-usd"></i></a>
+									<h2><a href="{{settings.introduction_text3_url}}">{{settings.introduction_text3}}</a></h2>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="desc">{{settinsg.introduction_subtitle}}</p>
+				</div>
+              {%endif%}
+               {%if settings.protection_enable%}
+				<div class="protect-video" id="protection">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="about-full-protec">
+								<h2 class="title-default">{{settinsg.protection_subtitle}}</h2>
+								<ul>
+									<li><span class="about-num"><span>1</span></span> <p>{{settings.protection_text1}}</p></li>
+									<li><span class="about-num"><span>2</span></span> <p>{{settings.protection_text2}}</p></li>
+								</ul>
+								<a href="{{settings.protection_link}}" class="new-user-guide">{{settings.protection_text_url}}</a>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="video-about">
+								<a href="{{settings.protection_link}}"><img src="{{'protection_image.png'|asset_url}}" alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+              {%endif%}
+               {%if settings.review_enable%}
+				<div class="about-review" id="review">
+					<h2 class="title-default">{{settings.review_subtitle}}</h2>
+					<div class="list-about-review">
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="item-about-review">
+									<div class="about-review-thumb">
+										<a href="{{settings.review_url1}}"><img src="{{'review_image1.png'|asset_url}}" alt="" /></a>
+									</div>
+									<div class="about-info">
+										<h3><a href="{{settings.review_url1}}">{{settings.review_name1}}</a></h3>
+										<p>{{settings.review_1}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="item-about-review">
+									<div class="about-review-thumb">
+										<a href="{{settings.review_url2}}"><img src="{{'review_image2.png'|asset_url}}" alt="" /></a>
+									</div>
+									<div class="about-info">
+										<h3><a href="{{settings.review_url2}}">{{settings.review_name2}}</a></h3>
+										<p>{{settings.review_2}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="item-about-review">
+									<div class="about-review-thumb">
+										<a href="{{settings.review_url3}}"><img src="{{'review_image3.png'|asset_url}}" alt="" /></a>
+									</div>
+									<div class="about-info">
+										<h3><a href="{{settings.review_url3}}">{{settings.review_name3}}</a></h3>
+										<p>{{settings.review_3}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="item-about-review">
+									<div class="about-review-thumb">
+										<a href="{{settings.review_url4}}"><img src="{{'review_image4.png'|asset_url}}" alt="" /></a>
+									</div>
+									<div class="about-info">
+										<h3><a href="{{settings.review_url4}}">{{settings.review_name4}}</a></h3>
+										<p>{{settings.review_4}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+              {%endif%}
+			</div>
+		</div>
+	</div>

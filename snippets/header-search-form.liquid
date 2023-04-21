@@ -1,0 +1,56 @@
+
+<form class="smart-search-form ajax-search" method="get" action="/search" role="search">
+  <input type="hidden" name="type" value="product">
+ <input type="text" id="engo_autocomplate" value="{{ search.terms | escape }}" autocomplete="off" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" name="q" />
+  <input type="submit" value="">
+<!--   <div class="list-product-search">
+    <div class="item-search-pro">
+      <div class="search-ajax-thumb product-thumb">
+        <a href="#" class="product-thumb-link"><img src="images/photos/fashion/5.jpg" alt=""></a>
+      </div>
+      <div class="search-ajax-title"><h3 class="title14"><a href="detail.html">Sampaquita Parfum</a></h3></div>
+      <div class="search-ajax-price">
+        <span>$350.00</span>
+      </div>
+    </div>
+    <div class="item-search-pro">
+      <div class="search-ajax-thumb product-thumb">
+        <a href="#" class="product-thumb-link"><img src="images/photos/electronics/5.jpg" alt=""></a>
+      </div>
+      <div class="search-ajax-title"><h3 class="title14"><a href="detail.html">Watches for Men</a></h3></div>
+      <div class="search-ajax-price">
+        <span>$310.00</span>
+      </div>
+    </div>
+    <div class="item-search-pro">
+      <div class="search-ajax-thumb product-thumb">
+        <a href="#" class="product-thumb-link"><img src="images/photos/homeware/5.jpg" alt=""></a>
+      </div>
+      <div class="search-ajax-title"><h3 class="title14"><a href="detail.html">Samsung S7</a></h3></div>
+      <div class="search-ajax-price">
+        <span>$390.00</span>
+      </div>
+    </div>
+    <div class="item-search-pro">
+      <div class="search-ajax-thumb product-thumb">
+        <a href="#" class="product-thumb-link"><img src="images/photos/beauty/5.jpg" alt=""></a>
+      </div>
+      <div class="search-ajax-title"><h3 class="title14"><a href="detail.html">Huwei Phones</a></h3></div>
+      <div class="search-ajax-price">
+        <span>$370.00</span>
+      </div>
+    </div>
+    <div class="item-search-pro">
+      <div class="search-ajax-thumb product-thumb">
+        <a href="#" class="product-thumb-link"><img src="images/photos/sport/5.jpg" alt=""></a>
+      </div>
+      <div class="search-ajax-title"><h3 class="title14"><a href="detail.html">Smart Watches</a></h3></div>
+      <div class="search-ajax-price">
+        <span>$320.00</span>
+      </div>
+    </div>
+  </div> -->
+  <div id="productSearchResults" class="hidden-xs" style="display: none;">
+  <ul class="search-results"></ul>
+  </div>
+</form>

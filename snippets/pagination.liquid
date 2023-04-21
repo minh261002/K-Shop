@@ -1,0 +1,24 @@
+<div class="pagi-bar bottom">
+    {% if paginate.previous %}
+    <a href="{{ paginate.previous.url }}" class="next-page" title="{{ 'collections.toolbar.previous' | t }}"  {% if settings.enable_multilang %}data-translate="collections.toolbar.previous" translate-item="title"{% endif %}><i class="fa fa-caret-left" aria-hidden="true"></i></a>
+      {% endif %}
+
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+      
+        <a href="{{ part.url }}">{{ part.title }}</a>
+    
+      {% else %}
+        {% if part.title == paginate.current_page %}
+        <a class="current-page">{{ part.title }}</a>
+        {% else %}
+        <a>{{ part.title }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if paginate.next %}
+<a href="{{ paginate.next.url }}" title="{{ 'collections.toolbar.next' | t }}"  {% if settings.enable_multilang %}data-translate="collections.toolbar.next" translate-item="title"{% endif %}><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+     {% endif %}
+  </div>
+

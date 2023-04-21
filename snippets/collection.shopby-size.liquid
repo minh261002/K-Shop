@@ -1,0 +1,57 @@
+{% if settings.enable_shop_by_tags_3 %}
+<!-- 
+<div class="widget-container filter-block filter-custom filter-tag">
+  {% assign tags = settings.shop_by_tags_3_list_tags | split: ',' %}
+  <h3 class="widget-title">
+    {{ settings.shop_by_tags_3_title }}<a href="javascript:void(0)" class="clear" style="display:none" >x</a>
+  </h3>
+  <div class="filter-content">
+    <ul class="box-list-stype">
+      {% for t in tags %}
+      {% assign tag = t | strip %}
+      {% assign tag_value = tag | handleize %}
+      {% if current_tags contains tag %}
+      <li class="li-price active">
+        <input type="checkbox" value="{{ tag_value | split: '|' | first }}" checked/>
+        <label>{{ tag | split: '|' | first }}</label>
+      </li>
+      {% else %}
+
+      <li class="li-price">
+        <input type="checkbox" value="{{ tag_value | split: '|' | first }}"/>
+        <a href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+      </li>
+
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div> -->
+<div class="widget widget-filter-size widget-container filter-block filter-custom filter-tag">
+  {% assign tags = settings.shop_by_tags_3_list_tags | split: ',' %}
+  <h2 class="widget-title title14">{{ settings.shop_by_tags_3_title }}</h2>
+  <div class="widget-content">
+    <ul class="list-filter size-filter">
+      {% for t in tags %}
+      {% assign tag = t | strip %}
+      {% assign tag_value = tag | handleize %}
+      {% if current_tags contains tag %}
+      <li class="li-price active">
+        <input type="checkbox" value="{{ tag_value | split: '|' | first }}" checked/>
+         <a href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+      </li>
+      {% else %}
+
+      <li class="li-price">
+        <input type="checkbox" value="{{ tag_value | split: '|' | first }}"/>
+        <a href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+      </li>
+
+      {% endif %}
+      {% endfor %}
+
+      
+    </ul>
+  </div>
+</div>
+{% endif %}

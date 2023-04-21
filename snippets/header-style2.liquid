@@ -1,0 +1,160 @@
+<div id="header">
+  <div class="header">
+    <div class="top-header top-header4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="account-login account-login3">
+              {% if customer %}
+              <a href="/account">{{ customer.name }}</a>
+              <a href="/account/logout">{{ 'layout.customer.log_out' | t}}</a>
+              {% else %}
+              <a href="/account/login">{{ 'layout.customer.log_in' | t }}</a>
+              <a href="/account/register">{{ 'layout.customer.create_account' | t}}</a>
+              {%endif%}
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 hidden-xs">
+            <div class="currency-language currency-language3">
+              {%include "currency-picker"%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Top Header -->
+    <div class="main-header3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="logo logo3">
+              <h1 class="hidden">Kute Shop Html Theme</h1>
+				<a href="{{shop.url}}"><img src="{{'h2_logo1.png'|asset_url}}" alt="" style="max-width:{{settings.h2_logo2_max_width}}px" /></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="order-return">
+              <ul class="list-none">
+                <li>
+                  <a href="{{settings.h2_policy_1}}"><img class="pulse" src="{{'h2_policy_1.png'|asset_url}}" alt="" /></a>
+                  <strong>{{settings.h2_policy_text_1}}</strong>
+                </li>
+                <li>
+                  <a href="{{settings.h2_policy_2}}"><img class="pulse" src="{{'h2_policy_2.png'|asset_url}}" alt="" /></a>
+                  <strong>{{settings.h2_policy_text_2}}</strong>
+                </li>
+                <li>
+                  <a href="{{settings.h2_policy_3}}"><img class="pulse" src="{{'h2_policy_3.png'|asset_url}}" alt="" /></a>
+                  <strong>{{settings.h2_policy_text_3}}</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="wrap-cart3">
+              <div class="mini-cart-box mini-cart1 mini-cart3">
+                <a class="mini-cart-link" href="cart.html">
+                  <span class="mini-cart-icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></span>
+                  <span class="mini-cart-number border radius"><strong class="text-uppercase">Cart:</strong><span id="CartCount">{{ cart.item_count }}</span> Item-<b class="color text-uppercase" id="CartCost">{{cart.total_price | money}}</b></span>
+                </a>
+                {% include "mini-cart" %}
+              </div>
+              <!-- End Mini Cart -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Main Header -->
+    <div class="header-nav3">
+      <div class="container">
+        <div class="nav-search3">
+          <nav class="main-nav main-nav3">
+            {% include "menu" %}
+            <a href="#" class="toggle-mobile-menu"><span></span></a>
+          </nav>
+          <div class="smart-search smart-search3">
+            
+            <div class="select-category">
+              <a class="category-toggle-link" href="#"></a>
+
+              <ul class="list-category-toggle list-unstyled">
+                {% for link in linklists[settings.h2_menu_search].links %}
+
+                <li><a href="{{link.url}}">{{link.title}}</a></li>
+
+                {% endfor %}
+
+              </ul>
+            </div>
+            
+           <form class="smart-search-form ajax-search">
+             <input type="text" id="engo_autocomplate" value="{{ search.terms | escape }}" autocomplete="off" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" name="q" />
+             <div class="submit-form">
+               <input type="submit" value="" class="radius">
+             </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Header Nav -->
+  </div>
+  <div class="header-ontop">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="logo">
+            <h1 class="hidden">kuteshop wordpress theme</h1>
+            <a href="{{shop.url}}"><img src="{{"h2_logo2.png"|asset_url}}" alt="" style="max-width:{{settings.h2_logo2_max_width}}px"></a>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <nav class="main-nav main-nav-ontop">
+            {% include "menu" %}
+          </nav>
+          <!-- End Main Nav -->
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="check-cart check-cart-ontop">
+            <div class="checkout-box">
+              <a href="#" class="checkout-link"><i class="fa fa-lock" aria-hidden="true"></i></a>
+              <ul class="list-checkout list-unstyled">
+                {% if shop.customer_accounts_enabled %}
+                {% if customer == blank %}
+
+                <li><a href="/account/login"><i class="fa fa-user"></i>{{ 'layout.customer.log_in' | t }}</a></li>
+                <li><a href="/account/register"><i class="fa fa-key" aria-hidden="true"></i>{{ 'layout.customer.create_account' | t}}</a></li>
+                {%else%}
+
+                <li><a href="/account/logout"><i class="fa fa-sign-in"></i> {{ 'layout.customer.log_out' | t}}</a></li>
+                <li><a href="/account"><i class="fa fa-key" aria-hidden="true"></i>{{ 'layout.customer.account' | t }}</a></li>
+                {% endif %}
+                {% endif %}
+                <li><a href="/pages/wish-list"><i class="fa fa-heart-o"></i> {{ 'layout.customer.wishlist' | t }}</a></li>
+              </ul>
+            </div>
+            <!-- End Check Out Box -->
+            <div class="search-hover-box">
+              <a href="#" class="search-hover-link"><i class="fa fa-search" aria-hidden="true"></i></a>
+              <form class="search-form-hover" method="get" action="/search" role="search">
+                                <input type="text" id="engo_autocomplate" value="{{ search.terms | escape }}" autocomplete="off" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" name="q" />
+                                <input value="" type="hidden">
+                            </form>
+            </div>
+            <!-- End Wishlist -->
+            <div class="mini-cart-box">
+              <a class="mini-cart-link" href="/cart">
+                <span class="mini-cart-icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></span>
+                <span id="CartCount" class="mini-cart-number">{{ cart.item_count }}</span>
+              </a>
+              {% include "mini-cart" %}
+            </div>
+            <!-- End Mini Cart -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Header On Top -->
+</div>

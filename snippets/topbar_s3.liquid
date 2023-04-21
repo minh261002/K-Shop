@@ -1,0 +1,70 @@
+	<div class="lang-curency">
+    <ul class="br-dropdown  left">
+      <li class="dropdown text-uppercase">
+        <a data-target="#" href="#" data-toggle="dropdown" role="button">{{settings.language_default}}</a>
+        <ul class="dropdown-menu">
+       {%for i in (1..6)%}
+				{%capture _enable%}language{{i}}_enable{%endcapture%}
+                  {%capture _text%}language{{i}}_text{%endcapture%}
+                  {%capture _url%}Language{{i}}_url{%endcapture%}
+
+                  {%assign enable = settings[_enable]%}
+                  {%assign text = settings[_text]%}
+          		  {%assign url = settings[_url]%}
+          {%if enable%}
+          <li><a href="{{url}}" title="{{text}}">{{text}}</a></li>
+          {%endif%}
+        {% endfor %}
+
+        </ul>
+      </li>
+      <li class="dropdown text-uppercase">
+       
+        <a data-target="#" href="#" data-toggle="dropdown" role="button" class="selected-currency">{{shop.currency}}</a>
+          <ul class="dropdown-menu" id="currencies">
+            {% assign supported = settings.supported_currencies | split: ' ' %}
+            {% for c in supported %}
+            <li><a data-currency="{{c}}">{{c}}</a></li>
+            {% endfor %}
+          </ul>
+      </li>
+    </ul>
+</div>
+    <div class="social-topbar right">
+      <ul>
+       <li class="dropdown engoc-search-icon">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {%if settings.h2_icon_search_type == 'icon' %}
+              <i class="{{settings.h2_icon_search}}"></i>
+              {%else%}
+                <img src="{{'h2_image_search.png'|asset_url}}" alt="">
+              {% endif %}
+            </a>
+            <div class="dropdown-menu dropdown-search">
+               {% include 'header-search-form' %}
+            </div>
+          </li>
+
+          <li class="dropdown text-uppercase">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ 'customer.account.title' | t}}
+            </a>
+            <ul class="dropdown-menu account">
+             
+              {% if customer.first_name != blank %}
+              <li class="dr-account"><a href="/account">{{ customer.last_name }}</a></li>
+              <li class="dr-account"><a href="/account/logout">{{ 'layout.customer.log_out' | t}}</a></li>
+             {% else %}
+              <li class="dr-account"><a href="/account/login">{{ 'layout.customer.log_in' | t }}</a></li>
+              {% if shop.customer_accounts_optional %}
+              <li class="dr-account"><a href="/account/register">{{ 'layout.customer.create_account' | t}}</a></li>
+              {% endif %}
+              {%endif%}
+              
+        
+            </ul>
+          </li>
+
+      </ul>
+        
+    </div>

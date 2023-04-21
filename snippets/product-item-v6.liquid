@@ -1,0 +1,43 @@
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+<div class="item-product item-product3">
+<!--   <span class="new-label">new</span> -->
+  <div class="product-thumb">
+    <a class="product-thumb-link" href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="">
+    </a>
+    
+      <a href="javascript:void(0)"  data-id="{{ product.handle }}" class="quickview-link plus quick-view engoj-btn-quickview" title="{{ settings.product_quickview_name }}">
+          {{ settings.product_quickview_name }}
+        </a>
+    <div class="product-extra-link">
+      {% if product.variants.size > 1 %}
+            <a class="add-to-cart addcart-link" href="{{ product.url | within: collection }}">
+         		 <i aria-hidden="true" class="fa fa-shopping-basket"></i> 
+            </a>
+               
+          {% else %}
+              
+            <form method="post" action="/cart/add" class="add-to-cart">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+              <button type="submit" name="add" id="AddToCart{{ product.id }}" class="addcart-link add-to-cart-button enj-add-to-cart-btn">
+               <i aria-hidden="true" class="fa fa-shopping-basket"></i>
+              </button>
+            </form>
+          {% endif %}
+      {%include 'add-wishlist'%}
+    </div>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title"><a href="{{ product.url | within: collection }}">{{ product.title}}</a></h3>
+    <div class="product-price">
+      {% capture price %}{{ product.price | money }}{% endcapture %}
+        {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+         {% if product.price_varies %}<ins><span>{{ 'products.general.from_text_html' | t: price: price }}</span></ins>{% else %}<ins>{{ price }}</ins>{% endif %}
+    </div>
+  </div>
+</div>

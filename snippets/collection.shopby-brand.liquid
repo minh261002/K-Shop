@@ -1,0 +1,22 @@
+{% if settings.brands_enable %}
+<!-- <div class="widget-container widget_product_categories">
+  <h3 class="widget-title widget__title">{{'collections.sidebar.brands'|t}}</h3>
+  <ul>
+    {% capture collection_title %}{{ collection.title }}{% endcapture %}
+    {% for product_vendor in collection.all_vendors %}
+    	<li >{{ product_vendor | link_to_vendor }}</li>
+    {% endfor %}
+  </ul>
+</div> -->
+<div class="widget widget-filter-price widget-container widget_product_categories">
+  <h2 class="widget-title title14">{{settings.brands_title}}</h2>
+  <div class="widget-content">
+    <ul>
+    {% capture collection_title %}{{ collection.title }}{% endcapture %}
+    {% for product_vendor in collection.all_vendors %}
+    	<li >{{ product_vendor | link_to_vendor }}</li>
+    {% endfor %}
+  </ul>
+  </div>
+</div>
+{% endif %}

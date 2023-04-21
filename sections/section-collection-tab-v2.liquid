@@ -1,0 +1,441 @@
+
+
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-tab-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <section class="collection-tab-v2">
+    <div class="container">
+    <div class="product-box1 color-red color{{ section.id }}">
+				<div class="title-box1">
+					<h2 class="title30"><span>{{ section.settings.collection_title | truncate: 1,""}}</span><a href="{{section.settings.url_title}}">{{section.settings.collection_title}}</a></h2>
+						<ul class="list-none">
+                           {%for block in section.blocks %}
+							<li {%if forloop.index == 1%}class="active"{%endif%}><a href="#{{collections[block.settings.product_collection].handle}}{{ section.id }}" data-toggle="tab">{{block.settings.product_collection_title}}</a></li>
+                          {%endfor%}
+						</ul>
+				</div>
+				<!-- End Header Box -->
+				<div class="content-box1 clearfix">
+					<div class="banner-box1">
+						<div class="banner-box">
+							<a href="{{section.settings.banner_url}}" class="link-banner-box">
+                              {%if section.settings.banner_image == blank %}
+                              	<img alt="" src="{{'banner.png'|asset_url}}">
+                          		{%else%}
+                          	  	<img alt="" src="{{section.settings.banner_image|img_url:'large'}}">
+                          		{%endif%}
+                              </a>
+							<div class="info-banner-box1 {{section.settings.banner_position}} white">
+								<h2>{{section.settings.banner_text}}</h2>
+								<a href="{{section.settings.banner_url}}" class="shopnow border radius white">{{section.settings.banner_button}}</a>
+							</div>
+						</div>
+						<div class="category-box1">
+							<ul class="list-none">
+                              {% for link in linklists[section.settings.banner_menu].links %}
+								<li><a href="{{link.url}}">{{link.title}}</a></li>
+                              {%endfor%}
+
+							</ul>
+						</div>
+					</div>
+					<!-- End Banner -->
+                  {%if section.settings.style_product ==  'main_product_left' %}
+                  {%assign style = 'main-left-right' %}
+                  {%elsif section.settings.style_product ==  'main_product_center' %}
+                  {%assign style = 'left-main-right' %}
+                  {%elsif section.settings.style_product ==  'main_product_right' %}
+                  {%assign style = 'left-right-main' %}
+                  {%elsif section.settings.style_product ==  'no_main_product' %}
+                  {%assign style = 'left-justify' %}
+                  {%endif%}
+					<div class="content-pro-box1 tab-content {{style}}">
+                      {%for block in section.blocks %}
+					<div id="{{collections[block.settings.product_collection].handle}}{{ section.id }}" class="clearfix tab-pane {%if forloop.index == 1%}active{%endif%}">
+                          {%if section.settings.style_product == 'no_main_product' %}
+                          {% assign limit = 8 %}
+                          {%else%}
+                          {% assign limit = 5 %}
+                          {%endif%}
+                      
+					 {%for product in collections[block.settings.product_collection].products limit: limit %}
+                      {%assign count = collection.products_count %}
+                      
+                      {%if section.settings.style_product ==  'main_product_left' %}
+                      
+                          {%if forloop.index == 1 %}
+                          <div class="main-box1">
+
+                            {%include 'product-item-v2'%}
+                          </div>
+                          <!-- ENd Main Box -->
+                          {%endif%}
+							{%if forloop.index == 2 %}
+                                <div class="left-box1">
+                          	{%endif%}
+                                  {%if forloop.index == 2 %}
+                      			
+                                    {%include 'product-item-v3'%}
+                                 {%endif%}
+                                  {%if forloop.index == 3 %}
+                                    {%include 'product-item-v3'%}
+                          		
+                                   {%endif%}
+                      		{%if forloop.index == 3 or forloop.index == count %}
+                                </div>
+                            {%endif%}
+                      
+      						{%if forloop.index == 4 %}
+                               <div class="right-box1">
+                          	{%endif%}
+                                  {%if forloop.index == 4 %} 
+                      				
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 5 %}
+                                    {%include 'product-item-v3'%}
+                      				
+                                  {%endif%}
+                      		{%if forloop.index == 5 or forloop.index == count %}
+                                </div>
+                          	{%endif%}
+             
+                      
+                      {%endif%}
+                      {%if section.settings.style_product ==  'main_product_center' %}
+                      
+                      	{%if forloop.index == 1 %}
+                          
+                      		<div class="left-box1">
+                        {%endif%}    
+                                  {%if forloop.index == 1 %}
+                                    {%include 'product-item-v3'%}
+                                 {%endif%}
+                                  {%if forloop.index == 2 %}
+                                    {%include 'product-item-v3'%}
+                                   {%endif%}
+                          {%if forloop.index == 2 or forloop.index == count %}    
+                                </div>
+                          {%endif%}
+                                <!-- ENd Main Box -->
+                          {%if forloop.index == 3 %}
+                                <div class="main-box1">
+                                  {%include 'product-item-v2'%}
+                                </div>
+                          {%endif%}
+                                <!-- End Left Box -->
+                          {%if forloop.index == 4 %}
+                                <div class="right-box1">
+                            {%endif%}      
+                                  {%if forloop.index == 4 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 5 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                           {%if forloop.index == 5 or forloop.index == count %}       
+                                </div>
+                          {%endif%}
+                      {%endif%}
+                      {%if section.settings.style_product ==  'main_product_right' %}
+                      
+                      		
+                          {%if forloop.index == 1 %}
+                                <div class="left-box1">
+                          {%endif%}
+                                  {%if forloop.index == 1 %}
+                                    {%include 'product-item-v3'%}
+                                 {%endif%}
+                                  {%if forloop.index == 2 %}
+                                    {%include 'product-item-v3'%}
+                                   {%endif%}
+                           {%if forloop.index == 2 or forloop.index == count %}       
+                                </div>
+                          {%endif%}
+                                <!-- End Left Box -->
+                          {%if forloop.index == 3 %}
+                                <div class="right-box1">
+                           {%endif%}       
+                                  {%if forloop.index == 3 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 4 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                           {%if forloop.index == 4 or forloop.index == count %}       
+                                </div>
+                          {%endif%}
+                          {%if forloop.index == 5 %}
+                              <div class="main-box1">
+
+                                {%include 'product-item-v2'%}
+                              </div>
+                          {%endif%}
+                      
+                      {%endif%}
+                                <!-- ENd Main Box -->
+                      {%if section.settings.style_product ==  'no_main_product' %}
+                      		{%if forloop.index == 1 %}
+                                <div class="justify-box1">
+                             {%endif%}     
+                                  {%if forloop.index == 1 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 2 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                              {%if forloop.index == 2 or forloop.index == count %}    
+                                </div>
+                          	{%endif%}
+                      		{%if forloop.index == 3 %}
+                                <div class="justify-box1">
+                        	{%endif%}          
+                                  {%if forloop.index == 3 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 4 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                           {%if forloop.index == 4 or forloop.index == count %}        
+                                </div>
+                          	{%endif%}
+                      		{%if forloop.index == 5 %}
+                                <div class="justify-box1">
+                          {%endif%}        
+                                  {%if forloop.index == 5 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 6 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  
+                           {%if forloop.index == 6 or forloop.index == count %}       
+                                </div>
+                          	{%endif%}
+                      		{%if forloop.index == 7 %}
+                                <div class="justify-box1">
+                       		{%endif%}           
+                                  {%if forloop.index == 7 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                                  {%if forloop.index == 8 %}
+                                    {%include 'product-item-v3'%}
+                                  {%endif%}
+                            {%if forloop.index == 8 or forloop.index == count %}      
+                                </div>
+                          	{%endif%}
+                      	{%endif%}
+<!--             if no collection show placehoder           -->
+                   {%else%} 
+                       {%include 'product-item-empty-collection-tab-v2'%}
+				  {%endfor%}
+						</div>
+                    
+                  	{%endfor%}
+						<!-- End Tab -->
+
+					</div>
+				</div>
+				<!-- ENd Content Box -->
+			</div>
+    </div>
+  </section>
+</div>
+    {%if section.settings.enable_custom_color == true %}
+<style>
+
+  .color-red.color{{ section.id }} .title-box1 .title30 span {
+    background: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .banner-box1 {
+    border-top: 3px solid {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .title-box1 .list-none li a:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .title-box1 .title30 span::after {
+    color:{{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .title-box1 .list-none li.active a::before {
+    color: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .category-box1 .list-none li a:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .quickview-link.pos-bottom:hover {
+    color: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .quickview-link.pos-bottom span::after {
+    background-color: {{section.settings.section_color}};
+}
+.color-red.color{{ section.id }} .product-extra-link2 .addcart-link:hover {
+    background-color: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .product-extra-link2 .wishlist-link:hover{
+  color: {{section.settings.section_color}};
+  }
+  
+.color-red.color{{ section.id }} .product-price ins {
+    color: {{section.settings.section_color}};
+}
+  .color-red.color{{ section.id }} .product-title a:hover {
+    color: {{section.settings.section_color}};
+}
+</style>
+    {%endif%}
+{% schema %}
+
+  {
+    "name": "collection tab v2",
+    "class" : "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "collection_title",
+        "label": "Title",
+        "default": "Deals"
+      },
+      {
+        "type": "text",
+        "id": "url_title",
+        "label": "Url title",
+        "default": "#"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_custom_color",
+        "label": "Custom color",
+        "default": true
+      },
+	  {
+        "type": "color",
+        "id": "section_color",
+        "label": "Section Color",
+        "default": "#ff3e3e"
+      },
+	  {
+        "type": "select",
+        "id": "style_product",
+        "label": "Style product",
+        "options": [
+          {
+            "value": "main_product_left",
+            "label": "Main product left"
+          },
+          {
+            "value": "main_product_center",
+            "label": "Main product center"
+          },
+          {
+            "value": "main_product_right",
+            "label": "main product right"
+          },
+          {
+            "value": "no_main_product",
+            "label": "No main product"
+          }
+        ],
+		"default":"main_product_left"
+      },
+	  {
+        "type": "header",
+        "content": "banner"
+      },
+		{
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Banner image"
+      },
+ 		{
+        "type": "select",
+        "id": "banner_position",
+        "label": "Position content",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+		"default":"bottom"
+      },
+	  {
+        "type": "text",
+        "id": "banner_text",
+        "label": "Text",
+        "default": "Escape with style"
+      },
+	  {
+        "type": "text",
+        "id": "banner_button",
+        "label": "Text button",
+        "default": "Shop now !"
+      },
+      {
+        "type": "url",
+        "id": "banner_url",
+        "label": "Url"
+      },
+	  {
+        "type": "link_list",
+        "id": "banner_menu",
+        "label": "Select menu"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      }
+    ],
+    "blocks": [
+      {
+      "type": "Collection",
+      "name": "Collection",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "product_collection_title",
+          "label": "Title",
+            "default":"Featured"
+        },
+        {
+          "type": "collection",
+          "id": "product_collection",
+          "label": "Select collection"
+        }
+      ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Collection tab v2",
+        "category": "Collection",
+        "blocks": [
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                },
+                {
+                "type": "Collection"
+                }
+            ]
+      }
+    ]
+  }
+{% endschema %}
+

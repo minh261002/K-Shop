@@ -1,0 +1,149 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+<section class="banner-v1">
+        <div class="banner-adv2">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="banner-zoom bn-adv2 border">
+							<a href="{{section.settings.banner1_url}}" class="thumb-zoom">
+                              {%if section.settings.banner1_image == blank%}
+                              <img  src="{{'banner_v1.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{section.settings.banner1_image|img_url:'grande'}}" alt="" />
+                              {%endif%}
+                          </a>
+							<div class="banner-info text-right">
+								<h2 class="title18">{{section.settings.banner1_title}}</h2>
+								<div class="deal-percent">
+									{{section.settings.banner1_sale}}
+								</div>
+								<a href="{{section.settings.banner1_url}}"><u>{{section.settings.banner1_shopnow}}</u></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="banner-zoom bn-adv2 border">
+							<a href="{{section.settings.banner2_url}}" class="thumb-zoom">
+                              {%if section.settings.banner2_image == blank%}
+                              <img  src="{{'banner_v1.png'| asset_url }}" alt="">
+                              {%else%}
+                              <img src="{{section.settings.banner2_image|img_url:'master'}}" alt="" />
+                              {%endif%}
+                          </a>
+							<div class="banner-info text-right">
+								<h2 class="title18">{{section.settings.banner2_title}}</h2>
+								<div class="deal-percent">
+									{{section.settings.banner2_sale}}
+								</div>
+								<a href="{{section.settings.banner2_url}}"><u>{{section.settings.banner2_shopnow}}</u></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Section banner v1",
+  "class": "index-section",
+  "settings": [
+	 {
+        "type": "text",
+        "id": "category_title",
+        "label": "Title category",
+        "default": "category"
+      },
+      {
+        "type": "header",
+        "content": "Section Space"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "header",
+        "content": "Banner 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner1_image",
+        "label": "Image 1"
+      },
+  	  {
+        "type": "text",
+        "id": "banner1_title",
+        "label": "title",
+        "default": "DISCOLORED GLASS."
+      },
+      {
+        "type": "textarea",
+        "id": "banner1_sale",
+        "label": "sale",
+        "default": "<span>-45</span><sup>%</sup>"
+      },
+	  {
+        "type": "text",
+        "id": "banner1_shopnow",
+        "label": "Button",
+        "default": "shop now"
+      },
+	  {
+        "type": "url",
+        "id": "banner1_url",
+        "label": "Url"
+      },
+      {
+        "type": "header",
+        "content": "Banner 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner2_image",
+        "label": "Image 2"
+      },
+  	  {
+        "type": "text",
+        "id": "banner2_title",
+        "label": "title",
+        "default": "DISCOLORED GLASS."
+      },
+      {
+        "type": "textarea",
+        "id": "banner2_sale",
+        "label": "sale",
+        "default": "<span>-45</span><sup>%</sup>"
+      },
+	  {
+        "type": "text",
+        "id": "banner2_shopnow",
+        "label": "Button",
+        "default": "shop now"
+      },
+	  {
+        "type": "url",
+        "id": "banner2_url",
+        "label": "Url"
+      }
+  ],
+
+ 
+  "presets": [{
+    "name": "Banner v1",
+    "category": "Banner"
+   
+  }]
+}
+{% endschema %}
